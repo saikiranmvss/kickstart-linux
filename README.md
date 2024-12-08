@@ -112,7 +112,7 @@ This is a full-stack web application designed to simulate a crowdfunding platfor
 
 2. Import the required database schema (e.g., db_schema.sql) into MySQL:
 
-       ```bash
+   ```bash
     mysql -u root -p kickstarter < db_schema.sql
     ```
 
