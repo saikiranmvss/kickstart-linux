@@ -1,6 +1,6 @@
 # Kickstarter - ReactJS, NodeJS, MySQL
 
-This project is a **Kickstarter Clone** built using **ReactJS** for the frontend, **Node.js** for the backend, and **MySQL** as the database. The goal is to provide a platform for launching projects, accepting pledges, and supporting creators, just like Kickstarter.
+This project is a **Kickstarter** built using **ReactJS** for the frontend, **Node.js** for the backend, and **MySQL** as the database. The goal is to provide a platform for launching projects, accepting pledges, and supporting creators, just like Kickstarter.
 
 ## Table of Contents
 - [Project Overview](#project-overview)
