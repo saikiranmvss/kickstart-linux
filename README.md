@@ -98,7 +98,7 @@ This is a full-stack web application designed to simulate a crowdfunding platfor
 
 4. start the backend server
 
-       ```bash
+   ```bash
     npm start
     ```
    
