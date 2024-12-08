@@ -56,7 +56,7 @@ This is a full-stack web application designed to simulate a crowdfunding platfor
 1. Clone the repository:
 
     ```bash
-    git clone [https://github.com/yourusername/kickstarter-clone.git](https://github.com/24projectsideas/kickstart.git)
+    git clone https://github.com/24projectsideas/kickstart.git
     cd kickstarter-clone/frontend
     ```
 
