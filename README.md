@@ -10,7 +10,6 @@ This project is a **Kickstarter Clone** built using **ReactJS** for the frontend
   - [Frontend](#frontend)
   - [Backend](#backend)
 - [Database Setup](#database-setup)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Project Overview
@@ -96,3 +95,28 @@ This is a full-stack web application designed to simulate a crowdfunding platfor
    DB_PASSWORD=yourpassword
    DB_NAME=kickstarter_clone
    JWT_SECRET=your_jwt_secret
+
+4. start the backend server
+
+       ```bash
+    npm start
+    ```
+   
+## Database Setup
+
+1. Install MySQL and set up a new database:
+
+   ```sql
+   CREATE DATABASE kickstarter;
+
+
+2. Import the required database schema (e.g., db_schema.sql) into MySQL:
+
+       ```bash
+    mysql -u root -p kickstarter < db_schema.sql
+    ```
+
+3.  Ensure the .env file in the backend directory is configured correctly for your database.
+
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
