@@ -64,7 +64,7 @@ const LoginPage = () => {
                 {errors.password && <small className="text-danger">{errors.password}</small>}
               </div>
 
-              <button type="submit" className="btn btn-dark w-100">Login</button>
+              <button type="submit" className="text-3xl font-bold underline">Login</button>
             </form>
             <div className="text-center mt-3">
               <a href="/forgot-password">Forgot Password?</a>

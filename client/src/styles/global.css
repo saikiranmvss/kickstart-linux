@@ -1,6 +1,9 @@
 @import url('https://fonts.cdnfonts.com/css/sf-pro-display');
 @import url('@fortawesome/fontawesome-free/css/all.min.css');
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 body {
     font-family: 'SF Pro Display', sans-serif !important;
