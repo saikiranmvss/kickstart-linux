@@ -33,10 +33,10 @@ const LoginPage = () => {
       {/* Right Pane (Form Section) */}
       <div className="w-1/2 flex justify-center items-center bg-gray-100">
         <div className="bg-white p-8 rounded-xl shadow-lg w-96">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2 text-center">
+          <h2 className="text-2xl font-bold text-gray-900 mb-2 text-left">
             Welcome back!
           </h2>
-          <p className="text-sm text-gray-500 mb-6 text-center">
+          <p className="text-sm text-gray-500 mb-6 text-left">
             Please login using your authorised email ID
           </p>
           <form onSubmit={handleSubmit}>
@@ -71,7 +71,7 @@ const LoginPage = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-blue-500 text-white py-3 rounded-md font-medium hover:bg-blue-600 transition"
+              className="login-button w-full bg-blue-500 text-white py-2 rounded-md font-sm hover:bg-blue-600 transition"
             >
               NEXT
             </button>

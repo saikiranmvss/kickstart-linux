@@ -22,3 +22,7 @@ body {
     flex-direction: column;
     justify-content: center;
   }
+
+  .login-button{
+    background-color: #143fe2;
+  }
