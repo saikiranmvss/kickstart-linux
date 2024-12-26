@@ -2,6 +2,10 @@
 
 This project is a **Kickstarter** built using **ReactJS** for the frontend, **Node.js** for the backend, and **MySQL** as the database. The goal is to provide a platform for launching projects, accepting pledges, and supporting creators, just like Kickstarter.
 
+## Tech Stach Version
+- node - 18.16.0
+- npm - 9.5.1
+
 ## Table of Contents
 - [Project Overview](#project-overview)
 - [Tech Stack](#tech-stack)
