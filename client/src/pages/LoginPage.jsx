@@ -21,7 +21,6 @@ const LoginPage = () => {
 
   return (
     <div className="flex h-screen">
-      {/* Left Pane */}
       <div className="md:w-1/2 bg-blue-500 flex flex-col justify-center items-center hidden md:flex">
         <img
           src="../images/barath.png"
@@ -30,7 +29,6 @@ const LoginPage = () => {
         />        
       </div>
 
-      {/* Right Pane (Form Section) */}
       <div className="w-full md:w-1/2 flex justify-center items-center bg-gray-100">
         <div className="bg-white p-8 rounded-xl shadow-lg w-96">
           <h2 className="text-2xl font-bold text-gray-900 mb-2 text-left">
@@ -40,7 +38,6 @@ const LoginPage = () => {
             Please login using your authorised email ID
           </p>
           <form onSubmit={handleSubmit}>
-            {/* Email Input */}
             <div className="mb-4">
               <label
                 htmlFor="email"
@@ -68,7 +65,6 @@ const LoginPage = () => {
               )}
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
               className="login-button w-full bg-blue-500 text-white py-2 rounded-md font-medium hover:bg-blue-600 transition"
