@@ -22,7 +22,7 @@ const LoginPage = () => {
   return (
     <div className="flex h-screen">
       {/* Left Pane */}
-      <div className="w-1/2 bg-blue-500 flex flex-col justify-center items-center">
+      <div className="md:w-1/2 bg-blue-500 flex flex-col justify-center items-center hidden md:flex">
         <img
           src="../images/barath.png"
           alt="Map of Bharat"
@@ -31,7 +31,7 @@ const LoginPage = () => {
       </div>
 
       {/* Right Pane (Form Section) */}
-      <div className="w-1/2 flex justify-center items-center bg-gray-100">
+      <div className="w-full md:w-1/2 flex justify-center items-center bg-gray-100">
         <div className="bg-white p-8 rounded-xl shadow-lg w-96">
           <h2 className="text-2xl font-bold text-gray-900 mb-2 text-left">
             Welcome back!
