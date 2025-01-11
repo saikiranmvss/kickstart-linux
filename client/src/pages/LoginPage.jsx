@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from 'axios';
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -15,6 +16,14 @@ const LoginPage = () => {
     setErrors(emailError);
 
     if (!emailError) {
+      axios
+      .post('http://localhost:5000/ ',{email:email})
+      .then((data)=>{
+        console.log(data);
+      })
+      .catch((error)=>{
+        console.log(error);
+      })
       console.log("Form submitted:", { email });
     }
   };
