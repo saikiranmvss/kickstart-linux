@@ -10,7 +10,7 @@ const Header = () => {
           <ul className="d-flex list-unstyled">
             <li><Link to="/" className="text-white mx-3">Home</Link></li>
             <li><Link to="/about" className="text-white mx-3">About</Link></li>
-            <li><Link to="/contact" className="text-white mx-3">Login</Link></li>
+            <li><Link to="/login" className="text-white mx-3">Login</Link></li>
           </ul>
         </nav>
       </div>
