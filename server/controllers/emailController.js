@@ -48,7 +48,7 @@ const validateRecovery = async (req, res) => {
       `;
 
       try {
-        await sendEmail('html', email, 'support@yourdomain.com', otpMessage);
+        await sendEmail('html', email, '24projectsideas@gmail.com', otpMessage);
         return res.status(200).json({ message: 'OTP sent successfully' });
       } catch (emailError) {
         console.error('Error sending OTP email:', emailError);

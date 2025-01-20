@@ -4,6 +4,7 @@ import DefaultLayout from './components/DefaultLayout';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import LoginPage from './pages/LoginPage';
+import AccountRecoveryPage from './pages/AccountRecoveryPage'
 import './styles/global.css';
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
           <Route path="about" element={<AboutPage />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/recovery" element={<AccountRecoveryPage />} />
       </Routes>
     </Router>
   );
