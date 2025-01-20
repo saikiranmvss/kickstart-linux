@@ -31,11 +31,11 @@ const LoginPage = () => {
 
   return (
     <div className="flex h-screen">
-      <div className="md:w-1/2 bg-blue-500 flex flex-col justify-center items-center hidden md:flex">
+      <div className="md:w-1/2 banner-bg flex flex-col justify-center items-center hidden md:flex">
         <img
           src="../images/barath.png"
           alt="Map of Bharat"
-          className="max-w-full h-auto w-100"
+          className="max-w-full h-auto banner-image"
         />        
       </div>
 

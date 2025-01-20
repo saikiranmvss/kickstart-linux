@@ -26,3 +26,12 @@ body {
   .login-button{
     background-color: #0071e3;
   }
+
+  .banner-image{
+    width: 82% !important;
+    object-fit: cover;
+  }
+
+  .banner-bg{
+    background-color:#0071e3 ;
+  }
