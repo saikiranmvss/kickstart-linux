@@ -11,7 +11,7 @@ const sendEmail = async (emailType, to, from, body) => {
   const msg = {
     to: to,
     from: from, 
-    subject: 'Dynamic Email from Node.js',
+    subject: 'OTP for Account Recovery',
     [emailType]: body, 
   };
 
