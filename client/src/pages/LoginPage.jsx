@@ -23,12 +23,15 @@ const LoginPage = () => {
       axios
       .post('http://localhost:5000/api/validate-email ',{email:email})
       .then((data)=>{
+        console.log(data.status);
         if(data.data.message=='Email exists'){
           setPasswordShow(true)
         }
       })
       .catch((error)=>{
-        console.log(error);
+        if(error.status==404){
+          setErrors('No email found');
+        }
       })
       console.log("Form submitted:", { email });
     }
