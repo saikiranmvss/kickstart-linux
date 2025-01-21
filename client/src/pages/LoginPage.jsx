@@ -1,39 +1,31 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { Link, useNavigate } from "react-router-dom";
+import useEmailValidation from "../hooks/useEmailValidation";
+import usePasswordValidation from "../hooks/usePasswordValidation";
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordShow, setPasswordShow] = useState(false);
-  const [errors, setErrors] = useState("");
 
-  const handleSubmit = (e) => {
+  const { validateEmail, errors: emailErrors, isValidEmail, setErrors: setEmailErrors } = useEmailValidation();
+  const { validatePassword, errors: passwordErrors, isPasswordValid, setErrors: setPasswordErrors } = usePasswordValidation();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    let emailError = "";
 
-    if (!email || !/\S+@\S+\.\S+/.test(email)) {
-      emailError = "Enter Valid Email ID";
-    }
-
-    setErrors(emailError);
-
-    if (!emailError) {
-      axios
-      .post('http://localhost:5000/api/validate-email', {email: email})
-      .then((data) => {
-        console.log(data.status);
-        if (data.data.message == 'Email exists') {
-          setPasswordShow(true);
-        }
-      })
-      .catch((error) => {
-        if (error.status == 404) {
-          setErrors('No email found');
-        }
-      })
-      console.log("Form submitted:", { email });
+    if (passwordShow) {
+      const isPasswordValid = await validatePassword(email, password);
+      if (isPasswordValid) {
+        console.log("Password is valid. Redirecting...");
+        navigate("/dashboard"); 
+      }
+    } else {
+      const isValidEmail = await validateEmail(email);
+      if (isValidEmail) {
+        setPasswordShow(true);
+      }
     }
   };
 
@@ -68,47 +60,47 @@ const LoginPage = () => {
                 id="email"
                 name="email"
                 className={`w-full px-4 py-2 border ${
-                  errors ? "border-red-500" : "border-gray-300"
+                  emailErrors ? "border-red-500" : "border-gray-300"
                 } rounded-md focus:outline-none focus:ring-2 ${
-                  errors ? "focus:ring-red-500" : "focus:ring-blue-500"
+                  emailErrors ? "focus:ring-red-500" : "focus:ring-blue-500"
                 }`}
                 placeholder="Kumar@domain.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              {errors && (
+              {emailErrors && (
                 <small className="text-red-500 text-sm mt-1 block">
-                  *{errors}
+                  *{emailErrors}
                 </small>
               )}
             </div>
             {passwordShow && (
-            <div className="mb-4">
-              <label
-                htmlFor="password"
-                className="block text-xs font-semibold text-gray-500 mb-2"
-              >
-                ENTER PASSWORD
-              </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                className={`w-full px-4 py-2 border ${
-                  errors ? "border-red-500" : "border-gray-300"
-                } rounded-md focus:outline-none focus:ring-2 ${
-                  errors ? "focus:ring-red-500" : "focus:ring-blue-500"
-                }`}
-                placeholder="*******"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              {errors && (
-                <small className="text-red-500 text-sm mt-1 block">
-                  *{errors}
-                </small>
-              )}
-            </div>
+              <div className="mb-4">
+                <label
+                  htmlFor="password"
+                  className="block text-xs font-semibold text-gray-500 mb-2"
+                >
+                  ENTER PASSWORD
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  className={`w-full px-4 py-2 border ${
+                    passwordErrors ? "border-red-500" : "border-gray-300"
+                  } rounded-md focus:outline-none focus:ring-2 ${
+                    passwordErrors ? "focus:ring-red-500" : "focus:ring-blue-500"
+                  }`}
+                  placeholder="*******"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                {passwordErrors && (
+                  <small className="text-red-500 text-sm mt-1 block">
+                    *{passwordErrors}
+                  </small>
+                )}
+              </div>
             )}
             <button
               type="submit"
