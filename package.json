@@ -13,6 +13,7 @@
     "concurrently": "^7.0.0"
   },
   "dependencies": {
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "lucide-react": "^0.474.0"
   }
 }

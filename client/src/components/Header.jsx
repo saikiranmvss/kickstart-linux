@@ -1,18 +1,24 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { Bell, User, Search } from "lucide-react";
 
 const Header = () => {
   return (
-    <header className="header bg-dark text-white p-3">
-      <div className="container">
-        <h1>My Website</h1>
-        <nav>
-          <ul className="d-flex list-unstyled">
-            <li><Link to="/" className="text-white mx-3">Home</Link></li>
-            <li><Link to="/about" className="text-white mx-3">About</Link></li>
-            <li><Link to="/login" className="text-white mx-3">Login</Link></li>
-          </ul>
-        </nav>
+    <header className="bg-white shadow-md px-6 py-4 flex justify-between items-center">
+      <h1 className="text-xl font-semibold">Entrepreneur</h1>
+      <div className="flex items-center space-x-4">
+        <div className="relative">
+          <Search className="absolute left-2 top-2 text-gray-400" size={16} />
+          <input
+            type="text"
+            placeholder="Search by Account ID, Name, Mobile"
+            className="pl-8 pr-4 py-2 border rounded-md text-sm"
+          />
+        </div>
+        <Bell className="text-gray-600" />
+        <User className="text-gray-600" />
+        <div className="flex items-center space-x-2">
+          <div className="w-8 h-8 bg-gray-300 rounded-full"></div>
+          <span className="text-sm">Radha Krishna</span>
+        </div>
       </div>
     </header>
   );
