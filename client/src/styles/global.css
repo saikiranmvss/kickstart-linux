@@ -60,3 +60,7 @@ body {
   .dashboard-table tr td:nth-child(-n+7) span:nth-of-type(2) {
     color: #aeaeae;
   }
+
+  .mm-active{
+    border-right:4px solid #0071e3;
+  }

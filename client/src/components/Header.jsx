@@ -9,19 +9,19 @@ const Header = () => {
             <div className="navbar-brand-box text-center">
                 <a href="index.html" className="logo logo-dark">
                     <span className="logo-sm">
-                        <img src="assets/images/logo-sm.png" alt="logo-sm-dark" height="22" />
+                        <img src="assets/images/logo-sm.png" alt="logo-sm-dark" height="50" />
                     </span>
                     <span className="logo-lg">
-                        <img src="assets/images/logo-dark.png" alt="logo-dark" height="24" />
+                        <img src="assets/images/logo-dark.png" alt="logo-dark" height="50" />
                     </span>
                 </a>
 
                 <a href="index.html" className="logo logo-light">
                     <span className="logo-sm">
-                        <img src="assets/images/logo-sm.png" alt="logo-sm-light" height="22" />
+                        <img src="assets/images/logo-sm.png" alt="logo-sm-light" height="50" />
                     </span>
                     <span className="logo-lg">
-                        <img src="assets/images/logo-light.png" alt="logo-light" height="24" />
+                        <img src="assets/images/logo-light.png" alt="logo-light" height="50" />
                     </span>
                 </a>
             </div>
