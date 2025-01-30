@@ -1,15 +1,17 @@
-@import url('https://fonts.cdnfonts.com/css/sf-pro-display');
-@import url('@fortawesome/fontawesome-free/css/all.min.css');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@import url('https://fonts.cdnfonts.com/css/sf-pro-display');
+@import url('@fortawesome/fontawesome-free/css/all.min.css');
 
 body {
     font-family: 'SF Pro Display', sans-serif !important;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background: #f3f3f4 !important;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -34,4 +36,27 @@ body {
 
   .banner-bg{
     background-color:#0071e3 ;
+  }
+
+  .circle {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  
+  .green {
+    background-color: green;
+  }
+  
+  .red {
+    background-color: red;
+  }
+
+  .dashboard-table tr span{
+    font-size: 0.8rem;
+  }
+
+  .dashboard-table tr td:nth-child(-n+7) span:nth-of-type(2) {
+    color: #aeaeae;
   }
