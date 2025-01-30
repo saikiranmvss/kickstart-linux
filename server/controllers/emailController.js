@@ -2,6 +2,7 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const { sendEmail } = require('../utils/mailService');
 const crypto = require('crypto'); 
+var session = require('express-session');
 
 const validateEmail = async (req, res) => {
   try {
@@ -39,7 +40,7 @@ const validateRecovery = async (req, res) => {
 
       req.session.otp = otp;
       req.session.email = email; 
-
+    
       const otpMessage = `
         <p>Hello ${user.name},</p>
         <p>Your One-Time Password (OTP) for account recovery is:</p>
@@ -65,6 +66,25 @@ const validateRecovery = async (req, res) => {
   }
 };
 
+const validatePin = async (req, res) => {
+  try {
+    if (!req.session.otp) {
+      return res.status(400).json({ message: 'Session expired or no OTP found' });
+    }
+
+    const { pin } = req.body;
+    if (pin !== req.session.otp) {
+      return res.status(401).json({ message: 'Invalid OTP' });
+    }
+
+    return res.status(200).json({ message: 'OTP verified successfully' });
+  } catch (error) {
+    console.error('Error validating OTP:', error);
+    return res.status(500).json({ message: 'Server error' });
+  }
+};
+
+
 const validateLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -85,9 +105,10 @@ const validateLogin = async (req, res) => {
     const isPasswordValid = await bcrypt.compare(password.trim(), user.password.trim());
 
     if (isPasswordValid) {
-      return res.status(200).json({ message: 'Login successful' });
+      req.session.user_id = user._id.toString();
+      return res.status(200).json({  userData:user , message: 'Login successful' });
     } else {
-      return res.status(401).json({ message: 'Invalid password' });
+      return res.status(401).json({ userData:{}, message: 'Invalid password' });
     }
 
   } catch (error) {
@@ -98,5 +119,5 @@ const validateLogin = async (req, res) => {
 
 
 module.exports = {
-  validateEmail, validateLogin , validateRecovery
+  validateEmail, validateLogin , validateRecovery ,validatePin
 };

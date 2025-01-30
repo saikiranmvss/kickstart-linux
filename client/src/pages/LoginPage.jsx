@@ -17,8 +17,7 @@ const LoginPage = () => {
 
     if (passwordShow) {
       const isPasswordValid = await validatePassword(email, password);
-      if (isPasswordValid) {
-        console.log("Password is valid. Redirecting...");
+      if (isPasswordValid) {        
         navigate("/dashboard"); 
       }
     } else {
@@ -110,8 +109,8 @@ const LoginPage = () => {
             </button>
           </form>
           <div className="text-center mt-4">
-            <Link to="/forgot-email" className="text-black text-sm font-medium">
-              Forgot your email ID?
+            <Link to="/recovery" className="text-black text-sm font-medium">
+              Forgot your password ?
             </Link>
           </div>
         </div>
