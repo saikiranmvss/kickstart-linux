@@ -82,7 +82,7 @@ This is a full-stack web application designed to simulate a crowdfunding platfor
 1. Navigate to the backend directory:
 
     ```bash
-    cd backend
+    cd server
     ```
 
 2. Install dependencies:
