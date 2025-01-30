@@ -1,8 +1,9 @@
 import React, { useState, useRef } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const [pin, setPin] = useState(["", "", "", "", "", ""]);
   const [errors, setErrors] = useState("");
   const inputRefs = useRef([]);
@@ -41,7 +42,7 @@ const LoginPage = () => {
       .post("http://localhost:5000/api/validate-pin", { pin: fullPin }, { withCredentials: true })
       .then((data) => {
         if(data.status==200){
-          Navigate('/change-password')
+          navigate('/change-password')
         }
       })
       .catch((error) => {

@@ -77,12 +77,60 @@ const validatePin = async (req, res) => {
       return res.status(401).json({ message: 'Invalid OTP' });
     }
 
+
     return res.status(200).json({ message: 'OTP verified successfully' });
   } catch (error) {
     console.error('Error validating OTP:', error);
     return res.status(500).json({ message: 'Server error' });
   }
 };
+
+const ChangePassword = async (req, res) => {
+  try {
+    // Check if OTP is available in the session
+    if (!req.session.otp) {
+      return res.status(400).json({ message: 'Session expired or no OTP found' });
+    }
+
+    // Retrieve the pin (OTP) and the new password from the request body
+    const { password } = req.body;
+
+
+
+    // Check if a new password is provided
+    if (!password) {
+      return res.status(400).json({ message: 'New password is required' });
+    }
+
+    // Hash the new password before saving it to the database
+    const hashedPassword = await bcrypt.hash(password.trim(), 10);
+
+    // Find the user by the email stored in the session
+    const user = await User.findOne({ email: req.session.email });
+
+    // If the user doesn't exist, return an error
+    if (!user) {
+      return res.status(404).json({ message: 'No account found with this email' });
+    }
+
+    // Update only the password, leaving other fields intact
+    user.password = hashedPassword;
+
+    // Save the user with the updated password
+    await user.save();
+
+    // Clear the OTP session after the password is changed
+    req.session.otp = null;
+
+    // Return a success response
+    return res.status(200).json({ message: 'Password changed successfully' });
+
+  } catch (error) {
+    console.error('Error changing password:', error);
+    return res.status(500).json({ message: 'Server error' });
+  }
+};
+
 
 
 const validateLogin = async (req, res) => {
@@ -119,5 +167,5 @@ const validateLogin = async (req, res) => {
 
 
 module.exports = {
-  validateEmail, validateLogin , validateRecovery ,validatePin
+  validateEmail, validateLogin , validateRecovery ,validatePin , ChangePassword
 };

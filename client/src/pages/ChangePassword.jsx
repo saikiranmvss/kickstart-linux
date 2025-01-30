@@ -1,34 +1,54 @@
 import React, { useState } from "react";
-import { Link , useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const LoginPage = () => {
+const ChangePassword = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState("");
+  const [passwordStrength, setPasswordStrength] = useState("");
+
+  const validatePassword = (password) => {
+    const hasNumberOrSymbol = /[0-9!@#$%^&*]/.test(password);
+    const isLongEnough = password.length >= 8;
+    const isNotEmail = !password.includes("@") || !password.includes(".");
+
+    if (!isLongEnough) return "Too short";
+    if (!hasNumberOrSymbol) return "Weak (add number/symbol)";
+    if (!isNotEmail) return "Cannot be an email";
+    return "Strong";
+  };
+
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    setPasswordStrength(validatePassword(newPassword));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let emailError = "";
+    let errorMsg = "";
 
-    if (!email || !/\S+@\S+\.\S+/.test(email)) {
-      emailError = "Enter Valid Email ID";
+    if (password !== confirmPassword) {
+      errorMsg = "Passwords do not match";
+    } else if (passwordStrength !== "Strong") {
+      errorMsg = "Password is not strong enough";
     }
 
-    setErrors(emailError);
-
-    if (!emailError) {
+    setErrors(errorMsg);
+    
+    if (!errorMsg) {
       axios
-      .post('http://localhost:5000/api/validate-recovery ',{email},  { withCredentials: true })
-      .then((data)=>{
-        if(data.status==200){
-          navigate("/verify-pin"); 
-        }
-      })
-      .catch((error)=>{
-        console.log(error);
-      })
-      console.log("Form submitted:", { email });
+        .post("http://localhost:5000/api/change-password", { password }, { withCredentials: true })
+        .then((response) => {
+          if (response.status === 200) {
+            navigate("/success");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   };
 
@@ -41,53 +61,66 @@ const LoginPage = () => {
           className="max-w-full h-auto banner-image"
         />        
       </div>
-
       <div className="w-full md:w-1/2 flex justify-center items-center bg-gray-100">
         <div className="bg-white p-8 rounded-xl shadow-lg w-96">
           <h2 className="text-2xl font-bold text-gray-900 mb-2 text-left">
-            Account Recovery
+            Setup a new password
           </h2>
           <p className="text-sm text-gray-500 mb-6 text-left">
-            Enter your authorised email ID
+            Please create a strong password
           </p>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
-              <label
-                htmlFor="email"
-                className="block text-xs font-semibold text-gray-500 mb-2"
-              >
-                ENTER EMAIL ID
+              <label className="block text-xs font-semibold text-gray-500 mb-2">
+                ENTER PASSWORD
               </label>
               <input
-                type="email"
-                id="email"
-                name="email"
+                type="password"
                 className={`w-full px-4 py-2 border ${
                   errors ? "border-red-500" : "border-gray-300"
                 } rounded-md focus:outline-none focus:ring-2 ${
                   errors ? "focus:ring-red-500" : "focus:ring-blue-500"
                 }`}
-                placeholder="Kumar@domain.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter new password"
+                value={password}
+                onChange={handlePasswordChange}
+              />
+              <small className={
+                passwordStrength === "Strong" ? "text-green-500" : "text-red-500"
+              }>
+                {passwordStrength}
+              </small>
+            </div>
+            <div className="mb-4">
+              <label className="block text-xs font-semibold text-gray-500 mb-2">
+                RE-ENTER PASSWORD
+              </label>
+              <input
+                type="password"
+                className={`w-full px-4 py-2 border ${
+                  errors ? "border-red-500" : "border-gray-300"
+                } rounded-md focus:outline-none focus:ring-2 ${
+                  errors ? "focus:ring-red-500" : "focus:ring-blue-500"
+                }`}
+                placeholder="Confirm new password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
               />
               {errors && (
-                <small className="text-red-500 text-sm mt-1 block">
-                  *{errors}
-                </small>
+                <small className="text-red-500 text-sm mt-1 block">*{errors}</small>
               )}
             </div>
 
             <button
               type="submit"
-              className="login-button w-full bg-blue-500 text-white py-2 rounded-md font-medium hover:bg-blue-600 transition"
+              className="w-full bg-blue-500 text-white py-2 rounded-md font-medium hover:bg-blue-600 transition"
             >
-              Submit
+              Save
             </button>
           </form>
           <div className="text-end mt-4">
-          <Link to="/login" className="text-black text-sm font-medium">
-            back to login?
+            <Link to="/login" className="text-black text-sm font-medium">
+              Back to login?
             </Link>
           </div>
         </div>
@@ -96,4 +129,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default ChangePassword;
