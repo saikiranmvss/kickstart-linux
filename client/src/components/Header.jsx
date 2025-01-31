@@ -1,6 +1,13 @@
-import { Bell, User, Search } from "lucide-react";
+import { Link , useNavigate } from 'react-router-dom';
 
 const Header = () => {
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem("id"); // Remove ID from local storage
+        navigate("/login"); // Redirect to login page
+      };
+
   return (
     <header id="page-topbar">
     <div className="navbar-header">
@@ -171,7 +178,7 @@ const Header = () => {
                     <a className="dropdown-item d-block" href="#"><span className="badge bg-success float-end mt-1">11</span><i className="ri-settings-2-line align-middle me-1"></i> Settings</a>
                     <a className="dropdown-item" href="#"><i className="ri-lock-unlock-line align-middle me-1"></i> Lock screen</a>
                     <div className="dropdown-divider"></div>
-                    <a className="dropdown-item text-danger" href="#"><i className="ri-shut-down-line align-middle me-1 text-danger"></i> Logout</a>
+                    <a className="dropdown-item text-danger" href="#" onClick={handleLogout}><i className="ri-shut-down-line align-middle me-1 text-danger"></i> Logout</a>
                 </div>
             </div>
 

@@ -197,12 +197,19 @@ const ViewProfile = () => {
                 </div>
 
                 <div className="p-6 max-w-sm mx-auto bg-white rounded-2xl shadow-md mt-2 text-center">
-                    <div>Bussiness Category</div>
-                    <div>Main Category | Sub Category</div>
+                    <div className="mb-1">Bussiness Category</div>
+                    <div className="mb-1">Main Category | Sub Category</div>
                     <div className="mb-2"><button className="btn-light p-1 w-100 rounded-2">Sustainable</button></div>
                     <div><button className="btn-light w-100 p-1 rounded-2">Eco-Friendly</button></div>
                 </div>
 
+            </div>
+
+            <div className="col-md-4">
+              <div className="p-6 max-w-sm mx-auto bg-white rounded-2xl shadow-md">
+                <div className="mb-4"><h5>Investment Required</h5></div>
+                <div><h3>₹ 10,000 INR</h3></div>
+              </div>
             </div>
           </div>
         );
