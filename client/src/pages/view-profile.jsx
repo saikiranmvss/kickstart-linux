@@ -3,9 +3,35 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Card, Button, Dropdown, Nav } from "react-bootstrap";
 import { FaCog } from "react-icons/fa";
 import "../styles/ViewProfile.css";
+import Chart from "react-apexcharts";
 
 const ViewProfile = () => {
   const [activeTab, setActiveTab] = useState("Profile");
+  const chartOptions = {
+    series: [85, 75, 50], 
+    chart: {
+      height: 200,
+      type: "radialBar",
+    },
+    plotOptions: {
+      radialBar: {
+        dataLabels: {
+          total: {
+            show: true,
+            label: "Total",
+            formatter: function () {
+              return "100%";
+            },
+          },
+        },
+        hollow: {
+          size: "50%",
+        },
+      },
+    },
+    colors: ["#007bff", "#FFA500", "#FF6347"],
+    labels: ["Project Views", "Likes", "Investors Connect"],
+  }
 
   const renderContent = () => {
     switch (activeTab) {
@@ -33,6 +59,8 @@ const ViewProfile = () => {
                 <div className="col-1">
                   <i className="fas fa-ellipsis-v"></i>
                 </div>    
+
+                <hr class="dotted" />
 
                 <div className="profile-details">
                   <div className="">
@@ -81,7 +109,7 @@ const ViewProfile = () => {
                     </div>
                   </div>
                   <div className="">
-                    <h2 className="text-xl font-bold mb-2 text-left">Personal Details</h2>
+                    <h2 className="text-xl font-bold mb-2 text-left">Professional Details</h2>
 
                     <div className="row mb-4 justify-content-between">                      
                       <div className="col-md-6 row flex-column">
@@ -129,15 +157,52 @@ const ViewProfile = () => {
 
               </div>                
             </div>
-            <div className="col-md-7">
-              <div className="p-3 bg-white shadow-sm rounded">
-                <h5>Personal Details</h5>
-                <p><strong>ID:</strong> EP-0001234</p>
-                <p><strong>Phone:</strong> +91 987654321</p>
-                <p><strong>Email:</strong> name@mail.com</p>
-                <p><strong>Portfolio:</strong> www.website.com</p>
-                <p><strong>Address:</strong> 5-34-232/AB, Gold Street, Secunderabad - 680002</p>
-              </div>
+            <div className="col-md-3">
+                <div className="p-6 max-w-sm mx-auto bg-white rounded-2xl shadow-md">
+                  <h2 className="text-lg font-bold">Project Summary</h2>
+                  <p className="text-sm text-gray-500">2024 - 2025</p>
+
+                  <div className="my-6 flex justify-center">
+                    <Chart options={chartOptions} series={chartOptions.series} type="radialBar" height={250} />
+                  </div>
+
+                  <div className="space-y-4">
+                    {/* Project Views */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-3 h-3 rounded-full bg-blue-500"></div>
+                        <span className="text-sm text-gray-600">Project Views</span>
+                      </div>
+                      <span className="text-sm font-semibold">5,200 K</span>
+                    </div>
+
+                    {/* Investors Connect */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-3 h-3 rounded-full bg-orange-500"></div>
+                        <span className="text-sm text-gray-600">Investors Connect</span>
+                      </div>
+                      <span className="text-sm font-semibold">002</span>
+                    </div>
+
+                    {/* Likes */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                        <span className="text-sm text-gray-600">Likes</span>
+                      </div>
+                      <span className="text-sm font-semibold">2.5 K</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="p-6 max-w-sm mx-auto bg-white rounded-2xl shadow-md mt-2 text-center">
+                    <div>Bussiness Category</div>
+                    <div>Main Category | Sub Category</div>
+                    <div className="mb-2"><button className="btn-light p-1 w-100 rounded-2">Sustainable</button></div>
+                    <div><button className="btn-light w-100 p-1 rounded-2">Eco-Friendly</button></div>
+                </div>
+
             </div>
           </div>
         );

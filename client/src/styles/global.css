@@ -86,3 +86,9 @@ body {
   p{
     font-size: 12px;
   }
+
+  hr.dotted {
+    border: none; /* Remove the default border */
+    border-top: 2px dotted #000; /* Add a dotted border */
+    margin: 20px 0; /* Adjust spacing */
+  }
