@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import $ from "jquery";
 import "datatables.net-bs5";
 import "datatables.net-bs5/css/dataTables.bootstrap5.min.css";
-const Dashboard = () => {
+const Events = () => {
   const tableRef = useRef(null);
 
   useEffect(() => {
@@ -106,4 +106,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Events;

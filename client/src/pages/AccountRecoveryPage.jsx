@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link , useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const LoginPage = () => {
+const AccountRecoveryPage = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState("");
@@ -96,4 +96,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default AccountRecoveryPage;

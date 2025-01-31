@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const LoginPage = () => {
+const VerifyPin = () => {
   const navigate = useNavigate();
   const [pin, setPin] = useState(["", "", "", "", "", ""]);
   const [errors, setErrors] = useState("");
@@ -116,4 +116,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default VerifyPin;

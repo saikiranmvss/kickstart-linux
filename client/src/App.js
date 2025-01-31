@@ -11,6 +11,7 @@ import Events from './pages/Events';
 import VerifyPin from './pages/verifyPin';
 import AccountRecoveryPage from './pages/AccountRecoveryPage';
 import ChangePassword from './pages/ChangePassword';
+import ViewProfile from './pages/view-profile';
 import './styles/global.css';
 
 
@@ -65,6 +66,7 @@ const App = () => {
           <Route path="investors" element={<Investors />} />
           <Route path="enterprenuer" element={<Enterprenuer />} />
           <Route path="events" element={<Events />} />
+          <Route path="view-profile" element={<ViewProfile />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />
