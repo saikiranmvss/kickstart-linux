@@ -64,3 +64,25 @@ body {
   .mm-active{
     border-right:4px solid #0071e3;
   }
+
+  .custom-tabs .nav-link {
+    border: none;
+    color: #000;
+  }
+  
+  .custom-tabs .nav-link.active-tab {
+    border-bottom: 3px solid #0071e3;
+    font-weight: bold;
+  }
+
+  .btn-color-prime{
+    background-color:#0071e3;
+  }
+  
+  .profile-details .detail-icons {
+    height: fit-content;
+  }
+
+  p{
+    font-size: 12px;
+  }

@@ -48,6 +48,7 @@ const App = () => {
             </PublicRoute>
           }
         />
+        <Route index element={<HomePage />} />
         <Route path="/recovery" element={<AccountRecoveryPage />} />
         <Route path="/verify-pin" element={<VerifyPin />} />
         <Route path="/change-password" element={<ChangePassword />} />
@@ -61,7 +62,6 @@ const App = () => {
             </ProtectedRoute>
           }
         >
-          <Route index element={<HomePage />} />
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="investors" element={<Investors />} />
           <Route path="enterprenuer" element={<Enterprenuer />} />
