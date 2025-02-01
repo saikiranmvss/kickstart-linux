@@ -3,7 +3,7 @@
 This project is a **Kickstarter** built using **ReactJS** for the frontend, **Node.js** for the backend, and **MySQL** as the database. The goal is to provide a platform for launching projects, accepting pledges, and supporting creators, just like Kickstarter.
 
 ## Tech Stach Version
-- node - 18.16.0
+- node - 22.12.0
 - npm - 9.5.1
 
 ## Table of Contents
@@ -82,7 +82,7 @@ This is a full-stack web application designed to simulate a crowdfunding platfor
 1. Navigate to the backend directory:
 
     ```bash
-    cd backend
+    cd server
     ```
 
 2. Install dependencies:

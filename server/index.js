@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 5000;
 app.use(session({
   secret: 'your-secret-key', 
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: { secure: false } 
 }));
 

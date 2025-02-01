@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link , useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const LoginPage = () => {
+const AccountRecoveryPage = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState("");
 
@@ -18,9 +19,11 @@ const LoginPage = () => {
 
     if (!emailError) {
       axios
-      .post('http://localhost:5000/api/validate-recovery ',{email:email})
+      .post('http://localhost:5000/api/validate-recovery ',{email},  { withCredentials: true })
       .then((data)=>{
-        console.log(data);
+        if(data.status==200){
+          navigate("/verify-pin"); 
+        }
       })
       .catch((error)=>{
         console.log(error);
@@ -93,4 +96,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default AccountRecoveryPage;

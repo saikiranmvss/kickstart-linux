@@ -1,17 +1,20 @@
-import React from 'react';
-import Header from './Header';
-import Footer from './Footer';
-import { Outlet } from 'react-router-dom'; // Allows rendering the content of each page
+import { Outlet } from "react-router-dom";
+import Header from "./Header";
+import Footer from "./Footer";
+import Sidebar from "./Sidebar";
 
-const DefaultLayout = () => {
+const DefaultLayout = ({ children }) => {
   return (
-    <div className="default-layout">
-      <Header />
-      <main className="main-content">
-        <Outlet /> {/* This is where page content will be injected */}
-      </main>
-      <Footer />
-    </div>
+        <div id="layout-wrapper">
+          <Header />
+          <Sidebar />
+          <div className="main-content">
+            <div className="page-content">
+            <Outlet />
+            </div>
+            <Footer />
+          </div>
+        </div>
   );
 };
 
