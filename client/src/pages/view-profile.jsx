@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Card, Button, Dropdown, Nav } from "react-bootstrap";
 import { FaCog } from "react-icons/fa";
 import "../styles/ViewProfile.css";
-import Chart from "react-apexcharts";
+import ProjectChart from "../components/ProjectChart";
 import { FaLinkedin, FaYoutube, FaGlobe } from "react-icons/fa";
 import Events from './Events';
 
@@ -16,32 +16,6 @@ const socialLinks = [
 
 const ViewProfile = () => {
   const [activeTab, setActiveTab] = useState("Profile");
-  const chartOptions = {
-    series: [85, 75, 50], 
-    chart: {
-      height: 200,
-      type: "radialBar",
-    },
-    plotOptions: {
-      radialBar: {
-        dataLabels: {
-          total: {
-            show: true,
-            label: "Total",
-            formatter: function () {
-              return "100%";
-            },
-          },
-        },
-        hollow: {
-          size: "50%",
-        },
-      },
-    },
-    colors: ["#007bff", "#FFA500", "#FF6347"],
-    labels: ["Project Views", "Likes", "Investors Connect"],
-  }
-
   const renderContent = () => {
     switch (activeTab) {
       case "Profile":
@@ -172,7 +146,7 @@ const ViewProfile = () => {
                   <p className="text-sm text-gray-500">2024 - 2025</p>
 
                   <div className="my-6 flex justify-center">
-                    <Chart options={chartOptions} series={chartOptions.series} type="radialBar" height={250} />
+                    <ProjectChart />
                   </div>
 
                   <div className="space-y-4">
