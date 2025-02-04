@@ -4,6 +4,15 @@ import { Card, Button, Dropdown, Nav } from "react-bootstrap";
 import { FaCog } from "react-icons/fa";
 import "../styles/ViewProfile.css";
 import Chart from "react-apexcharts";
+import { FaLinkedin, FaYoutube, FaGlobe } from "react-icons/fa";
+import Events from './Events';
+
+const socialLinks = [
+  { icon: <FaLinkedin className="text-white" />, url: "linkedin.com/Profile", bg: "bg-[#0077B5]" },
+  { icon: <FaYoutube className="text-white" />, url: "youtube.com/Profile", bg: "bg-[#FF0000]" },
+  { icon: <FaGlobe className="text-white" />, url: "domain.com/Profile", bg: "bg-[#007BFF]" },
+];
+
 
 const ViewProfile = () => {
   const [activeTab, setActiveTab] = useState("Profile");
@@ -157,7 +166,7 @@ const ViewProfile = () => {
 
               </div>                
             </div>
-            <div className="col-md-3">
+            <div className="col-md-4">
                 <div className="p-6 max-w-sm mx-auto bg-white rounded-2xl shadow-md">
                   <h2 className="text-lg font-bold">Project Summary</h2>
                   <p className="text-sm text-gray-500">2024 - 2025</p>
@@ -205,12 +214,45 @@ const ViewProfile = () => {
 
             </div>
 
-            <div className="col-md-4">
-              <div className="p-6 max-w-sm mx-auto bg-white rounded-2xl shadow-md">
-                <div className="mb-4"><h5>Investment Required</h5></div>
-                <div><h3>₹ 10,000 INR</h3></div>
+            <div className="col-md-3 row flex-column p-0">
+              <div class="col-md-12 mb-2">
+                <div className="p-6 bg-white rounded-2xl shadow-md">
+                  <div className="mb-4"><h5>Investment Required</h5></div>
+                  <div><h3>₹ 10,000 INR</h3></div>
+                </div>
               </div>
+              <div class="col-md-12 mb-2">
+                <div className="p-6 bg-white rounded-2xl shadow-md">
+                  <div className="mb-4"><h5>Investment Required</h5></div>
+                  <div><h3>₹ 10,000 INR</h3></div>
+                </div>
+              </div>
+              <div class="col-md-12 mb-2">
+                <div className="p-6 bg-white rounded-2xl shadow-md">
+                    <h4>Social Handles</h4>
+                    <p>Social | Portfolio | Website</p>
+                    <div>
+                      <div className="flex flex-col gap-3 max-w-sm">
+                        {socialLinks.map((link, index) => (
+                          <a
+                            key={index}
+                            href={`https://${link.url}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-3 p-3 rounded-xl shadow-md bg-gray-100 hover:bg-gray-200 transition"
+                          >
+                            <div className={`w-10 h-10 flex items-center justify-center rounded-full ${link.bg}`}>
+                              {link.icon}
+                            </div>
+                            <span className="text-gray-700 text-sm font-medium">{link.url}</span>
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </div>
+
           </div>
         );
       case "Projects":
@@ -223,8 +265,7 @@ const ViewProfile = () => {
       case "Events":
         return (
           <Card className="p-3 bg-white shadow-sm rounded mt-4">
-            <h5>Events</h5>
-            <p>Upcoming events details will be displayed here.</p>
+            <Events/>
           </Card>
         );
       case "Reels":
