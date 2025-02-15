@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
-import DefaultLayout from './components/DefaultLayout';
-import HomePage from './pages/HomePage';
+import PublicHomePage from './pages/public/HomePage';
 import AboutPage from './pages/AboutPage';
 import LoginPage from './pages/LoginPage';
 import Dashboard from './pages/Dashboard';
@@ -12,6 +11,8 @@ import VerifyPin from './pages/verifyPin';
 import AccountRecoveryPage from './pages/AccountRecoveryPage';
 import ChangePassword from './pages/ChangePassword';
 import ViewProfile from './pages/view-profile';
+import DefaultLayout from './components/DefaultLayout';
+import PublicDefaultLayout from './components/PublicDefaultLayout';
 import './styles/global.css';
 
 
@@ -40,15 +41,17 @@ const App = () => {
   return (
     <Router>
       <Routes>
+
         <Route
-          path="/login"
+          path="/"
           element={
-            <PublicRoute>
-              <LoginPage />
-            </PublicRoute>
+              <PublicDefaultLayout />
           }
-        />
-        <Route index element={<HomePage />} />
+        >
+        <Route index element={<PublicHomePage />} />
+        </Route>
+
+        <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>}/>
         <Route path="/recovery" element={<AccountRecoveryPage />} />
         <Route path="/verify-pin" element={<VerifyPin />} />
         <Route path="/change-password" element={<ChangePassword />} />

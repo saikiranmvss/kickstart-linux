@@ -1,5 +1,5 @@
-import React, { useState ,useEffect , useRef } from "react";
-import { Card, Button, Dropdown, Row, Col, Nav ,Form } from "react-bootstrap";
+import React, { useState } from "react";
+import { Card, Button, Dropdown , Nav  } from "react-bootstrap";
 import { FaCog } from "react-icons/fa";
 import "../styles/ViewProfile.css";
 import ProjectChart from "../components/ProjectChart";
