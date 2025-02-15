@@ -473,20 +473,20 @@ const ViewProfile = () => {
                               <label htmlFor="mobile" className="form-label">Notifications</label>
                               <div className="row m-0">
                                   <div className="col-md-6 form-check">
-                                    <input class="form-check-input me-2" type="checkbox" id="email" />
-                                    <label class="form-check-label" for="email">Email</label>
+                                    <input className="form-check-input me-2" type="checkbox" id="email" />
+                                    <label className="form-check-label" for="email">Email</label>
                                   </div>
                                   <div className="col-md-6 form-check">
-                                    <input class="form-check-input me-2" type="checkbox" id="sms" />
-                                    <label class="form-check-label" for="sms">SMS</label>
+                                    <input className="form-check-input me-2" type="checkbox" id="sms" />
+                                    <label className="form-check-label" for="sms">SMS</label>
                                   </div>
                                   <div className="col-md-6 form-check">
-                                    <input class="form-check-input me-2" type="checkbox" id="phone" />
-                                    <label class="form-check-label" for="phone">Phone</label>
+                                    <input className="form-check-input me-2" type="checkbox" id="phone" />
+                                    <label className="form-check-label" for="phone">Phone</label>
                                   </div>
                                   <div className="col-md-6 form-check">
-                                    <input class="form-check-input me-2" type="checkbox" id="post" />
-                                    <label class="form-check-label" for="post">Post</label>
+                                    <input className="form-check-input me-2" type="checkbox" id="post" />
+                                    <label className="form-check-label" for="post">Post</label>
                                   </div>
                               </div>
                           </div>
@@ -550,20 +550,20 @@ const ViewProfile = () => {
                               <label htmlFor="mobile" className="form-label">Notifications</label>
                               <div className="row m-0">
                                   <div className="col-md-6 form-check">
-                                    <input class="form-check-input me-2" type="checkbox" id="email" />
-                                    <label class="form-check-label" for="email">Email</label>
+                                    <input className="form-check-input me-2" type="checkbox" id="email" />
+                                    <label className="form-check-label" for="email">Email</label>
                                   </div>
                                   <div className="col-md-6 form-check">
-                                    <input class="form-check-input me-2" type="checkbox" id="sms" />
-                                    <label class="form-check-label" for="sms">SMS</label>
+                                    <input className="form-check-input me-2" type="checkbox" id="sms" />
+                                    <label className="form-check-label" for="sms">SMS</label>
                                   </div>
                                   <div className="col-md-6 form-check">
-                                    <input class="form-check-input me-2" type="checkbox" id="phone" />
-                                    <label class="form-check-label" for="phone">Phone</label>
+                                    <input className="form-check-input me-2" type="checkbox" id="phone" />
+                                    <label className="form-check-label" for="phone">Phone</label>
                                   </div>
                                   <div className="col-md-6 form-check">
-                                    <input class="form-check-input me-2" type="checkbox" id="post" />
-                                    <label class="form-check-label" for="post">Post</label>
+                                    <input className="form-check-input me-2" type="checkbox" id="post" />
+                                    <label className="form-check-label" for="post">Post</label>
                                   </div>
                               </div>
                           </div>

@@ -107,3 +107,7 @@
   .community-badge p{
     margin: 0;
   }
+
+  .nav-link{
+    border: 0 !important;
+  }
