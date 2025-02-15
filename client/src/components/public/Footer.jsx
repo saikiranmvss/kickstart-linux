@@ -1,6 +1,6 @@
 const Footer = () => {
     return (
-      <footer className="bg-white text-gray-600 text-center p-3 border-t">
+      <footer className="bg-white text-gray-600 text-center p-0 border-t">
         <div className="row">
             <div className="col-md-4">
                 <img src="images/footer-img.png" alt="" srcset="" className="w-100"/>
@@ -52,6 +52,37 @@ const Footer = () => {
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div className="container-fluid footer-2">
+            <div className="container d-flex flex-column flex-md-row justify-content-between align-items-center footer-2-body p-3">
+                <div className="d-flex gap-3">
+                <a href="#" className="btn btn-outline-secondary rounded-circle p-2">
+                    <i className="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" className="btn btn-outline-secondary rounded-circle p-2">
+                    <i className="fab fa-x-twitter"></i>
+                </a>
+                <a href="#" className="btn btn-outline-secondary rounded-circle p-2">
+                    <i className="fab fa-instagram"></i>
+                </a>
+                <a href="#" className="btn btn-outline-secondary rounded-circle p-2">
+                    <i className="fab fa-facebook-f"></i>
+                </a>
+                </div>
+
+                <p className="mb-0 text-center">
+                © 2024 KickStarter Platform. All Rights Reserved. Built with{" "}
+                <span className="text-danger">❤️</span> in Bharat
+                </p>
+
+            
+                <div className="d-flex gap-3">
+                <img src="/images/gpay.png" alt="GPay" height="25" />
+                <img src="/images/visa.png" alt="Visa" height="25" />
+                <img src="/images/mastercard.png" alt="MasterCard" height="25" />
+                <img src="/images/secure.png" alt="Secure Payment" height="25" />
                 </div>
             </div>
         </div>
