@@ -69,11 +69,6 @@ body {
     border: none;
     color: #000;
   }
-  
-  .custom-tabs .nav-link.active-tab {
-    border-bottom: 3px solid #0071e3;
-    font-weight: bold;
-  }
 
   .btn-color-prime{
     background-color:#0071e3;
@@ -92,3 +87,29 @@ body {
     border-top: 2px dotted #000; /* Add a dotted border */
     margin: 20px 0; /* Adjust spacing */
   }
+
+  label{
+    font-weight: 400;
+  }
+
+  /* Scrollbar width */
+::-webkit-scrollbar {
+  width: 3px; /* Width of the scrollbar */
+}
+
+/* Scrollbar Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Light gray background */
+  border-radius: 2px;  /* Rounded corners */
+}
+
+/* Scrollbar Thumb */
+::-webkit-scrollbar-thumb {
+  background: #0d6efd; /* Dark gray thumb */
+  border-radius: 5px; /* Rounded corners */
+}
+
+/* Scrollbar Thumb on Hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Darker gray when hovered */
+}
