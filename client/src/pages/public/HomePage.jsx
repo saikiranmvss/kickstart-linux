@@ -39,7 +39,7 @@ const HomePage = () => {
                 <div className="vr"></div>
               </div>
 
-              <div className="col-md-3 d-flex flex-column justify-content-center">
+              <div className="col-md-4 d-flex flex-column justify-content-center">
                 <div className="d-flex">
                     <div><FaUsers className="text-primary mb-2" size={24} /></div>
                     <div className="pl-2">
@@ -62,7 +62,7 @@ const HomePage = () => {
                     </div>
                 </div>
               </div>
-              
+
             </div>
           </div>
         </div>
