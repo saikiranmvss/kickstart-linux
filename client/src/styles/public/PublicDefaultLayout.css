@@ -21,3 +21,6 @@
     text-align: left;
     line-height: 3;
   }
+
+  .page-content {
+    padding: calc(90px + 24px) calc(24px / 2) 60px calc(24px / 2); }

@@ -11,8 +11,8 @@ const Header = () => {
   return (
     <header id="page-topbar">
         <div className="navbar-header row justify-content-end">
-            <div className='col-md-2 d-flex justify-content-end'>
-                <div className='d-flex align-items-center pr-8'>
+            <div className='col-md-2 d-flex justify-content-center'>
+                <div className='d-flex align-items-center w-100'>
                     <button type="button" className='btn btn-primary mr-2'>Start Project</button>
                     <div className='header-user-icon'>
                         <FaUser />
