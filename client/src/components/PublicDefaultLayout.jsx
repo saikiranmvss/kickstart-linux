@@ -8,7 +8,7 @@ const PublicDefaultLayout = ({ children }) => {
         <div id="layout-wrapper">
           <Header />
           <div className="main-content">
-            <div className="page-content">
+            <div className="page-content public-page-content">
             <Outlet />
             </div>
             <Footer />
