@@ -1,0 +1,41 @@
+.public-main-content{
+    margin: 0;
+}
+.header-user-icon{
+    border: 1px solid #aeaeae;
+    border-radius: 25px;
+    padding: 5px 8px 5px 8px;
+    color: #aeaeae;
+}
+
+.custom-tabs{
+    gap:0;
+}
+
+.footer-links ul {
+    list-style: none; 
+    padding: 0; 
+    margin: 0;
+  }
+  .footer-links .link-body{
+    text-align: left;
+    line-height: 3;
+  }
+
+  .public-page-content {
+    padding: calc(90px + 24px) calc(24px / 2) 60px calc(24px / 2); }
+
+    .footer-2 , .journey-footer-2-body{
+        background-color: #fff;
+    }
+
+    .footer-2-body i{
+        padding:5px;
+    }
+    .journey-footer-2-body{
+        gap:20%;
+    }
+
+    .journey-footer-2-body .links a{
+        color: #000;
+    }

@@ -173,11 +173,7 @@ const Header = () => {
                     <i className="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div className="dropdown-menu dropdown-menu-end">
-                    <a className="dropdown-item" href="#"><i className="ri-user-line align-middle me-1"></i> Profile</a>
-                    <a className="dropdown-item" href="#"><i className="ri-wallet-2-line align-middle me-1"></i> My Wallet</a>
-                    <a className="dropdown-item d-block" href="#"><span className="badge bg-success float-end mt-1">11</span><i className="ri-settings-2-line align-middle me-1"></i> Settings</a>
-                    <a className="dropdown-item" href="#"><i className="ri-lock-unlock-line align-middle me-1"></i> Lock screen</a>
-                    <div className="dropdown-divider"></div>
+                    {/* <div className="dropdown-divider"></div> */}
                     <a className="dropdown-item text-danger" href="#" onClick={handleLogout}><i className="ri-shut-down-line align-middle me-1 text-danger"></i> Logout</a>
                 </div>
             </div>

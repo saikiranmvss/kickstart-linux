@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import PublicHomePage from './pages/public/HomePage';
+import Journey from './pages/user-journey/JourneyHome';
 import AboutPage from './pages/AboutPage';
 import LoginPage from './pages/LoginPage';
 import Dashboard from './pages/Dashboard';
@@ -13,6 +14,7 @@ import ChangePassword from './pages/ChangePassword';
 import ViewProfile from './pages/view-profile';
 import DefaultLayout from './components/DefaultLayout';
 import PublicDefaultLayout from './components/PublicDefaultLayout';
+import UserJourney from './components/UserJourney';
 import './styles/global.css';
 
 
@@ -41,14 +43,13 @@ const App = () => {
   return (
     <Router>
       <Routes>
+        
+        <Route path="/user-journey" element={<UserJourney />}>
+          <Route index element={<Journey />} />
+        </Route>
 
-        <Route
-          path="/"
-          element={
-              <PublicDefaultLayout />
-          }
-        >
-        <Route index element={<PublicHomePage />} />
+        <Route path="/" element={<PublicDefaultLayout />}>
+          <Route index element={<PublicHomePage />} />
         </Route>
 
         <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>}/>
@@ -57,14 +58,7 @@ const App = () => {
         <Route path="/change-password" element={<ChangePassword />} />
         <Route path="/about" element={<AboutPage />} />
 
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <DefaultLayout />
-            </ProtectedRoute>
-          }
-        >
+        <Route path="/" element={<ProtectedRoute><DefaultLayout /></ProtectedRoute>}>
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="investors" element={<Investors />} />
           <Route path="enterprenuer" element={<Enterprenuer />} />

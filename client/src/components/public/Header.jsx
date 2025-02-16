@@ -1,7 +1,7 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {FaUser} from  "react-icons/fa";
 import {  Nav  } from "react-bootstrap"
-import React, { useState ,useEffect , useRef } from "react";;
+import React, { useState } from "react";
 
 const Header = () => {
     const navigate = useNavigate();
@@ -13,7 +13,7 @@ const Header = () => {
         <div className="navbar-header row justify-content-end">
             <div className='col-md-2 d-flex justify-content-center'>
                 <div className='d-flex align-items-center w-100'>
-                    <button type="button" className='btn btn-primary mr-2'>Start Project</button>
+                    <Link to="/user-journey" className='btn btn-primary mr-2'>Start Project</Link>
                     <div className='header-user-icon'>
                         <FaUser />
                     </div>
