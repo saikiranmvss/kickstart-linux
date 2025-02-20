@@ -3,10 +3,8 @@ import {FaUser , FaEye} from  "react-icons/fa";
 import {  Nav  } from "react-bootstrap"
 import React, { useState ,useEffect , useRef } from "react";;
 
-const Header = () => {
+const Header = ({ JourneyActiveTab, setJourneyActiveTab }) => {
     const navigate = useNavigate();
-
-  const [activeTab, setActiveTab] = useState("Profile");
 
   return (
     <header id="page-topbar">
@@ -24,27 +22,27 @@ const Header = () => {
             <div className="d-flex align-items-center pr-4">
             <i className="fas fa-arrow-circle-left"></i>
             </div>
-                <Nav variant="tabs" activeKey={activeTab} onSelect={(selectedKey) => setActiveTab(selectedKey)} className="custom-tabs">
+                <Nav variant="tabs" activeKey={JourneyActiveTab} onSelect={(selectedKey) => setJourneyActiveTab(selectedKey)} className="custom-tabs">
                     <Nav.Item>
-                    <Nav.Link eventKey="Profile" className={activeTab === "Profile" ? "active-tab" : ""}>Category</Nav.Link>
+                    <Nav.Link eventKey="Category" className={JourneyActiveTab === "Category" ? "active-tab" : ""}>Category</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                    <Nav.Link eventKey="Projects" className={activeTab === "Projects" ? "active-tab" : ""}>My Journey</Nav.Link>
+                    <Nav.Link eventKey="Projects" className={JourneyActiveTab === "Projects" ? "active-tab" : ""}>My Journey</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                    <Nav.Link eventKey="Events" className={activeTab === "Events" ? "active-tab" : ""}>Team</Nav.Link>
+                    <Nav.Link eventKey="Events" className={JourneyActiveTab === "Events" ? "active-tab" : ""}>Team</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                    <Nav.Link eventKey="Reels" className={activeTab === "Reels" ? "active-tab" : ""}>Investors</Nav.Link>
+                    <Nav.Link eventKey="Reels" className={JourneyActiveTab === "Reels" ? "active-tab" : ""}>Investors</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                    <Nav.Link eventKey="Community" className={activeTab === "Community" ? "active-tab" : ""}>FAQ`s</Nav.Link>
+                    <Nav.Link eventKey="Community" className={JourneyActiveTab === "Community" ? "active-tab" : ""}>FAQ`s</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                    <Nav.Link eventKey="Payment" className={activeTab === "Payment" ? "active-tab" : ""}>Connections</Nav.Link>
+                    <Nav.Link eventKey="Payment" className={JourneyActiveTab === "Payment" ? "active-tab" : ""}>Connections</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                    <Nav.Link eventKey="Payment" className={activeTab === "Payment" ? "active-tab" : ""}>Community</Nav.Link>
+                    <Nav.Link eventKey="Payment" className={JourneyActiveTab === "Payment" ? "active-tab" : ""}>Community</Nav.Link>
                     </Nav.Item>
                 </Nav>
             </div>
