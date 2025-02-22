@@ -28,55 +28,40 @@ const JourneyCategory = () => {
 
     return (
         <div>
-                   <br />
-           <h4><strong>Get Started</strong></h4>
-
-            <h5>You're prelaunch few steps away.</h5>
             <br />
 
-            <h6><strong>Choosing The Right Category</strong></h6>
+           <h4><strong>AI-Powered Content Management Tool</strong></h4>
+            
 
-            <p>Select a primary category and subcategory to help backers find your project. A second subcategory provides tailored guidance but won't appear on your project page or affect search results.
-
-            You can update your selection anytime before or during your campaign to better match your project's focus.</p>
+            <p>Our AI-driven tool helps you craft a compelling startup pitch deck by refining and customizing your content for a perfect presentation. Simply paste your story, and AI will enhance it—structuring, polishing, and optimizing it for your startup journey.</p>
 
             <div className="p-4 text-center bg-white shadow-sm rounded row">
-                <div className="col-md-6 text-left mb-4">
-                    <label htmlFor="primary-cat">Primary Category</label>
-                    <select className="form-select" name="primary-cat" id="primary-cat">
-                        <option value="0">Select</option>
-                        <option value="1">Eco-Friendly</option>
-                        <option value="2">Technology</option>
-                        <option value="3">Manufature</option>
-                    </select>
+                <div className="col-md-12 text-left mb-4">
+                    <label className="form-label">Title</label>
+                    <input
+                        type="text"
+                        className="form-control"
+                        value={titleValue}
+                        onChange={handleTitleChange}
+                    />
+                    <small className="text-muted float-right">
+                        {wordCount}/{maxLength} characters
+                    </small>
                 </div>
-                <div className="col-md-6 text-left mb-4">
-                    <label htmlFor="primary-cat">Primary Sub-Category</label>
-                    <select className="form-select" name="primary-cat" id="primary-cat">
-                        <option value="0">Select</option>
-                        <option value="1">Eco-Friendly</option>
-                        <option value="2">Technology</option>
-                        <option value="3">Manufature</option>
-                    </select>
+                <br />
+                <div className="col-md-12 text-left mb-4">
+                    <label className="form-label">Sub Title</label>
+                    <textarea
+                        rows={4}
+                        className="form-control"                    
+                        value={SubtitleValue}
+                        onChange={handleSubTitleChange}
+                    ></textarea>
+                    <small className="text-muted float-right">
+                        {SubTitlewordCount}/{SubTitlemaxLength} characters
+                    </small>
                 </div>
-                <div className="col-md-6 text-left">
-                    <label htmlFor="primary-cat">Category</label>
-                    <select className="form-select" name="primary-cat" id="primary-cat">
-                        <option value="0">Select</option>
-                        <option value="1">Eco-Friendly</option>
-                        <option value="2">Technology</option>
-                        <option value="3">Manufature</option>
-                    </select>
-                </div>
-                <div className="col-md-6 text-left">
-                    <label htmlFor="primary-cat">Sub Category</label>
-                    <select className="form-select" name="primary-cat" id="primary-cat">
-                        <option value="0">Select</option>
-                        <option value="1">Eco-Friendly</option>
-                        <option value="2">Technology</option>
-                        <option value="3">Manufature</option>
-                    </select>
-                </div>
+
             </div>
             <br />
             <h6><strong>Project Location</strong></h6>

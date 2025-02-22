@@ -27,7 +27,7 @@ const Header = ({ JourneyActiveTab, setJourneyActiveTab }) => {
                     <Nav.Link eventKey="Category" className={JourneyActiveTab === "Category" ? "active-tab" : ""}>Category</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                    <Nav.Link eventKey="Projects" className={JourneyActiveTab === "Projects" ? "active-tab" : ""}>My Journey</Nav.Link>
+                    <Nav.Link eventKey="MyJourney" className={JourneyActiveTab === "MyJourney" ? "active-tab" : ""}>My Journey</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
                     <Nav.Link eventKey="Events" className={JourneyActiveTab === "Events" ? "active-tab" : ""}>Team</Nav.Link>

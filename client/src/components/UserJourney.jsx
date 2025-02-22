@@ -11,7 +11,7 @@ const UserJourney = () => {
           <Header JourneyActiveTab={JourneyActiveTab} setJourneyActiveTab={setJourneyActiveTab} />
           <div className="main-content public-main-content">
             <div className="page-content public-page-content">
-            <Outlet context={{ JourneyActiveTab }} />
+            <Outlet  context={{ JourneyActiveTab , setJourneyActiveTab  }} />
             </div>
             <Footer />
           </div>
