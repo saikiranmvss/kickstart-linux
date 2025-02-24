@@ -173,7 +173,8 @@ const Header = () => {
                     <i className="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div className="dropdown-menu dropdown-menu-end">
-                    {/* <div className="dropdown-divider"></div> */}
+                    <Link className="dropdown-item" to='/view-profile'><i className="ri-user-line align-middle me-1"></i> View Profile</Link>
+                    <div className="dropdown-divider"></div>
                     <a className="dropdown-item text-danger" href="#" onClick={handleLogout}><i className="ri-shut-down-line align-middle me-1 text-danger"></i> Logout</a>
                 </div>
             </div>

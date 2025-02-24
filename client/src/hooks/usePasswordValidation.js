@@ -13,7 +13,7 @@ const usePasswordValidation = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/api/validate-login", { email, password });
+      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/validate-login`, { email, password });
       if (response.status === 200) {
         localStorage.setItem('id',response.data.userData._id);
         setErrors("");

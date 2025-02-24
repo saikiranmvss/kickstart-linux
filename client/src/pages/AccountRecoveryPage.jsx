@@ -19,7 +19,7 @@ const AccountRecoveryPage = () => {
 
     if (!emailError) {
       axios
-      .post('http://localhost:5000/api/validate-recovery ',{email},  { withCredentials: true })
+      .post(`${process.env.REACT_APP_API_BASE_URL}/api/validate-recovery`,{email},  { withCredentials: true })
       .then((data)=>{
         if(data.status==200){
           navigate("/verify-pin"); 

@@ -77,9 +77,9 @@ const Enterprenuer = () => {
                         <td><span>Hyderabad</span><br/><span>Telanagana</span></td>
                         <td><span>Investors</span><br/><span>Angel Investors</span></td>
                         <td><span>02 Fouunders</span><br/><span>Connected</span></td>                        
-                        <td><span><i class="fas fa-eye"></i> 1.5k</span><br/><span><i class="fas fa-thumbs-up"></i> 1.5k</span></td>
+                        <td><span><i className="fas fa-eye"></i> 1.5k</span><br/><span><i className="fas fa-thumbs-up"></i> 1.5k</span></td>
                         <td><span>10 lakh</span></td>
-                        <td>  <span class="status active"><span class="circle green"></span> Active</span></td>
+                        <td>  <span className="status active"><span className="circle green"></span> Active</span></td>
                         <td><Link to="/view-profile" >View</Link></td>
                     </tr>
                     </tbody>

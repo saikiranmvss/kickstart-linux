@@ -40,7 +40,7 @@ const ChangePassword = () => {
     
     if (!errorMsg) {
       axios
-        .post("http://localhost:5000/api/change-password", { password }, { withCredentials: true })
+        .post(`${process.env.REACT_APP_API_BASE_URL}/api/change-password`, { password }, { withCredentials: true })
         .then((response) => {
           if (response.status === 200) {
             navigate("/success");

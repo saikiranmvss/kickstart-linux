@@ -1,4 +1,7 @@
 import React from 'react';
+import { useEffect, useState  , useContext} from "react";
+import { AuthContext } from "./context/AuthContext";
+import AuthProvider from './context/AuthContext';  
 import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import PublicHomePage from './pages/public/HomePage';
 import Journey from './pages/user-journey/JourneyHome';
@@ -15,12 +18,22 @@ import ViewProfile from './pages/view-profile';
 import DefaultLayout from './components/DefaultLayout';
 import PublicDefaultLayout from './components/PublicDefaultLayout';
 import UserJourney from './components/UserJourney';
+import axios from 'axios';
 import './styles/global.css';
 
 
 const ProtectedRoute = ({ children }) => {
-  const isAuthenticated = localStorage.getItem('id');
+  const isAuthenticated = localStorage.getItem("id");
   const location = useLocation();
+  const { user, loading, fetchUserData } = useContext(AuthContext);
+
+  useEffect(() => {
+    if (isAuthenticated && !user) {
+      fetchUserData();
+    }
+  }, [isAuthenticated, user, fetchUserData]);
+
+  if (loading) return <p>Loading...</p>;
 
   if (!isAuthenticated) {
     return <Navigate to="/login" state={{ from: location }} replace />;
@@ -28,6 +41,7 @@ const ProtectedRoute = ({ children }) => {
 
   return children;
 };
+
 
 const PublicRoute = ({ children }) => {
   const isAuthenticated = localStorage.getItem('id');
@@ -41,6 +55,7 @@ const PublicRoute = ({ children }) => {
 
 const App = () => {
   return (
+    <AuthProvider> 
     <Router>
       <Routes>
         
@@ -69,6 +84,7 @@ const App = () => {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
+    </AuthProvider>
   );
 };
 

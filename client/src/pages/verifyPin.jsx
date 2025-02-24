@@ -39,7 +39,7 @@ const VerifyPin = () => {
     setErrors("");
 
     axios
-      .post("http://localhost:5000/api/validate-pin", { pin: fullPin }, { withCredentials: true })
+      .post(`${process.env.REACT_APP_API_BASE_URL}/api/validate-pin`, { pin: fullPin }, { withCredentials: true })
       .then((data) => {
         if(data.status==200){
           navigate('/change-password')

@@ -41,7 +41,7 @@ const LoginPage = () => {
 
       try {
        
-        const response = await fetch("http://localhost:5000/api/signup-google", {
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/signup-google`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(userData),
@@ -52,9 +52,11 @@ const LoginPage = () => {
        
         if (data.message === "User already exists") {
           localStorage.setItem('id', data.user._id); 
+          localStorage.setItem('email', data.user.email); 
           navigate("/dashboard"); 
         } else if (data.message === "User created successfully") {
           localStorage.setItem('id', data.user._id); 
+          localStorage.setItem('email', data.user.email); 
           navigate("/dashboard"); 
         }
       } catch (error) {

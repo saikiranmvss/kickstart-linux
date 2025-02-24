@@ -154,6 +154,7 @@ const validateLogin = async (req, res) => {
 
     if (isPasswordValid) {
       req.session.user_id = user._id.toString();
+      req.session.email = user.email;
       return res.status(200).json({  userData:user , message: 'Login successful' });
     } else {
       return res.status(401).json({ userData:{}, message: 'Invalid password' });

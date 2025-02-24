@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState , useEffect , useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 import { Card, Button, Dropdown , Nav  } from "react-bootstrap";
 import { FaCog } from "react-icons/fa";
 import "../styles/ViewProfile.css";
@@ -7,6 +8,7 @@ import { FaLinkedin, FaYoutube, FaGlobe , FaSave , FaCamera , FaEllipsisV } from
 import Events from './Events';
 import Select from "react-select";
 import ThreeWaySwitch from "../components/ThreeWaySwitch";
+import axios from "axios";
 
 const socialLinks = [
   { icon: <FaLinkedin className="text-white" />, url: "linkedin.com/Profile", bg: "bg-[#0077B5]" },
@@ -18,6 +20,7 @@ const socialLinks = [
 const ViewProfile = () => {
   const [activeTab, setActiveTab] = useState("Profile");
   const [image, setImage] = useState(null);
+  const { user, fetchUserData } = useContext(AuthContext);
 
 
   const [selectedOptions, setSelectedOptions] = useState([]);
@@ -29,23 +32,138 @@ const ViewProfile = () => {
     { value: "mango", label: "Mango" },
   ];
 
+  const [formData, setFormData] = useState({
+    profileImage: "",
+  mobile: "",
+  languages: [],
+  dob: "",
+  gender: "",
+  firstName: "",
+  lastName: "",
+  whatsappNo: "",
+  primaryEmail: "",
+  secondaryEmail: "",
+  address: "",
+  country: "",
+  notifications: {
+    email: false,
+    sms: false,
+    phone: false,
+    post: false
+  },
+  portfolio: "",
+  linkedin: "",
+  instagram: "",
+  stateCity: "",
+  postal: "",
+  website: "",
+  youtube: "",
+  businessName: "",
+  businessEmail: "",
+  companyAddress: "",
+  businessCategory: "",
+  subCategory: "",
+  portfolioURL: "",
+  companyWebsite: "",
+  companyLinkedin: "",
+  companyInstagram: "",
+  companyYoutube: "",
+  pastJobExperience: "",
+  department: "",
+  fromYear: "",
+  pastWebsite: ""
+  });
+
+  useEffect(() => {
+    // const fetchUserData = async () => {
+    //   try {
+    //     const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/userDetails`);
+    //     if (!response.ok) {
+    //       throw new Error("Failed to fetch data");
+    //     }
+    //     const data = await response.json();
+        
+    //     setFormData({
+    //       ...formData,
+    //       ...data,
+    //       notifications: {
+    //         email: data.notifications?.email || false,
+    //         sms: data.notifications?.sms || false,
+    //         phone: data.notifications?.phone || false,
+    //         post: data.notifications?.post || false,
+    //       },
+    //     });
+        
+    //     if (data.languages) {
+    //       setSelectedOptions(
+    //         data.languages.map((lang) => options.find((opt) => opt.value === lang) || { value: lang, label: lang })
+    //       );
+    //     }
+    //   } catch (error) {
+    //     console.error("Error fetching user data:", error);
+    //   }
+    // };
+
+    // fetchUserData();
+  }, []);
+
+  
   const handleChange = (selected) => {
     setSelectedOptions(selected);
+    setFormData({ ...formData, languages: selected.map((opt) => opt.value) });
   };
 
-
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setImage(URL.createObjectURL(file));
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    if (type === "checkbox") {
+      setFormData({
+        ...formData,
+        notifications: { ...formData.notifications, [name]: checked },
+      });
+    } else {
+      setFormData({ ...formData, [name]: value });
     }
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData({ ...formData, profileImage: URL.createObjectURL(file) });
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const email = localStorage.getItem('email');
+    const jsonPayload = { ...formData, languages: selectedOptions  , email : email};
+
+    try {
+      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/save-profile`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(jsonPayload),
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to save data");
+      }
+
+      alert("Data saved successfully!");
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Error saving data");
+    }
+  };
 
   const renderContent = () => {
     switch (activeTab) {
       case "Profile":
         return (
+          
           <div className="row mt-4">
             <div className="col-md-5">
               <div className="p-3 text-center bg-white shadow-sm rounded row">
@@ -253,7 +371,7 @@ const ViewProfile = () => {
                 </div>
             </div>
 
-          </div>
+          </div>          
         );
       case "Projects":
         return (
@@ -387,7 +505,7 @@ const ViewProfile = () => {
           );
         case "edit-profile":
           return (
-          <div className="row mt-4">
+            <form onSubmit={handleSubmit} className="row mt-4">          
               <div className="col-md-12  p-3 bg-white shadow-sm rounded">
                 <strong>Edit Profile</strong>
               </div>
@@ -417,9 +535,10 @@ const ViewProfile = () => {
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="mobile" className="form-label">Mobile No.</label>
-                              <input type="text" name="mobile" id="mobile" className="form-control"/>
+                              <input type="text" name="mobile" id="mobile" className="form-control" onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
+                            <label htmlFor="">Language - Multiselect</label>
                             <Select
                                 isMulti
                                 options={options}
@@ -431,7 +550,7 @@ const ViewProfile = () => {
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="mobile" className="form-label">Date of Birth</label>
-                              <input type="date" name="dob" id="dob" className="form-control"/>
+                              <input type="date" name="dob" id="dob" className="form-control" onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="mobile" className="form-label">Gender</label>
@@ -441,84 +560,84 @@ const ViewProfile = () => {
                       <div className="col-md-3">
                           <div className="mb-3 form-group">
                               <label htmlFor="mobile" className="form-label">Frist Name</label>
-                              <input type="text" name="firstname" id="firstname" className="form-control"/>
+                              <input type="text" name="firstName" id="firstName" className="form-control" value={user.firstName} onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="mobile" className="form-label">Last Name</label>
-                              <input type="text" name="lastname" id="lastname" className="form-control"/>
+                              <input type="text" name="lastName" id="lastName" className="form-control" onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="mobile" className="form-label">Whatsapp Mobile No.</label>
-                              <input type="text" name="whatsapp_no" id="whatsapp_no" className="form-control"/>
+                              <input type="text" name="whatsappNo" id="whatsappNo" className="form-control" onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="mobile" className="form-label">Primary Email ID</label>
-                              <input type="text" name="primary_email" id="primary_email" className="form-control"/>
+                              <input type="text" name="primary_email" id="primary_email" className="form-control" onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="mobile" className="form-label">Secondary Email ID</label>
-                              <input type="text" name="secondary_email" id="secondary_email" className="form-control"/>
+                              <input type="text" name="secondary_email" id="secondary_email" className="form-control" onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="mobile" className="form-label">Address</label>
-                              <textarea rows='5' name="address" id="address" className="form-control"></textarea>
+                              <textarea rows='5' name="address" id="address" className="form-control" onChange={handleInputChange}></textarea>
                           </div>
                       </div>
                       <div className="col-md-3">
                           <div className="mb-3 form-group">
                               <label htmlFor="mobile" className="form-label">Country</label>
-                              <input type="text" name="country" id="country" className="form-control"/>
+                              <input type="text" name="country" id="country" className="form-control" onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="mobile" className="form-label">Notifications</label>
                               <div className="row m-0">
                                   <div className="col-md-6 form-check">
-                                    <input className="form-check-input me-2" type="checkbox" id="email" />
-                                    <label className="form-check-label" for="email">Email</label>
+                                    <input className="form-check-input me-2" type="checkbox" id="email" onChange={handleInputChange}/>
+                                    <label className="form-check-label" htmlFor="email">Email</label>
                                   </div>
                                   <div className="col-md-6 form-check">
-                                    <input className="form-check-input me-2" type="checkbox" id="sms" />
-                                    <label className="form-check-label" for="sms">SMS</label>
+                                    <input className="form-check-input me-2" type="checkbox" id="sms" onChange={handleInputChange}/>
+                                    <label className="form-check-label" htmlFor="sms">SMS</label>
                                   </div>
                                   <div className="col-md-6 form-check">
-                                    <input className="form-check-input me-2" type="checkbox" id="phone" />
-                                    <label className="form-check-label" for="phone">Phone</label>
+                                    <input className="form-check-input me-2" type="checkbox" id="phone" onChange={handleInputChange}/>
+                                    <label className="form-check-label" htmlFor="phone">Phone</label>
                                   </div>
                                   <div className="col-md-6 form-check">
-                                    <input className="form-check-input me-2" type="checkbox" id="post" />
-                                    <label className="form-check-label" for="post">Post</label>
+                                    <input className="form-check-input me-2" type="checkbox" id="post" onChange={handleInputChange}/>
+                                    <label className="form-check-label" htmlFor="post">Post</label>
                                   </div>
                               </div>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="mobile" className="form-label">Portfolio Link</label>
-                              <input type="text" name="portfolio" id="portfolio" className="form-control"/>
+                              <input type="text" name="portfolio" id="portfolio" className="form-control" onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="mobile" className="form-label">LinkedIN</label>
-                              <input type="text" name="linkedin" id="linkedin" className="form-control"/>
+                              <input type="text" name="linkedin" id="linkedin" className="form-control" onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="mobile" className="form-label">Instagram</label>
-                              <input type="text" name="instagram" id="instagram" className="form-control"/>
+                              <input type="text" name="instagram" id="instagram" className="form-control" onChange={handleInputChange}/>
                           </div>
                       </div>
                       <div className="col-md-3">
                           <div className="mb-3 form-group">
                               <label htmlFor="state_city" className="form-label">State/City</label>
-                              <input type="text" name="state_city" id="state_city" className="form-control"/>
+                              <input type="text" name="state_city" id="state_city" className="form-control" onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="postal" className="form-label">Postal Address</label>
-                              <textarea row="5" name="postal" id="postal" className="form-control" ></textarea>
+                              <textarea row="5" name="postal" id="postal" className="form-control" onChange={handleInputChange}></textarea>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="website" className="form-label">Website</label>
-                              <input type="text" name="website" id="website" className="form-control"/>
+                              <input type="text" name="website" id="website" className="form-control" onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="website" className="form-label">Youtube</label>
-                              <input type="text" name="youtube" id="youtube" className="form-control"/>
+                              <input type="text" name="youtube" id="youtube" className="form-control" onChange={handleInputChange}/>
                           </div>
                       </div>
                   </div>
@@ -550,112 +669,112 @@ const ViewProfile = () => {
                               <label htmlFor="mobile" className="form-label">Notifications</label>
                               <div className="row m-0">
                                   <div className="col-md-6 form-check">
-                                    <input className="form-check-input me-2" type="checkbox" id="email" />
-                                    <label className="form-check-label" for="email">Email</label>
+                                    <input className="form-check-input me-2" type="checkbox" id="email" onChange={handleInputChange}/>
+                                    <label className="form-check-label" htmlFor="email">Email</label>
                                   </div>
                                   <div className="col-md-6 form-check">
-                                    <input className="form-check-input me-2" type="checkbox" id="sms" />
-                                    <label className="form-check-label" for="sms">SMS</label>
+                                    <input className="form-check-input me-2" type="checkbox" id="sms" onChange={handleInputChange}/>
+                                    <label className="form-check-label" htmlFor="sms">SMS</label>
                                   </div>
                                   <div className="col-md-6 form-check">
-                                    <input className="form-check-input me-2" type="checkbox" id="phone" />
-                                    <label className="form-check-label" for="phone">Phone</label>
+                                    <input className="form-check-input me-2" type="checkbox" id="phone" onChange={handleInputChange}/>
+                                    <label className="form-check-label" htmlFor="phone">Phone</label>
                                   </div>
                                   <div className="col-md-6 form-check">
-                                    <input className="form-check-input me-2" type="checkbox" id="post" />
-                                    <label className="form-check-label" for="post">Post</label>
+                                    <input className="form-check-input me-2" type="checkbox" id="post" onChange={handleInputChange}/>
+                                    <label className="form-check-label" htmlFor="post">Post</label>
                                   </div>
                               </div>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="bussiness_cat" className="form-label">Bussiness Categories</label>
-                              <input type="text" name="bussiness_cat" id="bussiness_cat" className="form-control"/>
+                              <input type="text" name="bussiness_cat" id="bussiness_cat" className="form-control" onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="company_website" className="form-label">Company Website</label>
-                              <input type="text" name="company_website" id="company_website" className="form-control"/>
+                              <input type="text" name="company_website" id="company_website" className="form-control" onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="company_linkedin" className="form-label">Company LinkedIN</label>
-                              <input type="text" name="company_linkedin" id="company_linkedin" className="form-control"/>
+                              <input type="text" name="company_linkedin" id="company_linkedin" className="form-control" onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="company_instagram" className="form-label">Company Instagram</label>
-                              <input type="text" name="company_instagram" id="company_instagram" className="form-control"/>
+                              <input type="text" name="company_instagram" id="company_instagram" className="form-control" onChange={handleInputChange}/>
                           </div>
                       </div>
                       <div className="col-md-3">
                           <div className="mb-3 form-group">
                               <label htmlFor="bussiness_name" className="form-label">Bussiness Name</label>
-                              <input type="text" name="bussiness_name" id="bussiness_name" className="form-control"/>
+                              <input type="text" name="bussiness_name" id="bussiness_name" className="form-control" onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="bussiness_email" className="form-label">Bussiness Email ID</label>
-                              <input type="text" name="bussiness_email" id="bussiness_email" className="form-control"/>
+                              <input type="text" name="bussiness_email" id="bussiness_email" className="form-control" onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="mobile" className="form-label">Company Address</label>
-                              <textarea row="5" name="whatsapp_no" id="whatsapp_no" className="form-control" ></textarea>
+                              <textarea row="5" name="whatsapp_no" id="whatsapp_no" className="form-control" onChange={handleInputChange}></textarea>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="sub_cat" className="form-label">Sub Category</label>
-                              <input type="text" name="sub_cat" id="sub_cat" className="form-control"/>
+                              <input type="text" name="sub_cat" id="sub_cat" className="form-control" onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="portfolio_url" className="form-label">Portfolio URL</label>
-                              <input type="text" name="portfolio_url" id="portfolio_url" className="form-control"/>
+                              <input type="text" name="portfolio_url" id="portfolio_url" className="form-control" onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="company_youtube" className="form-label">Company Youtube URL</label>
-                              <input type="text" name="company_youtube" id="company_youtube" className="form-control"/>
+                              <input type="text" name="company_youtube" id="company_youtube" className="form-control" onChange={handleInputChange}/>
                           </div>
                       </div>
                       <div className="col-md-3">
                           <div className="mb-3 form-group">
                               <label htmlFor="past_job" className="form-label">Past Job Experience</label>
-                              <input type="text" name="past_job" id="past_job" className="form-control"/>
+                              <input type="text" name="past_job" id="past_job" className="form-control" onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="department" className="form-label">Department</label>
-                              <input type="text" name="department" id="department" className="form-control"/>
+                              <input type="text" name="department" id="department" className="form-control" onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="from_year" className="form-label">From Year</label>
-                              <input type="date" name="from_year" id="from_year" className="form-control"/>
+                              <input type="date" name="from_year" id="from_year" className="form-control" onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="past_website" className="form-label">Website</label>
-                              <input type="text" name="past_website" id="past_website" className="form-control"/>
+                              <input type="text" name="past_website" id="past_website" className="form-control" onChange={handleInputChange}/>
                           </div>
                       </div>
                       <div className="col-md-3">
                           <div className="mb-3 form-group">
                               <label htmlFor="state_city" className="form-label">State/City</label>
-                              <input type="text" name="state_city" id="state_city" className="form-control"/>
+                              <input type="text" name="state_city" id="state_city" className="form-control" onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="postal" className="form-label">Postal Address</label>
-                              <textarea row="5" name="postal" id="postal" className="form-control" ></textarea>
+                              <textarea row="5" name="postal" id="postal" className="form-control" onChange={handleInputChange}></textarea>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="website" className="form-label">Website</label>
-                              <input type="text" name="website" id="website" className="form-control"/>
+                              <input type="text" name="website" id="website" className="form-control" onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="website" className="form-label">Youtube</label>
-                              <input type="text" name="youtube" id="youtube" className="form-control"/>
+                              <input type="text" name="youtube" id="youtube" className="form-control" onChange={handleInputChange}/>
                           </div>
                       </div>
                   </div>
                   <div className="row">
                     <div className="col-md-12 d-flex justify-content-end">
                       <div>
-                          <button type="button" className='btn btn-primary d-flex align-items-center'><FaSave className="mr-2" />Save and Next</button>
+                          <button type="submit" className='btn btn-primary d-flex align-items-center'><FaSave className="mr-2" />Save and Next</button>
                       </div>
                     </div>
                   </div>
               </div>
-          </div>
+          </form>
           );
       default:
         return null;
