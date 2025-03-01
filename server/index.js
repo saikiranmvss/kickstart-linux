@@ -1,4 +1,5 @@
 const express = require('express');
+const fileUploading = require("express-fileupload");
 const path = require('path');
 const formRoutes = require('./routes/formRoutes');
 const corsMiddleware = require('./middlewares/corsMiddleware');
@@ -6,6 +7,7 @@ const connectDB = require('./config/db');
 const emailRoutes = require('./routes/emailRoutes');  
 const mailRoutes = require('./routes/mailRoutes');  
 const userRoutes = require('./routes/userRoutes');  
+const fileUploads = require('./routes/fileUploads');  
 const session = require('express-session');
 
 const app = express();
@@ -21,12 +23,15 @@ connectDB();
 
 app.use(corsMiddleware);
 app.use(express.json());
+app.use(fileUploading());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use("/files", express.static(path.join(__dirname, "storage")));
 
 app.use('/api', emailRoutes); 
 app.use('/api/email', mailRoutes);
 app.use('/api', userRoutes);
+app.use('/api', fileUploads);
 
 app.get('/', (req, res) => {
   res.send('Welcome to the backend server!');

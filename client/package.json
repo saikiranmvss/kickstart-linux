@@ -10,7 +10,7 @@
     "cra-template": "1.2.0",
     "datatables.net": "^2.2.1",
     "datatables.net-bs5": "^2.2.1",
-    "firebase": "^11.2.0",
+    "firebase": "^11.4.0",
     "jquery": "^3.7.1",
     "react": "^18.0.0",
     "react-apexcharts": "^1.7.0",

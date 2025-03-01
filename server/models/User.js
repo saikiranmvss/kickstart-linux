@@ -21,10 +21,16 @@ const userSchema = new mongoose.Schema({
     unique: true,
     sparse: true,
   },
-
-  // New Profile Fields
+  
   mobile: String,
-  languages: [String],
+  languages: [
+    {
+      value: String, 
+      label: String,
+    },
+  ],
+  profileImage:String,
+  professionalImage:String,
   dob: String,
   gender: String,
   firstName: String,
@@ -35,10 +41,14 @@ const userSchema = new mongoose.Schema({
   address: String,
   country: String,
   notifications: {
-    email: Boolean,
-    sms: Boolean,
-    phone: Boolean,
-    post: Boolean,
+    notificationEmail: Boolean,
+    notificationSMS: Boolean,
+    notificationPhone: Boolean,
+    notificationPost: Boolean,
+    notificationCompanyEmail: Boolean,
+    notificationCompanySMS: Boolean,
+    notificationCompanyPhone: Boolean,
+    notificationCompanyPost: Boolean
   },
   portfolio: String,
   linkedin: String,

@@ -20,6 +20,7 @@ const socialLinks = [
 const ViewProfile = () => {
   const [activeTab, setActiveTab] = useState("Profile");
   const [image, setImage] = useState(null);
+  const [loading, setLoading] = useState(false);
   const { user, fetchUserData } = useContext(AuthContext);
 
 
@@ -39,11 +40,13 @@ const ViewProfile = () => {
         ...user, 
         notifications: { ...prevData.notifications, ...user.notifications }
       }));
+      console.log(formData.notifications);
     }
   }, [user]);
 
   const [formData, setFormData] = useState({
     profileImage: "",
+    professionalImage:"",
   mobile: "",
   languages: [],
   dob: "",
@@ -56,10 +59,14 @@ const ViewProfile = () => {
   address: "",
   country: "",
   notifications: {
-    email: false,
-    sms: false,
-    phone: false,
-    post: false
+    notificationEmail: false,
+    notificationSMS: false,
+    notificationPhone: false,
+    notificationPost: false,
+    notificationCompanyEmail: false,
+    notificationCompanySMS: false,
+    notificationCompanyPhone: false,
+    notificationCompanyPost: false
   },
   portfolio: "",
   linkedin: "",
@@ -106,10 +113,50 @@ const ViewProfile = () => {
     }
   };
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
-    if (file) {
-      setFormData({ ...formData, profileImage: URL.createObjectURL(file) });
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    setLoading(true);
+
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/api/file-upload`,
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );     
+      setFormData({ ...formData, profileImage: response.data.fileUrl });
+    } catch (error) {
+      console.error("Upload Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  
+  const handleProfessionalImageChange = async(e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    setLoading(true);
+
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/api/file-upload`,
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );     
+      setFormData({ ...formData, professionalImage: response.data.fileUrl });
+    } catch (error) {
+      console.error("Upload Error:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -499,8 +546,8 @@ const ViewProfile = () => {
                               <label className="image-upload">
                                 <input type="file" accept="image/*" onChange={handleImageChange} hidden />
                                 <div className="image-box">
-                                  {image ? (
-                                    <img src={image} alt="Profile" className="profile-img" />
+                                  {formData.profileImage ? (
+                                    <img src={formData.profileImage} alt="Profile" className="profile-img" />
                                   ) : (
                                     <div className="default-img">
                                       <FaCamera className="default-icon" />
@@ -523,7 +570,7 @@ const ViewProfile = () => {
                             <Select
                                 isMulti
                                 options={options}
-                                value={selectedOptions}
+                                value={formData.languages}
                                 onChange={handleChange}
                                 className="basic-multi-select"
                                 classNamePrefix="select"
@@ -531,7 +578,7 @@ const ViewProfile = () => {
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="mobile" className="form-label">Date of Birth</label>
-                              <input type="date" name="dob" id="dob" className="form-control" onChange={handleInputChange}/>
+                              <input type="date" name="dob" id="dob" className="form-control" value={formData.dob} onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="mobile" className="form-label">Gender</label>
@@ -573,20 +620,20 @@ const ViewProfile = () => {
                               <label htmlFor="mobile" className="form-label">Notifications</label>
                               <div className="row m-0">
                                   <div className="col-md-6 form-check">
-                                    <input className="form-check-input me-2" type="checkbox" id="email" onChange={handleInputChange}/>
-                                    <label className="form-check-label" htmlFor="email">Email</label>
+                                    <input className="form-check-input me-2" type="checkbox" id="notificationEmail" name="notificationEmail" checked={formData.notifications.notificationEmail} onChange={handleInputChange}/>
+                                    <label className="form-check-label" htmlFor="notificationEmail">Email</label>
                                   </div>
                                   <div className="col-md-6 form-check">
-                                    <input className="form-check-input me-2" type="checkbox" id="sms" onChange={handleInputChange}/>
-                                    <label className="form-check-label" htmlFor="sms">SMS</label>
+                                    <input className="form-check-input me-2" type="checkbox" id="notificationSMS" name="notificationSMS" checked={formData.notifications.notificationSMS} onChange={handleInputChange}/>
+                                    <label className="form-check-label" htmlFor="notificationSMS">SMS</label>
                                   </div>
                                   <div className="col-md-6 form-check">
-                                    <input className="form-check-input me-2" type="checkbox" id="phone" onChange={handleInputChange}/>
-                                    <label className="form-check-label" htmlFor="phone">Phone</label>
+                                    <input className="form-check-input me-2" type="checkbox" id="notificationPhone" name="notificationPhone" checked={formData.notifications.notificationPhone} onChange={handleInputChange}/>
+                                    <label className="form-check-label" htmlFor="notificationPhone">Phone</label>
                                   </div>
                                   <div className="col-md-6 form-check">
-                                    <input className="form-check-input me-2" type="checkbox" id="post" onChange={handleInputChange}/>
-                                    <label className="form-check-label" htmlFor="post">Post</label>
+                                    <input className="form-check-input me-2" type="checkbox" id="notificationPost" name="notificationPost" checked={formData.notifications.notificationPost} onChange={handleInputChange}/>
+                                    <label className="form-check-label" htmlFor="notificationPost">Post</label>
                                   </div>
                               </div>
                           </div>
@@ -629,10 +676,10 @@ const ViewProfile = () => {
                           <div className="mb-3 form-group">
                             <div className="profile-picture-container">
                               <label className="image-upload">
-                                <input type="file" accept="image/*" onChange={handleImageChange} hidden />
+                                <input type="file" accept="image/*" onChange={handleProfessionalImageChange} hidden />
                                 <div className="image-box">
-                                  {image ? (
-                                    <img src={image} alt="Profile" className="profile-img" />
+                                  {formData.professionalImage ? (
+                                    <img src={formData.professionalImage} alt="Profile" className="profile-img" />
                                   ) : (
                                     <div className="default-img">
                                       <FaCamera className="default-icon" />
@@ -650,20 +697,20 @@ const ViewProfile = () => {
                               <label htmlFor="mobile" className="form-label">Notifications</label>
                               <div className="row m-0">
                                   <div className="col-md-6 form-check">
-                                    <input className="form-check-input me-2" type="checkbox" id="email" onChange={handleInputChange}/>
-                                    <label className="form-check-label" htmlFor="email">Email</label>
+                                    <input className="form-check-input me-2" type="checkbox" id="notificationCompanyEmail" name="notificationCompanyEmail" checked={formData.notifications.notificationCompanyEmail} onChange={handleInputChange}/>
+                                    <label className="form-check-label" htmlFor="notificationCompanyEmail">Email</label>
                                   </div>
                                   <div className="col-md-6 form-check">
-                                    <input className="form-check-input me-2" type="checkbox" id="sms" onChange={handleInputChange}/>
-                                    <label className="form-check-label" htmlFor="sms">SMS</label>
+                                    <input className="form-check-input me-2" type="checkbox" id="notificationCompanySMS" name="notificationCompanySMS" checked={formData.notifications.notificationCompanySMS} onChange={handleInputChange}/>
+                                    <label className="form-check-label" htmlFor="notificationCompanySMS">SMS</label>
                                   </div>
                                   <div className="col-md-6 form-check">
-                                    <input className="form-check-input me-2" type="checkbox" id="phone" onChange={handleInputChange}/>
-                                    <label className="form-check-label" htmlFor="phone">Phone</label>
+                                    <input className="form-check-input me-2" type="checkbox" id="notificationCompanyPhone" name="notificationCompanyPhone" checked={formData.notifications.notificationCompanyPhone} onChange={handleInputChange}/>
+                                    <label className="form-check-label" htmlFor="notificationCompanyPhone">Phone</label>
                                   </div>
                                   <div className="col-md-6 form-check">
-                                    <input className="form-check-input me-2" type="checkbox" id="post" onChange={handleInputChange}/>
-                                    <label className="form-check-label" htmlFor="post">Post</label>
+                                    <input className="form-check-input me-2" type="checkbox" id="notificationCompanyPost" name="notificationCompanyPost" checked={formData.notifications.notificationCompanyPost} onChange={handleInputChange}/>
+                                    <label className="form-check-label" htmlFor="notificationCompanyPost">Post</label>
                                   </div>
                               </div>
                           </div>

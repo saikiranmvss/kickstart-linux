@@ -15,7 +15,7 @@ const Header = () => {
                 <div className='d-flex align-items-center w-100'>
                     <Link to="/user-journey" className='btn btn-primary mr-2'>Start Project</Link>
                     <div className='header-user-icon'>
-                        <FaUser />
+                    <Link to="/login" className=''><FaUser style={{fontSize:'18px'}}/></Link>
                     </div>
                 </div>
             </div>
