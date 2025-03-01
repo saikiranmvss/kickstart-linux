@@ -1,9 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import "../styles/ThreeWaySwitch.css";
 
-const ThreeWaySwitch = () => {
-  const [gender, setGender] = useState("male");
-
+const ThreeWaySwitch = ({ gender, setGender }) => {
   const handleSwitch = (value) => {
     setGender(value);
   };

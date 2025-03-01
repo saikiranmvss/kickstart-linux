@@ -48,8 +48,6 @@ const VerifyPin = () => {
       .catch((error) => {
         console.log(error);
       });
-
-    console.log("Form submitted:", { fullPin });
   };
 
   return (

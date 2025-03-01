@@ -13,8 +13,7 @@ const AuthProvider = ({ children }) => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/getUser/${userId}`, { withCredentials: true });
         if (response.status === 200) {
-          setUser(response.data);
-          console.log(response);
+          setUser(response.data);          
           localStorage.setItem("email", response.data.email);
           localStorage.setItem("id", response.data._id);
         }

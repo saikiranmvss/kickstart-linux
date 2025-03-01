@@ -38,9 +38,10 @@ const ViewProfile = () => {
       setFormData((prevData) => ({
         ...prevData,
         ...user, 
-        notifications: { ...prevData.notifications, ...user.notifications }
+        notifications: { ...prevData.notifications, ...user.notifications },
+        languages: user.languages || [] 
       }));
-      console.log(formData.notifications);
+      setSelectedOptions(user.languages || []);      
     }
   }, [user]);
 
@@ -98,7 +99,11 @@ const ViewProfile = () => {
   
   const handleChange = (selected) => {
     setSelectedOptions(selected);
-    setFormData({ ...formData, languages: selected.map((opt) => opt.value) });
+    setFormData({ ...formData, languages: selectedOptions });
+  };
+
+  const handleGenderChange = (selectedGender) => {
+    setFormData({ ...formData, gender: selectedGender });
   };
 
   const handleInputChange = (e) => {
@@ -164,8 +169,7 @@ const ViewProfile = () => {
     e.preventDefault();
 
     const email = localStorage.getItem('email');
-    const jsonPayload = { ...formData, languages: selectedOptions  , email : email};
-
+    const jsonPayload = { ...formData, languages: selectedOptions.map(option => ({ value: option.value, label: option.label }))  , email : email};
     try {
       const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/save-profile`, {
         method: "POST",
@@ -581,8 +585,8 @@ const ViewProfile = () => {
                               <input type="date" name="dob" id="dob" className="form-control" value={formData.dob} onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
-                              <label htmlFor="mobile" className="form-label">Gender</label>
-                              <ThreeWaySwitch />
+                          <label htmlFor="gender" className="form-label">Gender</label>
+                              <ThreeWaySwitch gender={formData.gender=='' ? 'male' : formData.gender} setGender={handleGenderChange}/>
                           </div>
                       </div>
                       <div className="col-md-3">
@@ -657,7 +661,7 @@ const ViewProfile = () => {
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="postal" className="form-label">Postal Address</label>
-                              <textarea row="5" name="postal" id="postal" className="form-control" value={formData.postal} onChange={handleInputChange}></textarea>
+                              <textarea row="5" name="postal" id="postal" className="form-control" defaultValue={formData.postal} onChange={handleInputChange}></textarea>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="website" className="form-label">Website</label>

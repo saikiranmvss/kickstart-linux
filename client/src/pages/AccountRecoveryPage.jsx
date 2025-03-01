@@ -27,8 +27,7 @@ const AccountRecoveryPage = () => {
       })
       .catch((error)=>{
         console.log(error);
-      })
-      console.log("Form submitted:", { email });
+      })      
     }
   };
 

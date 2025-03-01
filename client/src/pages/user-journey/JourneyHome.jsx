@@ -6,7 +6,6 @@ import MyJourney from '../../components/user-journey/MyJourney.jsx';
 
 const JourneyHome = () => {
   const { JourneyActiveTab } = useOutletContext();
-  console.log(JourneyActiveTab);
 
   return (
     <div className="container w-50">
