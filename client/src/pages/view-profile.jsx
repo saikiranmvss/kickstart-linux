@@ -27,10 +27,9 @@ const ViewProfile = () => {
   const [selectedOptions, setSelectedOptions] = useState([]);
 
   const options = [
-    { value: "apple", label: "Apple" },
-    { value: "banana", label: "Banana" },
-    { value: "grape", label: "Grape" },
-    { value: "mango", label: "Mango" },
+    { value: "telugu", label: "Telugu" },
+    { value: "english", label: "English" },
+    { value: "hindi", label: "Hindi" },
   ];
 
   useEffect(() => {
@@ -604,7 +603,7 @@ const ViewProfile = () => {
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="primaryEmail" className="form-label">Primary Email ID</label>
-                              <input type="text" name="primaryEmail" id="primaryEmail" className="form-control" value={formData.primaryEmail} onChange={handleInputChange}/>
+                              <input type="text" name="primaryEmail" id="primaryEmail" className="form-control" value={formData.email} readOnly onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="secondaryEmail" className="form-label">Secondary Email ID</label>
