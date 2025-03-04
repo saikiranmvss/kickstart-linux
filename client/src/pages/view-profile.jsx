@@ -19,7 +19,6 @@ const socialLinks = [
 
 const ViewProfile = () => {
   const [activeTab, setActiveTab] = useState("Profile");
-  const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
   const { user, fetchUserData } = useContext(AuthContext);
 
@@ -110,7 +109,7 @@ const ViewProfile = () => {
     if (type === "checkbox") {
       setFormData({
         ...formData,
-        notifications: { ...formData.notifications, [name]: checked },
+        notifications: { ...formData.notifications, [name]:  type === "checkbox" ? checked : value,  },
       });
     } else {
       setFormData({ ...formData, [name]: value });
@@ -121,15 +120,15 @@ const ViewProfile = () => {
     const file = e.target.files[0];
     if (!file) return;
 
-    const formData = new FormData();
-    formData.append("file", file);
+    const formDatas = new FormData();
+    formDatas.append("file", file);
 
     setLoading(true);
 
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/api/file-upload`,
-        formData,
+        formDatas,
         { headers: { "Content-Type": "multipart/form-data" } }
       );     
       setFormData({ ...formData, profileImage: response.data.fileUrl });
@@ -145,15 +144,15 @@ const ViewProfile = () => {
     const file = e.target.files[0];
     if (!file) return;
 
-    const formData = new FormData();
-    formData.append("file", file);
+    const formDatas = new FormData();
+    formDatas.append("file", file);
 
     setLoading(true);
 
     try {
       const response = await axios.post(
         `${process.env.REACT_APP_API_BASE_URL}/api/file-upload`,
-        formData,
+        formDatas,
         { headers: { "Content-Type": "multipart/form-data" } }
       );     
       setFormData({ ...formData, professionalImage: response.data.fileUrl });
