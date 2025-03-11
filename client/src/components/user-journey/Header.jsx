@@ -33,16 +33,16 @@ const Header = ({ JourneyActiveTab, setJourneyActiveTab }) => {
                     <Nav.Link eventKey="JourneyTeam" className={JourneyActiveTab === "JourneyTeam" ? "active-tab" : ""}>Team</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                    <Nav.Link eventKey="Reels" className={JourneyActiveTab === "Reels" ? "active-tab" : ""}>Investors</Nav.Link>
+                    <Nav.Link eventKey="JourneyInvestors" className={JourneyActiveTab === "JourneyInvestors" ? "active-tab" : ""}>Investors</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                    <Nav.Link eventKey="Community" className={JourneyActiveTab === "Community" ? "active-tab" : ""}>FAQ`s</Nav.Link>
+                    <Nav.Link eventKey="JourneyFaq" className={JourneyActiveTab === "JourneyFaq" ? "active-tab" : ""}>FAQ`s</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                    <Nav.Link eventKey="Payment" className={JourneyActiveTab === "Payment" ? "active-tab" : ""}>Connections</Nav.Link>
+                    <Nav.Link eventKey="JourneyConnections" className={JourneyActiveTab === "JourneyConnections" ? "active-tab" : ""}>Connections</Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                    <Nav.Link eventKey="Payment" className={JourneyActiveTab === "Payment" ? "active-tab" : ""}>Community</Nav.Link>
+                    <Nav.Link eventKey="JourneyCommunity" className={JourneyActiveTab === "JourneyCommunity" ? "active-tab" : ""}>Community</Nav.Link>
                     </Nav.Item>
                 </Nav>
             </div>

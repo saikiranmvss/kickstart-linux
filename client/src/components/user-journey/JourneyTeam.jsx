@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { Card, Button } from "react-bootstrap";
+import { FaClock } from "react-icons/fa";
 
 const JourneyTeam = () => {
 
@@ -137,24 +139,51 @@ const JourneyTeam = () => {
                 </div>
                 <div className="col-12">
                     <h5 className="text-left">Active Status</h5><br />
-                    <table className="table table-borderless">
-                        <thead>
-                            <tr>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <span className="mr-2"><i className="fas fa-user"></i></span>
-                                    name@mail.com
-                                </td>
-                                <td>
-                                    <span className="status-circle bg-success"></span> Active
-                                </td>
-                                <td><button className="btn btn-light btn-set">Remove</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div>
+
+                        <table className="table table-borderless">
+                            <thead>
+                                <tr>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <span className="mr-2"><i className="fas fa-user"></i></span>
+                                        name@mail.com
+                                    </td>
+                                    <td>
+                                        <span className="status-circle bg-success"></span> Active
+                                    </td>
+                                    <td><button className="btn btn-light btn-set">Remove</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div className="row justify-content-center">
+                            <div className="col-md-4 text-left mb-4">
+                                <label htmlFor="primary-cat">Primary Category</label>
+                                <select className="form-select" name="primary-cat" id="primary-cat">
+                                    <option value="0">Select</option>
+                                    <option value="1">Eco-Friendly</option>
+                                    <option value="2">Technology</option>
+                                    <option value="3">Manufature</option>
+                                </select>
+                            </div>
+                            <div className="col-md-4 text-left mb-4">
+                                <label htmlFor="primary-cat">Roles & Responsibilities</label>
+                                <select className="form-select" name="primary-cat" id="primary-cat">
+                                    <option value="0">Select</option>
+                                    <option value="1">Eco-Friendly</option>
+                                    <option value="2">Technology</option>
+                                    <option value="3">Manufature</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div>
+                        <p className="text-left"><strong>Note:</strong> Make sure primary category 'Leader & Founders and Co-Founders'. Will have access to edit and make any necessary changes in the project. You can add or remove anytime you want.</p>
+                    </div>
                 </div>
             </div>
 

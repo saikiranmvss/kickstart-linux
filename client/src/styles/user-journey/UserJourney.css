@@ -52,3 +52,12 @@ padding: calc(90px + 24px) calc(24px / 2) 60px calc(24px / 2); }
     border: 1px solid #aeaeae !important;
     border-radius: 5rem;
 }
+
+.accordion-body{
+    visibility: visible;
+}
+
+.journey-faq .accordion-button{
+    background: #fff;
+    box-shadow: 0 0 #fff;
+}
