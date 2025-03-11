@@ -39,6 +39,7 @@ const VideoEmbed = () => {
             type="text"
             className="form-control"
             value={videoUrl}
+            placeholder="Copy Paste URL Here"
             onInput={handleInputChange}
           />
         </div>
