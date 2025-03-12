@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState , useEffect, useRef } from "react";
 import { Form, InputGroup, Overlay, Popover } from "react-bootstrap";
 import { FaCalendarAlt } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -8,34 +8,48 @@ const DateInput = () => {
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
   const [showCalendar, setShowCalendar] = useState(false);
-  const calendarRef = useRef(null); // Ref for positioning
+  const calendarRef = useRef(null); 
 
-  // Handle manual input (only allow numbers)
+  const getToday = () => {
+    const date = new Date();
+    return {
+      day: String(date.getDate()).padStart(2, "0"), 
+      month: String(date.getMonth() + 1).padStart(2, "0"), 
+      year: String(date.getFullYear()),
+    };
+  };
+
+  useEffect(() => {
+    const { day, month, year } = getToday();
+    setDay(day);
+    setMonth(month);
+    setYear(year);
+  }, []);
+
   const handleDayChange = (e) => {
-    const value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
+    const value = e.target.value.replace(/\D/g, "");
     if (value <= 31) setDay(value);
   };
 
   const handleMonthChange = (e) => {
-    const value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
+    const value = e.target.value.replace(/\D/g, ""); 
     if (value <= 12) setMonth(value);
   };
 
   const handleYearChange = (e) => {
-    const value = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
+    const value = e.target.value.replace(/\D/g, "");
     if (value.length <= 4) setYear(value);
   };
 
-  // Handle date selection from the calendar
   const handleDateChange = (event) => {
     const selectedDate = event.target.value;
-    const dateParts = selectedDate.split("-"); // Format: YYYY-MM-DD
+    const dateParts = selectedDate.split("-"); 
     if (dateParts.length === 3) {
       setYear(dateParts[0]);
       setMonth(dateParts[1]);
       setDay(dateParts[2]);
     }
-    setShowCalendar(false); // Close the calendar after selection
+    setShowCalendar(false);
   };
 
   return (

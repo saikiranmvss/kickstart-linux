@@ -3,7 +3,7 @@ import { Card, Button } from "react-bootstrap";
 import { FaClock , FaRegComment  } from "react-icons/fa";
 import JourneySaveButton from "./journeySaveButton"
 
-const JourneyInvestors = () => {
+const JourneyInvestors = ({ journeyForm, setJourneyForm }) => {
 
     return (
         <div>
@@ -46,7 +46,7 @@ const JourneyInvestors = () => {
             </div>
 
 
-            <JourneySaveButton pageValue="04" />
+            <JourneySaveButton pageValue="04" journeyForm={journeyForm} setJourneyForm={setJourneyForm}  />
 
         </div>
     )

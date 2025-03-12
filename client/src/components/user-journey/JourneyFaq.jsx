@@ -2,7 +2,7 @@ import { useState } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import JourneySaveButton from "./journeySaveButton"
 
-const JourneyFaq = () => {
+const JourneyFaq = ({ journeyForm, setJourneyForm }) => {
 
     const [titleValue, setTitleValue] = useState("");
     const [SubtitleValue, setSubTitleValue] = useState("");
@@ -79,7 +79,7 @@ const JourneyFaq = () => {
         </div>
 
         
-        <JourneySaveButton pageValue="05" />
+        <JourneySaveButton pageValue="05" journeyForm={journeyForm} setJourneyForm={setJourneyForm}  />
 
     </div>
     )

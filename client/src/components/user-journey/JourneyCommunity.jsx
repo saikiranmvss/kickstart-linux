@@ -3,7 +3,7 @@ import { Card, Button , Badge } from "react-bootstrap";
 import { FaComments } from "react-icons/fa";
 import JourneySaveButton from "./journeySaveButton"
 
-const JourneyCommunity = () => {
+const JourneyCommunity = ({ journeyForm, setJourneyForm }) => {
 
     return (
         <div>
@@ -31,7 +31,7 @@ const JourneyCommunity = () => {
             </div>
 
             
-            <JourneySaveButton pageValue="07" />
+            <JourneySaveButton pageValue="07" journeyForm={journeyForm} setJourneyForm={setJourneyForm}  />
 
         </div>
     )

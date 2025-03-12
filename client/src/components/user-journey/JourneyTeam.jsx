@@ -1,7 +1,7 @@
 import { useState } from "react";
 import JourneySaveButton from "./journeySaveButton"
 
-const JourneyTeam = () => {
+const JourneyTeam = ({ journeyForm, setJourneyForm }) => {
 
     const [titleValue, setTitleValue] = useState("");
     const [SubtitleValue, setSubTitleValue] = useState("");
@@ -187,7 +187,7 @@ const JourneyTeam = () => {
             </div>
 
                        
-            <JourneySaveButton pageValue="03" />
+            <JourneySaveButton pageValue="03" journeyForm={journeyForm} setJourneyForm={setJourneyForm}  />
 
         </div>
     )

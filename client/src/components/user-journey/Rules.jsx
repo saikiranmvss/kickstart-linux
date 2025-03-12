@@ -1,11 +1,15 @@
 import { useOutletContext } from "react-router-dom";
 
-const Rules = () =>{
+const Rules = ({ journeyForm, setJourneyForm }) =>{
 
   const { setJourneyActiveTab } = useOutletContext();
 
   const termsAccept = () => {
     setJourneyActiveTab("Category");
+    setJourneyForm((prevForm) => ({
+      ...prevForm,
+      agreement: "1"
+    }));
   };
 
     return (

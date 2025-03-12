@@ -1,6 +1,11 @@
 import { FaEye, FaSave } from "react-icons/fa";
 
-const JourneySaveButton = ({ pageValue }) => {
+const JourneySaveButton = ({ pageValue, journeyForm, setJourneyForm }) => {
+
+    const handleSave = () => {
+        console.log("Saving journeyForm:", journeyForm);
+      };
+
     return (
         <div>
             <div className="p-4 mt-4 text-center align-items-center bg-white shadow-sm rounded row">
@@ -11,7 +16,7 @@ const JourneySaveButton = ({ pageValue }) => {
                     <button type="button" className="btn btn-light mr-4">
                         <FaEye /> Preview
                     </button>  
-                    <button type="button" className="btn btn-primary">
+                    <button type="button" className="btn btn-primary" onClick={handleSave} >
                         <FaSave /> Save and Next
                     </button>  
                 </div>

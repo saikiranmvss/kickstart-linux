@@ -11,7 +11,6 @@ import JourneyCommunity from '../../components/user-journey/JourneyCommunity.jsx
 
 const JourneyHome = () => {
   const { JourneyActiveTab } = useOutletContext();
-  const [pageValue , setPageValue] = useState(0);
   const [journeyForm , setJourneyForm] = useState({
       agreement:'',
       catPrimaryCategory:'',
@@ -45,14 +44,14 @@ const JourneyHome = () => {
   return (
     <div className="container w-50">
       <form>
-        {JourneyActiveTab === "Rules" && <Rules />}
-        {JourneyActiveTab === "Category" && <JourneyCategory />}
-        {JourneyActiveTab === "MyJourney" && <MyJourney />}
-        {JourneyActiveTab === "JourneyTeam" && <JourneyTeam />}
-        {JourneyActiveTab === "JourneyInvestors" && <JourneyInvestors />}
-        {JourneyActiveTab === "JourneyFaq" && <JourneyFaq />}
-        {JourneyActiveTab === "JourneyConnections" && <JourneyConnections />}
-        {JourneyActiveTab === "JourneyCommunity" && <JourneyCommunity />}
+        {JourneyActiveTab === "Rules" && <Rules journeyForm={journeyForm} setJourneyForm={setJourneyForm}  />}
+        {JourneyActiveTab === "Category" && <JourneyCategory journeyForm={journeyForm} setJourneyForm={setJourneyForm} />}
+        {JourneyActiveTab === "MyJourney" && <MyJourney journeyForm={journeyForm} setJourneyForm={setJourneyForm} />}
+        {JourneyActiveTab === "JourneyTeam" && <JourneyTeam journeyForm={journeyForm} setJourneyForm={setJourneyForm} />}
+        {JourneyActiveTab === "JourneyInvestors" && <JourneyInvestors journeyForm={journeyForm} setJourneyForm={setJourneyForm} />}
+        {JourneyActiveTab === "JourneyFaq" && <JourneyFaq journeyForm={journeyForm} setJourneyForm={setJourneyForm} />}
+        {JourneyActiveTab === "JourneyConnections" && <JourneyConnections journeyForm={journeyForm} setJourneyForm={setJourneyForm} />}
+        {JourneyActiveTab === "JourneyCommunity" && <JourneyCommunity journeyForm={journeyForm} setJourneyForm={setJourneyForm} />}
       </form>
     </div>
   );

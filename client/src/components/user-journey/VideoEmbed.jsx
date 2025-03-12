@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 
-const VideoEmbed = () => {
+const VideoEmbed = ({setJourneyForm , videoKey}) => {
   const [videoUrl, setVideoUrl] = useState(""); 
   const [embedUrl, setEmbedUrl] = useState("https://www.youtube.com/embed/X-XZx1o_w-A?si=t79V8LHyudH15n6q"); 
 
   const handleInputChange = (e) => {
     setVideoUrl(e.target.value);
+    setJourneyForm((prevForm) => ({
+      ...prevForm,
+      [videoKey]: e.target.value, 
+    }));
     const embed = getEmbedUrl(videoUrl);
     if (embed) {
       setEmbedUrl(embed);

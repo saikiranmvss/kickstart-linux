@@ -5,7 +5,7 @@ import { FaPlus } from "react-icons/fa";
 import JourneySaveButton from './journeySaveButton';
 
 
-const JourneyCategory = () => {
+const MyJourney = ({ journeyForm, setJourneyForm }) => {
 
     const [titleValue, setTitleValue] = useState("");
     const [SubtitleValue, setSubTitleValue] = useState("");
@@ -16,6 +16,7 @@ const JourneyCategory = () => {
         const words = e.target.value.trim().split(/\s+/); 
         if (words.filter(word => word !== "").length <= maxLength) {
             setTitleValue(e.target.value);
+
         }
     };
 
@@ -149,10 +150,10 @@ const JourneyCategory = () => {
             <br />
 
             
-            <JourneySaveButton pageValue="02" />
+            <JourneySaveButton pageValue="02" journeyForm={journeyForm} setJourneyForm={setJourneyForm}  />
          
         </div>
     );
 };
 
-export default JourneyCategory;
+export default MyJourney;
