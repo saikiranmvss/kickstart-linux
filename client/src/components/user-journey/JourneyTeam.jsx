@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Card, Button } from "react-bootstrap";
-import { FaClock } from "react-icons/fa";
+import JourneySaveButton from "./journeySaveButton"
 
 const JourneyTeam = () => {
 
@@ -186,6 +185,9 @@ const JourneyTeam = () => {
                     </div>
                 </div>
             </div>
+
+                       
+            <JourneySaveButton pageValue="03" />
 
         </div>
     )

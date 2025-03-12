@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Card, Button , Badge } from "react-bootstrap";
 import { FaComments } from "react-icons/fa";
+import JourneySaveButton from "./journeySaveButton"
 
 const JourneyCommunity = () => {
 
@@ -28,6 +29,9 @@ const JourneyCommunity = () => {
                     </Card.Body>
                 </div>
             </div>
+
+            
+            <JourneySaveButton pageValue="07" />
 
         </div>
     )

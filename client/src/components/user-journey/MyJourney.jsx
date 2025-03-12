@@ -2,6 +2,8 @@ import { useState } from "react";
 import VideoEmbed from './VideoEmbed';
 import DateInput from '../datePicker';
 import { FaPlus } from "react-icons/fa";
+import JourneySaveButton from './journeySaveButton';
+
 
 const JourneyCategory = () => {
 
@@ -145,6 +147,10 @@ const JourneyCategory = () => {
             <div className="d-flex justify-content-end align-items-center"><span className="m-0 pr-4">Add More</span><button className="form-control w-10" > <FaPlus style={{fontSize:'18px'}}/></button></div>
            
             <br />
+
+            
+            <JourneySaveButton pageValue="02" />
+         
         </div>
     );
 };

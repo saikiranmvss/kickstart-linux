@@ -1,6 +1,7 @@
 import { useState } from "react";
 import VideoEmbed from './VideoEmbed';
 import DateInput from '../datePicker';
+import JourneySaveButton from "./journeySaveButton"
 
 const JourneyCategory = () => {
 
@@ -174,6 +175,7 @@ const JourneyCategory = () => {
                 <p>This will give a clarity showcase to the investors , how old is the idea. Which will investors will have a clarity for investment of revenue statistics.</p>
             </div>
 
+            <JourneySaveButton pageValue="01" />
 
         </div>
     );

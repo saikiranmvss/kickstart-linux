@@ -61,6 +61,8 @@ const Rules = () =>{
         <div className="d-flex align-items-center justify-content-center p-3 bg-white shadow-sm rounded">
               <div><button type="button" onClick={()=>termsAccept()} className='btn btn-light'>Accept & Agree</button></div>
         </div>
+
+
         </div>
     )
 }

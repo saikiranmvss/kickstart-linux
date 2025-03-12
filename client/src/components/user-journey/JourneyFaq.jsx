@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Accordion from "react-bootstrap/Accordion";
+import JourneySaveButton from "./journeySaveButton"
 
 const JourneyFaq = () => {
 
@@ -76,6 +77,9 @@ const JourneyFaq = () => {
                 </Accordion.Item>
             </Accordion>
         </div>
+
+        
+        <JourneySaveButton pageValue="05" />
 
     </div>
     )
