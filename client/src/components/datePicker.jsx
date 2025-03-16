@@ -1,20 +1,21 @@
-import React, { useState , useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Form, InputGroup, Overlay, Popover } from "react-bootstrap";
 import { FaCalendarAlt } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const DateInput = () => {
+const DateInput = ({ setJourneyForm, dateKey }) => {
   const [day, setDay] = useState("");
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
+  const [formattedDate, setFormattedDate] = useState("");
   const [showCalendar, setShowCalendar] = useState(false);
-  const calendarRef = useRef(null); 
+  const calendarRef = useRef(null);
 
   const getToday = () => {
     const date = new Date();
     return {
-      day: String(date.getDate()).padStart(2, "0"), 
-      month: String(date.getMonth() + 1).padStart(2, "0"), 
+      day: String(date.getDate()).padStart(2, "0"),
+      month: String(date.getMonth() + 1).padStart(2, "0"),
       year: String(date.getFullYear()),
     };
   };
@@ -24,7 +25,24 @@ const DateInput = () => {
     setDay(day);
     setMonth(month);
     setYear(year);
+    setFormattedDate(`${year}-${month}-${day}`);
   }, []);
+
+  useEffect(() => {
+    if (day && month && year) {
+      const newDate = `${year}-${month}-${day}`;
+      setFormattedDate(newDate);
+    }
+  }, [day, month, year]);
+
+  useEffect(() => {
+    if (formattedDate) {
+      setJourneyForm((prevForm) => ({
+        ...prevForm,
+        [dateKey]: formattedDate,
+      }));
+    }
+  }, [formattedDate]);
 
   const handleDayChange = (e) => {
     const value = e.target.value.replace(/\D/g, "");
@@ -32,7 +50,7 @@ const DateInput = () => {
   };
 
   const handleMonthChange = (e) => {
-    const value = e.target.value.replace(/\D/g, ""); 
+    const value = e.target.value.replace(/\D/g, "");
     if (value <= 12) setMonth(value);
   };
 
@@ -43,11 +61,16 @@ const DateInput = () => {
 
   const handleDateChange = (event) => {
     const selectedDate = event.target.value;
-    const dateParts = selectedDate.split("-"); 
+    const dateParts = selectedDate.split("-");
     if (dateParts.length === 3) {
       setYear(dateParts[0]);
       setMonth(dateParts[1]);
       setDay(dateParts[2]);
+      setFormattedDate(selectedDate); // Use selectedDate directly
+      setJourneyForm((prevForm) => ({
+        ...prevForm,
+        [dateKey]: selectedDate,
+      }));
     }
     setShowCalendar(false);
   };
@@ -110,6 +133,7 @@ const DateInput = () => {
           <Popover.Body>
             <Form.Control
               type="date"
+              value={formattedDate}
               onChange={handleDateChange}
               className="form-control"
             />

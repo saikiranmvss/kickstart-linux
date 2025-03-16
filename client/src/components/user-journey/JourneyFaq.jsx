@@ -79,7 +79,7 @@ const JourneyFaq = ({ journeyForm, setJourneyForm }) => {
         </div>
 
         
-        <JourneySaveButton pageValue="05" journeyForm={journeyForm} setJourneyForm={setJourneyForm}  />
+        <JourneySaveButton pageValue="05" nextPageName='JourneyConnections' journeyForm={journeyForm} setJourneyForm={setJourneyForm}  />
 
     </div>
     )

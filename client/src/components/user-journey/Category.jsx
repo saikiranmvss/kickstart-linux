@@ -55,7 +55,7 @@ const JourneyCategory = ({ journeyForm, setJourneyForm }) => {
                 </div>
                 <div className="col-md-6 text-left mb-4">
                     <label htmlFor="primary-cat">Primary Sub-Category</label>
-                    <select className="form-select" name="primary-cat" id="primary-cat" onChange={(e) => setJourneyForm(prevForm => ({...prevForm,catSubPrimaryCategory: e.target.value }))}>
+                    <select className="form-select" name="primary-cat" id="primary-cat" onChange={(e) => setJourneyForm(prevForm => ({...prevForm,catPrimarySubCategory: e.target.value }))}>
                         <option value="0">Select</option>
                         <option value="1">Eco-Friendly</option>
                         <option value="2">Technology</option>
@@ -158,7 +158,7 @@ const JourneyCategory = ({ journeyForm, setJourneyForm }) => {
 
             <div className="p-4 text-center bg-white shadow-sm rounded row">
                 <div className="col-md-6 text-left mb-4">
-                    <DateInput setJourneyForm={setJourneyForm} />
+                    <DateInput setJourneyForm={setJourneyForm} dateKey="catStartUpBeginDate" />
                 </div>
                 <p>This will give a clarity showcase to the investors , how old is the idea. Which will investors will have a clarity for investment of revenue statistics.</p>
             </div>
@@ -172,12 +172,12 @@ const JourneyCategory = ({ journeyForm, setJourneyForm }) => {
 
             <div className="p-4 text-center bg-white shadow-sm rounded row">
             <div className="col-md-6 text-left mb-4">
-                    <DateInput setJourneyForm={setJourneyForm} />
+                    <DateInput setJourneyForm={setJourneyForm} dateKey="catStartUpLaunchDate" />
                 </div>
                 <p>This will give a clarity showcase to the investors , how old is the idea. Which will investors will have a clarity for investment of revenue statistics.</p>
             </div>
 
-            <JourneySaveButton pageValue="01" journeyForm={journeyForm} setJourneyForm={setJourneyForm}  />
+            <JourneySaveButton pageValue="01" nextPageName='MyJourney' journeyForm={journeyForm} setJourneyForm={setJourneyForm}  />
 
         </div>
     );

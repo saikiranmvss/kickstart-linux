@@ -1,9 +1,26 @@
 import { FaEye, FaSave } from "react-icons/fa";
+import { useOutletContext } from "react-router-dom";
 
-const JourneySaveButton = ({ pageValue, journeyForm, setJourneyForm }) => {
+const JourneySaveButton = ({ pageValue, nextPageName, journeyForm, setJourneyForm }) => {
+    const { setJourneyActiveTab } = useOutletContext();
 
-    const handleSave = () => {
-        console.log("Saving journeyForm:", journeyForm);
+      const handleSave = () => {
+        if(nextPageName!=''){
+            setJourneyActiveTab(nextPageName);
+        }
+        setJourneyForm(prevForm => ({
+          ...prevForm,
+          catTitle: prevForm.journeyTitleBlocks.map(block => block.title).join(', '),
+          catSubtitle: prevForm.journeyTitleBlocks.map(block => block.subTitle).join(', '),
+          catVideo: prevForm.journeyVideos.map(video => video.video).join(', '),
+          journeyWebVideos: prevForm.journeyWebVideos.join(', '),
+          journeyTitles: prevForm.journeyTitles.join(', '),
+          journeyContents: prevForm.journeyContents.join(', '),
+          journeyImages: prevForm.journeyImages.map(image => image.image).join(', '),
+        }));
+        
+        console.log("Updated Journey Form:", journeyForm);
+        alert("Journey Form updated successfully!");
       };
 
     return (

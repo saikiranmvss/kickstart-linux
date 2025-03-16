@@ -31,7 +31,7 @@ const JourneyCommunity = ({ journeyForm, setJourneyForm }) => {
             </div>
 
             
-            <JourneySaveButton pageValue="07" journeyForm={journeyForm} setJourneyForm={setJourneyForm}  />
+            <JourneySaveButton pageValue="07" nextPageName='' journeyForm={journeyForm} setJourneyForm={setJourneyForm}  />
 
         </div>
     )

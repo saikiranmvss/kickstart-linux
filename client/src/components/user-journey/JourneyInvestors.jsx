@@ -46,7 +46,7 @@ const JourneyInvestors = ({ journeyForm, setJourneyForm }) => {
             </div>
 
 
-            <JourneySaveButton pageValue="04" journeyForm={journeyForm} setJourneyForm={setJourneyForm}  />
+            <JourneySaveButton pageValue="04" nextPageName='JourneyFaq' journeyForm={journeyForm} setJourneyForm={setJourneyForm}  />
 
         </div>
     )
