@@ -3,7 +3,7 @@ const Footer = () => {
       <footer className="bg-white text-gray-600 text-center p-0 border-t">
         <div className="row">
             <div className="col-md-4">
-                <img src="images/footer-img.png" alt="" srcset="" className="w-100"/>
+                <img src="images/footer-img.png" alt="" srcSet="" className="w-100"/>
             </div>
             <div className="col-md-8" style={{padding:'4rem'}}>
                 <div className="row">

@@ -436,7 +436,7 @@ const ViewProfile = () => {
                               </div>
                             </div>
                             <div className="col-md-12">
-                              <img src="images/community.png" alt="" srcset=""/>
+                              <img src="images/community.png" alt="" srcSet=""/>
                             </div>
                             <div className="col-md-12 mt-2">
                                 <div className="community-badge">
@@ -453,7 +453,7 @@ const ViewProfile = () => {
                               </div>
                             </div>
                             <div className="col-md-12">
-                              <img src="images/community.png" alt="" srcset=""/>
+                              <img src="images/community.png" alt="" srcSet=""/>
                             </div>
                             <div className="col-md-12 mt-2">
                                 <div className="community-badge">
@@ -470,7 +470,7 @@ const ViewProfile = () => {
                               </div>
                             </div>
                             <div className="col-md-12">
-                              <img src="images/community.png" alt="" srcset=""/>
+                              <img src="images/community.png" alt="" srcSet=""/>
                             </div>
                             <div className="col-md-12 mt-2">
                                 <div className="community-badge">
@@ -487,7 +487,7 @@ const ViewProfile = () => {
                               </div>
                             </div>
                             <div className="col-md-12">
-                              <img src="images/community.png" alt="" srcset=""/>
+                              <img src="images/community.png" alt="" srcSet=""/>
                             </div>
                             <div className="col-md-12 mt-2">
                                 <div className="community-badge">
@@ -504,7 +504,7 @@ const ViewProfile = () => {
                               </div>
                             </div>
                             <div className="col-md-12">
-                              <img src="images/community.png" alt="" srcset=""/>
+                              <img src="images/community.png" alt="" srcSet=""/>
                             </div>
                             <div className="col-md-12 mt-2">
                                 <div className="community-badge">
@@ -521,7 +521,7 @@ const ViewProfile = () => {
                               </div>
                             </div>
                             <div className="col-md-12">
-                              <img src="images/community.png" alt="" srcset=""/>
+                              <img src="images/community.png" alt="" srcSet=""/>
                             </div>
                             <div className="col-md-12 mt-2">
                                 <div className="community-badge">
