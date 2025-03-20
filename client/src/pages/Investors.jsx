@@ -26,7 +26,7 @@ const Investors = () => {
   }, []);
 
   return (
-<div className="container-fluid">
+<div className="container-fluid test">
 
 <div className="row">
     <div className="col-12">
