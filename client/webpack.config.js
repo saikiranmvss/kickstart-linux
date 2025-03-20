@@ -1,7 +1,9 @@
+const webpack = require("webpack");
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+require("dotenv").config();
 
 module.exports = {
   mode: process.env.NODE_ENV || "development",
@@ -23,6 +25,10 @@ module.exports = {
         changeOrigin: true,
       },
     ],
+    headers: {
+      "Cross-Origin-Opener-Policy": "same-origin-allow-popups",
+      "Cross-Origin-Embedder-Policy": "require-corp",
+    },
   },
   module: {
     rules: [
@@ -45,18 +51,17 @@ module.exports = {
   },
   plugins: [
     new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({
+    new HtmlWebpackPlugin({ 
       template: "./public/index.html",
     }),
     
     new CopyWebpackPlugin({
-
       patterns: [
-
-        { from: "public/assets", to: "assets" }, // ✅ Copy assets folder
-
+        { from: "public", to: "", globOptions: { ignore: ["**/index.html"] } }, 
       ],
-
+    }),
+    new webpack.DefinePlugin({
+      "process.env": JSON.stringify(process.env), 
     }),
   ],
   resolve: {
