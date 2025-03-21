@@ -13,7 +13,7 @@ const useEmailValidation = () => {
     }
     
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/validate-emails`, { email });
+      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/validate-emailss`, { email });
       if (response.data.message === "Email exists") {
         setErrors("");
         setIsValidEmail(true);
