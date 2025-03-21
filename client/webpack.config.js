@@ -21,7 +21,7 @@ module.exports = {
     proxy: [
       {
         context: ["/api"], 
-        target: "http://localhost:5000",
+        target: "http://16.170.173.76:5000",
         changeOrigin: true,
       },
     ],
