@@ -8,7 +8,7 @@ const Footer = () => {
             <div className="col-md-8" style={{padding:'4rem'}}>
                 <div className="row">
                     <div className="col-md-12 text-left">
-                        <h5>Kicksarter Platform</h5>
+                        <h5>Kickstarter Platform</h5>
                         <h6 style={{lineHeight:'1.8'}}>
                         Launched In 2024, The Startup Platform Initiative Has Introduced Several Programs Aimed At Connecting Entrepreneurs And Investors. These Programs Foster Collaboration, Build A Robust Startup Ecosystem, And Transform Bharat Into A Nation Of Job Creators Rather Than Job Seekers. The Dedicated Kickstarter Team Manages These Initiatives
                         </h6>

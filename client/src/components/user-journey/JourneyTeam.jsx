@@ -13,6 +13,10 @@ const JourneyTeam = ({ journeyForm, setJourneyForm }) => {
         if (words.filter(word => word !== "").length <= maxLength) {
             setTitleValue(e.target.value);
         }
+        setJourneyForm((prevForm) => ({
+            ...prevForm,
+            teamTitle: e.target.value,
+            }));
     };
 
     const handleSubTitleChange = (e) => {
@@ -20,6 +24,10 @@ const JourneyTeam = ({ journeyForm, setJourneyForm }) => {
         if (words.filter(word => word !== "").length <= SubTitlemaxLength) {
             setSubTitleValue(e.target.value);
         }
+        setJourneyForm((prevForm) => ({
+            ...prevForm,
+            teamSubTitle: e.target.value,
+            }));
       };
 
       const wordCount = titleValue.trim() === "" ? 0 : titleValue.trim().split(/\s+/).length;
@@ -53,7 +61,7 @@ const JourneyTeam = ({ journeyForm, setJourneyForm }) => {
             <div className="p-4 text-center bg-white shadow-sm rounded row">
                 <div className="col-md-6 text-left mb-4">
                     <label htmlFor="primary-cat">Primary Category</label>
-                    <select className="form-select" name="primary-cat" id="primary-cat">
+                    <select className="form-select" name="primary-cat" id="primary-cat" onChange={(e) => setJourneyForm(prevForm => ({...prevForm,teamPrimaryCategory: e.target.value }))}>
                         <option value="0">Select</option>
                         <option value="1">Eco-Friendly</option>
                         <option value="2">Technology</option>
@@ -62,7 +70,7 @@ const JourneyTeam = ({ journeyForm, setJourneyForm }) => {
                 </div>
                 <div className="col-md-6 text-left mb-4">
                     <label htmlFor="primary-cat">Roles & Responsibilities</label>
-                    <select className="form-select" name="primary-cat" id="primary-cat">
+                    <select className="form-select" name="primary-cat" id="primary-cat" onChange={(e) => setJourneyForm(prevForm => ({...prevForm,teamPrimaryRoles: e.target.value }))}>
                         <option value="0">Select</option>
                         <option value="1">Eco-Friendly</option>
                         <option value="2">Technology</option>
@@ -97,7 +105,7 @@ const JourneyTeam = ({ journeyForm, setJourneyForm }) => {
                 </div>
             </div>
             <br />
-            <div className="col-md-12 text-left mb-4">
+            {/* <div className="col-md-12 text-left mb-4">
                 <h4><strong>Multi-Owner Project Access</strong></h4>
                 <p>If your startup has multiple co-founders or a team contributing to your journey—such as advisors, developers, or designers—you can add them here to showcase their involvement and expertise.</p>
             </div>
@@ -184,10 +192,10 @@ const JourneyTeam = ({ journeyForm, setJourneyForm }) => {
                         <p className="text-left"><strong>Note:</strong> Make sure primary category 'Leader & Founders and Co-Founders'. Will have access to edit and make any necessary changes in the project. You can add or remove anytime you want.</p>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
                        
-            <JourneySaveButton pageValue="03" nextPageName='JourneyInvestors' journeyForm={journeyForm} setJourneyForm={setJourneyForm}  />
+            <JourneySaveButton pageValue="07" nextPageName='JourneyFaq' journeyForm={journeyForm} setJourneyForm={setJourneyForm}  />
 
         </div>
     )

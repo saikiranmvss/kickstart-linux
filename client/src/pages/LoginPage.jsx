@@ -57,7 +57,7 @@ const LoginPage = () => {
         } else if (data.message === "User created successfully") {
           localStorage.setItem('id', data.user._id); 
           localStorage.setItem('email', data.user.email); 
-          navigate("/dashboard"); 
+          navigate("/user-journey");
         }
       } catch (error) {
         console.error("Error sending Google user data:", error);

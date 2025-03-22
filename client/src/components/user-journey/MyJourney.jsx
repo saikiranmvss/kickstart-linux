@@ -31,33 +31,27 @@ const MyJourney = ({ journeyForm, setJourneyForm }) => {
         }));
       };
     
-    const updateBlock = (id, field, value) => {
-    setJourneyForm(prev => ({
-        ...prev,
-        journeyTitleBlocks: prev.journeyTitleBlocks.map(block =>
-        block.id === id ? { ...block, [field]: value } : block
-        )
-    }));
-    };
+      const updateBlock = (id, field, value) => {
+            setJourneyForm(prev => ({
+                ...prev,
+                journeyTitleBlocks: prev.journeyTitleBlocks.map(block =>
+                    block.id === id ? { ...block, [field]: value } : block
+                )
+            }));
+        };
+
   
-    const handleTitleChange = (e) => {
-        const words = e.target.value.trim().split(/\s+/); 
-        if (words.filter(word => word !== "").length <= maxLength) {
-            setTitleValue(e.target.value);
-            setJourneyForm(prevForm => ({...prevForm,catTitle: e.target.value }))
-
-        }
+    const handleTitleChange = (id, value) => {
+        updateBlock(id, 'title', value);
     };
 
-    const handleSubTitleChange = (e) => {
-        const words = e.target.value.trim().split(/\s+/); 
-        if (words.filter(word => word !== "").length <= SubTitlemaxLength) {
-            setSubTitleValue(e.target.value);
-            setJourneyForm(prevForm => ({...prevForm,catSubtitle: e.target.value }))
-        }
-      };
+    const handleSubTitleChange = (id, value) => {
+        updateBlock(id, 'subTitle', value);
+    };
+
 
     const handleContentChange = (value) => {
+        console.log(value);
         setJourneyForm((prevForm) => ({
             ...prevForm,
             journeyContents: value,
@@ -79,22 +73,37 @@ const MyJourney = ({ journeyForm, setJourneyForm }) => {
       };
       
 
-
       const handleImageUpload = (event) => {
-        const files = Array.from(event.target.files).map(file => ({ image: file.name })); 
-        setImageFiles(prev => [...prev, ...files]);   
+        // Map selected files to the correct structure
+        const files = Array.from(event.target.files).map(file => ({
+            image: file.name, // Display name
+            file: file        // File object for future processing (if needed)
+        }));
+    
+        // Update `imageFiles` state
+        setImageFiles(prev => [...prev, ...files]);
+    
+        // Update `journeyForm` state
         setJourneyForm(prev => ({
             ...prev,
-            journeyImages: [...prev.journeyImages, ...files]
+            journeyImages: [...(prev.journeyImages || []), ...files] // Ensure `journeyImages` is not undefined
         }));
     };
 
     const handleVideoUpload = (event) => {
-        const files = Array.from(event.target.files).map(file => ({ video: file.name }));
-        setVideoFiles(prev => [...prev, ...files]); 
+        // Map selected video files
+        const files = Array.from(event.target.files).map(file => ({
+            video: file.name,
+            file: file // Include the file object for further processing
+        }));
+    
+        // Update videoFiles state
+        setVideoFiles(prev => [...prev, ...files]);
+    
+        // Update `journeyForm` state
         setJourneyForm(prev => ({
             ...prev,
-            journeyVideos: [...prev.journeyVideos, ...files]
+            journeyVideos: [...(prev.journeyVideos || []), ...files] // Ensure `journeyVideos` is not undefined
         }));
     };
 
@@ -103,27 +112,30 @@ const MyJourney = ({ journeyForm, setJourneyForm }) => {
     };
     const handleDrop = (event, type) => {
         event.preventDefault();
+    
+        // Map dropped files
         const files = Array.from(event.dataTransfer.files).map(file => ({
-            [type === "images" ? "image" : "video"]: file.name
+            [type === "images" ? "image" : "video"]: file.name,
+            file: file // Include the file object for further processing (e.g., previews)
         }));
-
-        const Mainfiles = Array.from(event.dataTransfer.files);
-        if(type=="images"){
-            setImageFiles(prev => [...prev, ...Mainfiles]);   
-        }else{
-            setVideoFiles(prev => [...prev, ...Mainfiles]);   
+    
+        // Update the correct state based on type (images or videos)
+        if (type === "images") {
+            setImageFiles(prev => [...prev, ...files]); // Update imageFiles state
+        } else {
+            setVideoFiles(prev => [...prev, ...files]); // Update videoFiles state
         }
-        
-        console.log(videoFiles);
-
+    
+        // Update `journeyForm` state for the respective type
         setJourneyForm(prev => ({
             ...prev,
             [type === "images" ? "journeyImages" : "journeyVideos"]: [
-                ...prev[type === "images" ? "journeyImages" : "journeyVideos"],
+                ...(prev[type === "images" ? "journeyImages" : "journeyVideos"] || []), // Ensure it's not undefined
                 ...files
             ]
         }));
     };
+    
 
 
       const wordCount = titleValue.trim() === "" ? 0 : titleValue.trim().split(/\s+/).length;
@@ -137,15 +149,15 @@ const MyJourney = ({ journeyForm, setJourneyForm }) => {
             
 
             <p>Our AI-driven tool helps you craft a compelling startup pitch deck by refining and customizing your content for a perfect presentation. Simply paste your story, and AI will enhance it—structuring, polishing, and optimizing it for your startup journey.</p>
-            {journeyForm.journeyTitleBlocks.map((item, index) => (
-            <div className="p-4 text-center bg-white shadow-sm rounded row mt-4" key={index}>
+            {journeyForm.journeyTitleBlocks.map((block) => (
+            <div className="p-4 text-center bg-white shadow-sm rounded row mt-4" key={block.id}>
                 <div className="col-md-12 text-left mb-4">
                     <label className="form-label">Title</label>
                     <input
                         type="text"
                         className="form-control"
-                        value={titleValue}
-                        onChange={handleTitleChange}
+                        value={block.title}
+                        onChange={(e) => handleTitleChange(block.id, e.target.value)}
                     />
                     <small className="text-muted float-right">
                         {wordCount}/{maxLength} characters
@@ -157,8 +169,8 @@ const MyJourney = ({ journeyForm, setJourneyForm }) => {
                     <textarea
                         rows={4}
                         className="form-control"                    
-                        value={SubtitleValue}
-                        onChange={handleSubTitleChange}
+                        value={block.subTitle}
+                        onChange={(e) => handleSubTitleChange(block.id, e.target.value)}
                     ></textarea>
                     <small className="text-muted float-right">
                         {SubTitlewordCount}/{SubTitlemaxLength} characters
@@ -198,9 +210,11 @@ const MyJourney = ({ journeyForm, setJourneyForm }) => {
                             </p>
                         </div>
                         <div className="mt-3">
-                            {imageFiles.map((file, i) => (
-                                <p key={i}>{file.name}</p>
-                            ))}
+                        {imageFiles.map((file, i) => (
+                            <div key={i} className="mb-2">
+                                <p>{file.image || file.video}</p>
+                            </div>
+                        ))}
                         </div>
                     </div>
                 </div>   
@@ -235,9 +249,11 @@ const MyJourney = ({ journeyForm, setJourneyForm }) => {
                             </p>
                         </div>
                         <div className="mt-3">
-                            {videoFiles.map((file, i) => (
-                                <p key={i}>{file.name}</p>
-                            ))}
+                        {videoFiles.map((file, i) => (
+                            <div key={i} className="mb-2">
+                                <p>{file.video || file.image}</p>
+                            </div>
+                        ))}
                         </div>
                     </div>
                 </div>   
@@ -290,7 +306,7 @@ const MyJourney = ({ journeyForm, setJourneyForm }) => {
                 </div>
             </div>                  
             <br />
-            <JourneySaveButton pageValue="02" nextPageName='JourneyTeam' journeyForm={journeyForm} setJourneyForm={setJourneyForm}  />
+            <JourneySaveButton pageValue="04" nextPageName='JourneyTeam' journeyForm={journeyForm} setJourneyForm={setJourneyForm}  />
          
         </div>
     );

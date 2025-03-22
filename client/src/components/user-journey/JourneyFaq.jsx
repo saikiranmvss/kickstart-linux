@@ -1,90 +1,127 @@
 import { useState } from "react";
 import Accordion from "react-bootstrap/Accordion";
-import JourneySaveButton from "./journeySaveButton"
+import JourneySaveButton from "./journeySaveButton";
 
 const JourneyFaq = ({ journeyForm, setJourneyForm }) => {
+  const [titleValue, setTitleValue] = useState("");
+  const [subtitleValue, setSubtitleValue] = useState("");
+  const [faqs, setFaqs] = useState([]); // State to store dynamic FAQs
 
-    const [titleValue, setTitleValue] = useState("");
-    const [SubtitleValue, setSubTitleValue] = useState("");
-    const maxLength = 60;
-    const SubTitlemaxLength = 135;
-  
-    const handleTitleChange = (e) => {
-        const words = e.target.value.trim().split(/\s+/); 
-        if (words.filter(word => word !== "").length <= maxLength) {
-            setTitleValue(e.target.value);
-        }
-    };
+  const maxLength = 60;
+  const subtitleMaxLength = 135;
 
-    const handleSubTitleChange = (e) => {
-        const words = e.target.value.trim().split(/\s+/); 
-        if (words.filter(word => word !== "").length <= SubTitlemaxLength) {
-            setSubTitleValue(e.target.value);
-        }
-      };
+  const handleTitleChange = (e) => {
+    const words = e.target.value.trim().split(/\s+/);
+    if (words.filter((word) => word !== "").length <= maxLength) {
+      setTitleValue(e.target.value);
+    }
+  };
 
-      const wordCount = titleValue.trim() === "" ? 0 : titleValue.trim().split(/\s+/).length;
-      const SubTitlewordCount = SubtitleValue.trim() === "" ? 0 : SubtitleValue.trim().split(/\s+/).length;
+  const handleSubtitleChange = (e) => {
+    const words = e.target.value.trim().split(/\s+/);
+    if (words.filter((word) => word !== "").length <= subtitleMaxLength) {
+      setSubtitleValue(e.target.value);
+    }
+  };
 
-    return (
-        <div className="journey-faq">
-        <br />
-       <h4><strong>Frequently Asked Questions (FAQs)</strong></h4>
-        <p>The FAQ section provides answers to common questions from investors and users, helping them understand your startup better. As an entrepreneur, keep it updated to address key concerns and build trust.</p>
+  const addFaq = (e) => {
+    e.preventDefault();
+    if (titleValue.trim() === "" || subtitleValue.trim() === "") {
+      alert("Both question title and answer are required.");
+      return;
+    }
 
-        <div className="p-4 text-center bg-white shadow-sm rounded row">
-            <div className="col-md-12 text-left mb-4">
-                <label className="form-label">Question Title</label>
-                <input
-                    type="text"
-                    className="form-control"
-                    value={titleValue}
-                    onChange={handleTitleChange}
-                />
-                <small className="text-muted float-right">
-                    {wordCount}/{maxLength} Words
-                </small>
-            </div>
-            <br />
-            <div className="col-md-12 text-left mb-4">
-                <label className="form-label">Answer</label>
-                <textarea
-                    rows={4}
-                    className="form-control"                    
-                    value={SubtitleValue}
-                    onChange={handleSubTitleChange}
-                ></textarea>
-                <small className="text-muted float-right">
-                    {SubTitlewordCount}/{SubTitlemaxLength} Words
-                </small>
-            </div>
+    const newFaq = { id: Date.now(), question: titleValue, answer: subtitleValue };
 
+    // Update FAQs state
+    setFaqs((prev) => [...prev, newFaq]);
+
+    // Update journeyForm state
+    setJourneyForm((prev) => ({
+      ...prev,
+      faqData: [
+        ...(prev.faqData || []),
+        { id: newFaq.id, question: titleValue, answer: subtitleValue },
+      ],
+    }));
+
+    // Clear input fields
+    setTitleValue("");
+    setSubtitleValue("");
+  };
+
+  const wordCount = titleValue.trim() === "" ? 0 : titleValue.trim().split(/\s+/).length;
+  const subtitleWordCount = subtitleValue.trim() === "" ? 0 : subtitleValue.trim().split(/\s+/).length;
+
+  return (
+    <div className="journey-faq">
+      <br />
+      <h4>
+        <strong>Frequently Asked Questions (FAQs)</strong>
+      </h4>
+      <p>
+        The FAQ section provides answers to common questions from investors and users, helping them understand your startup better. As an entrepreneur, keep it updated to address key concerns and build trust.
+      </p>
+
+      <div className="p-4 text-center bg-white shadow-sm rounded row">
+        <div className="col-md-12 text-left mb-4">
+          <label className="form-label">Question Title</label>
+          <input
+            type="text"
+            className="form-control"
+            value={titleValue}
+            onChange={handleTitleChange}
+          />
+          <small className="text-muted float-right">
+            {wordCount}/{maxLength} Words
+          </small>
         </div>
-
         <br />
-        <h4>Added FAQ`s</h4>
-
-        <br />
-        <div className="p-4 text-center bg-white shadow-sm rounded row">
-            <Accordion className="w-100">
-                <Accordion.Item eventKey="0" className="border-0">
-                    <Accordion.Header className="border-0 bg-transparent">
-                        <span className="fw-bold">What is a Startup??</span>
-                    </Accordion.Header>
-                    <Accordion.Body className="border-0 bg-transparent">
-                    A startup is a young company founded to develop a unique product or service, bring it to market, and make it irresistible and irreplaceable for customers. Startups typically aim to innovate and scale rapidly.
-                    </Accordion.Body>
-                </Accordion.Item>
-            </Accordion>
+        <div className="col-md-12 text-left mb-4">
+          <label className="form-label">Answer</label>
+          <textarea
+            rows={4}
+            className="form-control"
+            value={subtitleValue}
+            onChange={handleSubtitleChange}
+          ></textarea>
+          <small className="text-muted float-right">
+            {subtitleWordCount}/{subtitleMaxLength} Words
+          </small>
         </div>
+        <div className="text-center">
+          <button type="button" className="btn btn-primary w-50" onClick={addFaq}>
+            Submit
+          </button>
+        </div>
+      </div>
 
-        
-        <JourneySaveButton pageValue="05" nextPageName='JourneyConnections' journeyForm={journeyForm} setJourneyForm={setJourneyForm}  />
+      <br />
+      <h4>Added FAQs</h4>
+      <br />
+      <div className="p-4 text-center bg-white shadow-sm rounded row">
+        <Accordion className="w-100">
+          {faqs.map((faq, index) => (
+            <Accordion.Item eventKey={index.toString()} className="border-0" key={faq.id}>
+              <Accordion.Header className="border-0 bg-transparent">
+                <span className="fw-bold">{faq.question}</span>
+              </Accordion.Header>
+              <Accordion.Body className="border-0 bg-transparent">
+                {faq.answer}
+              </Accordion.Body>
+            </Accordion.Item>
+          ))}
+        </Accordion>
+      </div>
 
+      <JourneySaveButton
+        pageValue="05"
+        nextPageName="end"
+        journeyForm={journeyForm}
+        setJourneyForm={setJourneyForm}
+      />
     </div>
-    )
+  );
+};
 
-}
-
-    
 export default JourneyFaq;

@@ -20,6 +20,8 @@ import PublicDefaultLayout from './components/PublicDefaultLayout';
 import UserJourney from './components/UserJourney';
 import axios from 'axios';
 import './styles/global.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 const ProtectedRoute = ({ children }) => {
@@ -56,6 +58,7 @@ const PublicRoute = ({ children }) => {
 const App = () => {
   return (
     <AuthProvider> 
+      <ToastContainer />
     <Router>
       <Routes>
         

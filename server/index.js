@@ -8,6 +8,7 @@ const emailRoutes = require('./routes/emailRoutes');
 const mailRoutes = require('./routes/mailRoutes');  
 const userRoutes = require('./routes/userRoutes');  
 const fileUploads = require('./routes/fileUploads');  
+const journeyRoutes = require('./routes/journeyRoutes');  
 const session = require('express-session');
 
 const app = express();
@@ -32,6 +33,7 @@ app.use('/api', emailRoutes);
 app.use('/api/email', mailRoutes);
 app.use('/api', userRoutes);
 app.use('/api', fileUploads);
+app.use('/api', journeyRoutes);
 
 app.get('/', (req, res) => {
   res.send('Welcome to the backend server!');

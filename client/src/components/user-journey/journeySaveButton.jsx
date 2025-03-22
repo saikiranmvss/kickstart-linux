@@ -1,30 +1,79 @@
 import { FaEye, FaSave } from "react-icons/fa";
 import { useOutletContext } from "react-router-dom";
+import axios from 'axios';
+import Swal from "sweetalert2";
+import { toast } from "react-toastify";
 
 const JourneySaveButton = ({ pageValue, nextPageName, journeyForm, setJourneyForm }) => {
-    const { setJourneyActiveTab } = useOutletContext();
-
-      const handleSave = () => {
+    const { setJourneyActiveTab } = useOutletContext();              
+      const handleSave = async () => {
+        const email = localStorage.getItem('email');
+        setJourneyForm(prevForm => ({...prevForm,email: email }))
         if(nextPageName!=''){
             setJourneyActiveTab(nextPageName);
         }
-        setJourneyForm(prevForm => ({
-          ...prevForm,
-          catTitle: prevForm.journeyTitleBlocks.map(block => block.title).join(', '),
-          catSubtitle: prevForm.journeyTitleBlocks.map(block => block.subTitle).join(', '),
-          catVideo: prevForm.journeyVideos.map(video => video.video).join(', '),
-          journeyWebVideos: prevForm.journeyWebVideos.join(', '),
-          journeyTitles: prevForm.journeyTitles.join(', '),
-          journeyContents: prevForm.journeyContents.join(', '),
-          journeyImages: prevForm.journeyImages.map(image => image.image).join(', '),
-        }));
-        
-        console.log("Updated Journey Form:", journeyForm);
-        alert("Journey Form updated successfully!");
+        const updatedJourneyForm = {
+            ...journeyForm,
+            email,
+            catTitle: journeyForm.journeyTitleBlocks ?? journeyForm.journeyTitleBlocks.map(block => block.title).join(', '),
+            catSubtitle: journeyForm.journeyTitleBlocks ?? journeyForm.journeyTitleBlocks.map(block => block.subTitle).join(', '),
+            catVideo: journeyForm.journeyVideos ??  journeyForm.journeyVideos.map(video => video.video).join(', '),
+            journeyWebVideos: journeyForm.journeyWebVideos ?? journeyForm.journeyWebVideos.join(', '),
+            journeyTitles: journeyForm.journeyTitles ?? journeyForm.journeyTitles.join(', '),
+            journeyContents: journeyForm.journeyContents ?? journeyForm.journeyContents.join(', '),
+            journeyImages: journeyForm.journeyImages ?? journeyForm.journeyImages.map(image => image.image).join(', '),
+        };
+
+        setJourneyForm(updatedJourneyForm);
+        console.log(updatedJourneyForm)
+        try {
+            const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/user-journey`, {
+                ...journeyForm, 
+                email: email   
+            });
+            if (response.status == 200) {
+                if (nextPageName == "end") {
+                    Swal.fire({
+                      title: "Details Submitted Successfully!",
+                      icon: "success",
+                      showConfirmButton: false,
+                      timer: 3000, 
+                    });
+            
+                    toast.success("Redirecting to dashboard...", {
+                      position: "top-right",
+                      autoClose: 3000,
+                      hideProgressBar: false,
+                      closeOnClick: true,
+                      pauseOnHover: true,
+                      draggable: true,
+                      progress: undefined,
+                    });
+                                
+                    setTimeout(() => {
+                      window.location.href = "/dashboard";
+                    }, 3000); 
+
+                }
+
+            }
+        } catch (error) {
+            console.error("Error submitting form:", error);
+            toast.error("Something went wrong. Please try again.", {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+            });
+          }
+
       };
 
     return (
-        <div>
+        <div>            
             <div className="p-4 mt-4 text-center align-items-center bg-white shadow-sm rounded row">
                 <div className="col-md-4">
                     Showing | <span>{pageValue} - 07</span>
@@ -35,7 +84,7 @@ const JourneySaveButton = ({ pageValue, nextPageName, journeyForm, setJourneyFor
                     </button>  
                     <button type="button" className="btn btn-primary" onClick={handleSave} >
                         <FaSave /> Save and Next
-                    </button>  
+                    </button>                      
                 </div>
             </div>
         </div>

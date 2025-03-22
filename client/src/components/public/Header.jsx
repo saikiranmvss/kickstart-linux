@@ -8,12 +8,21 @@ const Header = () => {
 
   const [activeTab, setActiveTab] = useState("Profile");
 
+  const handleClick = () =>{
+    if(localStorage.getItem('id')){
+        navigate('/user-journey');
+        console.log('s')
+    }else{
+        navigate('/login');
+    } 
+  }
+
   return (
     <header id="page-topbar">
         <div className="navbar-header row justify-content-end">
             <div className='col-md-2 d-flex justify-content-center'>
                 <div className='d-flex align-items-center w-100'>
-                    <Link to="/user-journey" className='btn btn-primary mr-2'>Start Project</Link>
+                    <button onClick={()=>handleClick()} className='btn btn-primary mr-2'>Start Project</button>
                     <div className='header-user-icon'>
                     <Link to="/login" className=''><FaUser style={{fontSize:'18px'}}/></Link>
                     </div>

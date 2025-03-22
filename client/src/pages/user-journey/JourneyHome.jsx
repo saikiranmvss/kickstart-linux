@@ -12,6 +12,7 @@ import JourneyCommunity from '../../components/user-journey/JourneyCommunity.jsx
 const JourneyHome = () => {
   const { JourneyActiveTab } = useOutletContext();
   const [journeyForm , setJourneyForm] = useState({
+      email:'',
       agreement:'',
       catPrimaryCategory:'',
       catPrimarySubCategory:'',
@@ -37,9 +38,6 @@ const JourneyHome = () => {
       faqData:[{}],
   })
 
-  const saveJourney = () =>{
-
-  }
 
   return (
     <div className="container w-50">
@@ -48,10 +46,10 @@ const JourneyHome = () => {
         {JourneyActiveTab === "Category" && <JourneyCategory journeyForm={journeyForm} setJourneyForm={setJourneyForm} />}
         {JourneyActiveTab === "MyJourney" && <MyJourney journeyForm={journeyForm} setJourneyForm={setJourneyForm} />}
         {JourneyActiveTab === "JourneyTeam" && <JourneyTeam journeyForm={journeyForm} setJourneyForm={setJourneyForm} />}
-        {JourneyActiveTab === "JourneyInvestors" && <JourneyInvestors journeyForm={journeyForm} setJourneyForm={setJourneyForm} />}
+        {/* {JourneyActiveTab === "JourneyInvestors" && <JourneyInvestors journeyForm={journeyForm} setJourneyForm={setJourneyForm} />} */}
         {JourneyActiveTab === "JourneyFaq" && <JourneyFaq journeyForm={journeyForm} setJourneyForm={setJourneyForm} />}
-        {JourneyActiveTab === "JourneyConnections" && <JourneyConnections journeyForm={journeyForm} setJourneyForm={setJourneyForm} />}
-        {JourneyActiveTab === "JourneyCommunity" && <JourneyCommunity journeyForm={journeyForm} setJourneyForm={setJourneyForm} />}
+        {/* {JourneyActiveTab === "JourneyConnections" && <JourneyConnections journeyForm={journeyForm} setJourneyForm={setJourneyForm} />} */}
+        {/* {JourneyActiveTab === "JourneyCommunity" && <JourneyCommunity journeyForm={journeyForm} setJourneyForm={setJourneyForm} />} */}
       </form>
     </div>
   );
