@@ -61,3 +61,19 @@ padding: calc(90px + 24px) calc(24px / 2) 60px calc(24px / 2); }
     background: #fff;
     box-shadow: 0 0 #fff;
 }
+
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    background-color: #f8f9fa; /* Light background for better visibility */
+  }
+  
+  .no-data-container {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+    padding: 2rem;
+  }
+  

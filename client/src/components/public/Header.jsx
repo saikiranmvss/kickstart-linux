@@ -10,8 +10,8 @@ const Header = () => {
 
   const handleClick = () =>{
     if(localStorage.getItem('id')){
+        console.log('sdf')
         navigate('/user-journey');
-        console.log('s')
     }else{
         navigate('/login');
     } 

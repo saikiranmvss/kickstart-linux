@@ -30,4 +30,32 @@ const saveJourney = async (req, res) => {
   }
 };
 
-module.exports = { saveJourney };
+
+const getJourneys = async (req, res) => {
+  try {
+    const { email } = req.query; // Retrieve the email from query parameters.
+
+    if (!email) {
+      return res.status(400).json({ message: "Email is required to fetch journeys." });
+    }
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "No user found with the provided email." });
+    }
+
+    const journeys = await Journey.find({ email }); // Retrieve all journeys associated with the email.
+
+    // if (journeys.length === 0) {
+    //   return res.status(404).json({ message: "No journeys found for the provided email." });
+    // }
+
+    return res.status(200).json({ message: "Journeys retrieved successfully", journeys });
+  } catch (error) {
+    console.error("Error fetching journeys:", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+module.exports = { saveJourney ,getJourneys };

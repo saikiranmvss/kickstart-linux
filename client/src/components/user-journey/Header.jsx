@@ -11,14 +11,14 @@ const Header = ({ JourneyActiveTab, setJourneyActiveTab }) => {
         <div className="navbar-header row justify-content-end">
             <div className='col-md-2 d-flex justify-content-center'>
                 <div className='d-flex align-items-center w-100'>
-                    <button type="button" className='btn btn-outline-dark mr-2'><FaEye />   Preview</button>
+                    {/* <button type="button" className='btn btn-outline-dark mr-2'><FaEye />   Preview</button>
                     <div className='header-user-icon'>
                         <FaUser />
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>
-        <div className='col-md-12 d-flex justify-content-center'>
+        <div className='col-md-12 d-flex justify-content-center'>   
             <div className="d-flex align-items-center pr-4">
             <i className="fas fa-arrow-circle-left"></i>
             </div>

@@ -2,29 +2,19 @@ import React, { useState, useEffect, useRef } from "react";
 import { Form, InputGroup, Overlay, Popover } from "react-bootstrap";
 import { FaCalendarAlt } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { parse } from 'date-fns';
 
-const DateInput = ({ setJourneyForm, dateKey }) => {
-  const [day, setDay] = useState("");
-  const [month, setMonth] = useState("");
-  const [year, setYear] = useState("");
+const DateInput = ({ setJourneyForm, dateKey , dateData }) => {
+  const [day, setDay] = useState(()=>String(new Date(dateData).getDate()).padStart(2, '0'));
+  const [month, setMonth] = useState(()=>String(new Date(dateData).getMonth()).padStart(2, '0'));
+  const [year, setYear] = useState(()=>String(new Date(dateData).getFullYear()).padStart(2, '0'));
   const [formattedDate, setFormattedDate] = useState("");
   const [showCalendar, setShowCalendar] = useState(false);
   const calendarRef = useRef(null);
 
-  const getToday = () => {
-    const date = new Date();
-    return {
-      day: String(date.getDate()).padStart(2, "0"),
-      month: String(date.getMonth() + 1).padStart(2, "0"),
-      year: String(date.getFullYear()),
-    };
-  };
-
   useEffect(() => {
-    const { day, month, year } = getToday();
-    setDay(day);
-    setMonth(month);
-    setYear(year);
+    const parsedDate = parse('2025-09-23', 'dd/MM/yyyy', new Date());
+    console.log(parsedDate);
     setFormattedDate(`${year}-${month}-${day}`);
   }, []);
 

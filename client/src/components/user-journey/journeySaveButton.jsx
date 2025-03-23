@@ -15,9 +15,8 @@ const JourneySaveButton = ({ pageValue, nextPageName, journeyForm, setJourneyFor
         const updatedJourneyForm = {
             ...journeyForm,
             email,
-            catTitle: journeyForm.journeyTitleBlocks ?? journeyForm.journeyTitleBlocks.map(block => block.title).join(', '),
-            catSubtitle: journeyForm.journeyTitleBlocks ?? journeyForm.journeyTitleBlocks.map(block => block.subTitle).join(', '),
-            catVideo: journeyForm.journeyVideos ??  journeyForm.journeyVideos.map(video => video.video).join(', '),
+            journeyTitleBlocks: journeyForm.journeyTitleBlocks ?? journeyForm.journeyTitleBlocks.map(block => block.title).join(', '),
+            journeyVideos: journeyForm.journeyVideos ??  journeyForm.journeyVideos.map(video => video.video).join(', '),
             journeyWebVideos: journeyForm.journeyWebVideos ?? journeyForm.journeyWebVideos.join(', '),
             journeyTitles: journeyForm.journeyTitles ?? journeyForm.journeyTitles.join(', '),
             journeyContents: journeyForm.journeyContents ?? journeyForm.journeyContents.join(', '),

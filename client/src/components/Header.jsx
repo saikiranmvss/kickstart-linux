@@ -4,8 +4,9 @@ const Header = () => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        localStorage.removeItem("id"); // Remove ID from local storage
-        navigate("/login"); // Redirect to login page
+        localStorage.removeItem("id");
+        localStorage.removeItem("email");
+        navigate("/login"); 
       };
 
   return (

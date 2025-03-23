@@ -20,6 +20,7 @@ const AuthProvider = ({ children }) => {
       } catch (error) {
         console.error("Error fetching user:", error);
         localStorage.removeItem("id");
+        localStorage.removeItem("email");
         setUser(null);
       }
       

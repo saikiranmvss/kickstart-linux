@@ -44,6 +44,21 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
+// useEffect(() => {
+//   const fetchEmails = async () => {
+//     try {
+//       const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/journeys`);
+//       if (response.status === 200) {
+//         const emails = response.data.emails || [];
+//         setEmailRoutes(emails);
+//       }
+//     } catch (error) {
+//       console.error("Failed to fetch emails:", error);
+//     }
+//   };
+
+//   fetchEmails();
+// }, []);
 
 const PublicRoute = ({ children }) => {
   const isAuthenticated = localStorage.getItem('id');

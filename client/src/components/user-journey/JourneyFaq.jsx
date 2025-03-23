@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import JourneySaveButton from "./journeySaveButton";
 
@@ -9,6 +9,13 @@ const JourneyFaq = ({ journeyForm, setJourneyForm }) => {
 
   const maxLength = 60;
   const subtitleMaxLength = 135;
+
+  useEffect(() => {
+    // Preload existing FAQs from journeyForm
+    if (journeyForm.faqData) {
+      setFaqs(journeyForm.faqData);
+    }
+  }, [journeyForm.faqData]);
 
   const handleTitleChange = (e) => {
     const words = e.target.value.trim().split(/\s+/);

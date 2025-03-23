@@ -3,8 +3,8 @@ import JourneySaveButton from "./journeySaveButton"
 
 const JourneyTeam = ({ journeyForm, setJourneyForm }) => {
 
-    const [titleValue, setTitleValue] = useState("");
-    const [SubtitleValue, setSubTitleValue] = useState("");
+    const [titleValue, setTitleValue] = useState(journeyForm.teamTitle);
+    const [SubtitleValue, setSubTitleValue] = useState(journeyForm.teamSubTitle);
     const maxLength = 60;
     const SubTitlemaxLength = 135;
   
@@ -61,7 +61,7 @@ const JourneyTeam = ({ journeyForm, setJourneyForm }) => {
             <div className="p-4 text-center bg-white shadow-sm rounded row">
                 <div className="col-md-6 text-left mb-4">
                     <label htmlFor="primary-cat">Primary Category</label>
-                    <select className="form-select" name="primary-cat" id="primary-cat" onChange={(e) => setJourneyForm(prevForm => ({...prevForm,teamPrimaryCategory: e.target.value }))}>
+                    <select className="form-select" name="primary-cat" id="primary-cat" value={journeyForm.teamPrimaryCategory} onChange={(e) => setJourneyForm(prevForm => ({...prevForm,teamPrimaryCategory: e.target.value }))}>
                         <option value="0">Select</option>
                         <option value="1">Eco-Friendly</option>
                         <option value="2">Technology</option>
@@ -70,7 +70,7 @@ const JourneyTeam = ({ journeyForm, setJourneyForm }) => {
                 </div>
                 <div className="col-md-6 text-left mb-4">
                     <label htmlFor="primary-cat">Roles & Responsibilities</label>
-                    <select className="form-select" name="primary-cat" id="primary-cat" onChange={(e) => setJourneyForm(prevForm => ({...prevForm,teamPrimaryRoles: e.target.value }))}>
+                    <select className="form-select" name="primary-cat" id="primary-cat" value={journeyForm.teamPrimaryRoles} onChange={(e) => setJourneyForm(prevForm => ({...prevForm,teamPrimaryRoles: e.target.value }))}>
                         <option value="0">Select</option>
                         <option value="1">Eco-Friendly</option>
                         <option value="2">Technology</option>

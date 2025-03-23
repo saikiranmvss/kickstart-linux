@@ -1,4 +1,4 @@
-import React , {useState} from "react";
+import React , {useState , useEffect} from "react";
 import { useOutletContext } from "react-router-dom";
 import Rules from '../../components/user-journey/Rules.jsx';
 import JourneyCategory from '../../components/user-journey/Category.jsx';
@@ -10,7 +10,7 @@ import JourneyConnections from '../../components/user-journey/JourneyConnections
 import JourneyCommunity from '../../components/user-journey/JourneyCommunity.jsx'
 
 const JourneyHome = () => {
-  const { JourneyActiveTab } = useOutletContext();
+  const { JourneyActiveTab , journeyData } = useOutletContext();
   const [journeyForm , setJourneyForm] = useState({
       email:'',
       agreement:'',
@@ -22,8 +22,8 @@ const JourneyHome = () => {
       catTitle:'',
       catSubtitle:'',
       catVideo:'',
-      catStartUpBeginDate:'',
-      catStartUpLaunchDate:'',
+      catStartUpBeginDate:new Date().toLocaleDateString('en-GB').split('/').reverse().join('-'),
+      catStartUpLaunchDate:new Date().toLocaleDateString('en-GB').split('/').reverse().join('-'),
       journeyTitleBlocks:[],
       journeyImages:[{image:''}],
       journeyVideos:[{video:''}],
@@ -36,7 +36,16 @@ const JourneyHome = () => {
       teamTitle:'',
       teamSubTitle:'',
       faqData:[{}],
-  })
+  });
+
+  useEffect(() => {
+    if (journeyData) {
+      setJourneyForm((prevForm) => ({
+        ...prevForm,
+        ...journeyData, 
+      }));
+    }    
+  }, [journeyData]);
 
 
   return (

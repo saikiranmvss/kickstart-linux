@@ -1,15 +1,19 @@
-import { useState } from "react";
+import { useState , useEffect } from "react";
 import VideoEmbed from './VideoEmbed';
 import DateInput from '../datePicker';
 import JourneySaveButton from "./journeySaveButton"
 
 const JourneyCategory = ({ journeyForm, setJourneyForm }) => {
 
-    const [titleValue, setTitleValue] = useState("");
-    const [SubtitleValue, setSubTitleValue] = useState("");
+    const [titleValue, setTitleValue] = useState(journeyForm.catTitle);
+    const [SubtitleValue, setSubTitleValue] = useState(journeyForm.catSubtitle);
     const maxLength = 60;
     const SubTitlemaxLength = 135;
-  
+
+    useEffect(()=>{
+        console.log(journeyForm);
+    })
+
     const handleTitleChange = (e) => {
         const words = e.target.value.trim().split(/\s+/); 
         if (words.filter(word => word !== "").length <= maxLength) {
@@ -46,7 +50,7 @@ const JourneyCategory = ({ journeyForm, setJourneyForm }) => {
             <div className="p-4 text-center bg-white shadow-sm rounded row">
                 <div className="col-md-6 text-left mb-4">
                     <label htmlFor="primary-cat">Primary Category</label>
-                    <select className="form-select" name="primary-cat" id="primary-cat" onChange={(e) => setJourneyForm(prevForm => ({...prevForm,catPrimaryCategory: e.target.value }))}>
+                    <select className="form-select" name="primary-cat" id="primary-cat" value={journeyForm.catPrimaryCategory} onChange={(e) => setJourneyForm(prevForm => ({...prevForm,catPrimaryCategory: e.target.value }))}>
                         <option value="0">Select</option>
                         <option value="1">Eco-Friendly</option>
                         <option value="2">Technology</option>
@@ -55,7 +59,7 @@ const JourneyCategory = ({ journeyForm, setJourneyForm }) => {
                 </div>
                 <div className="col-md-6 text-left mb-4">
                     <label htmlFor="primary-cat">Primary Sub-Category</label>
-                    <select className="form-select" name="primary-cat" id="primary-cat" onChange={(e) => setJourneyForm(prevForm => ({...prevForm,catPrimarySubCategory: e.target.value }))}>
+                    <select className="form-select" name="primary-cat" id="primary-cat" value={journeyForm.catPrimarySubCategory} onChange={(e) => setJourneyForm(prevForm => ({...prevForm,catPrimarySubCategory: e.target.value }))}>
                         <option value="0">Select</option>
                         <option value="1">Eco-Friendly</option>
                         <option value="2">Technology</option>
@@ -64,7 +68,7 @@ const JourneyCategory = ({ journeyForm, setJourneyForm }) => {
                 </div>
                 <div className="col-md-6 text-left">
                     <label htmlFor="primary-cat">Category</label>
-                    <select className="form-select" name="primary-cat" id="primary-cat" onChange={(e) => setJourneyForm(prevForm => ({...prevForm,catCategory: e.target.value }))}>
+                    <select className="form-select" name="primary-cat" id="primary-cat" value={journeyForm.catCategory} onChange={(e) => setJourneyForm(prevForm => ({...prevForm,catCategory: e.target.value }))}>
                         <option value="0">Select</option>
                         <option value="1">Eco-Friendly</option>
                         <option value="2">Technology</option>
@@ -73,7 +77,7 @@ const JourneyCategory = ({ journeyForm, setJourneyForm }) => {
                 </div>
                 <div className="col-md-6 text-left">
                     <label htmlFor="primary-cat">Sub Category</label>
-                    <select className="form-select" name="primary-cat" id="primary-cat" onChange={(e) => setJourneyForm(prevForm => ({...prevForm,catSubCategory: e.target.value }))}>
+                    <select className="form-select" name="primary-cat" id="primary-cat" value={journeyForm.catSubCategory} onChange={(e) => setJourneyForm(prevForm => ({...prevForm,catSubCategory: e.target.value }))}>
                         <option value="0">Select</option>
                         <option value="1">Eco-Friendly</option>
                         <option value="2">Technology</option>
@@ -146,7 +150,7 @@ const JourneyCategory = ({ journeyForm, setJourneyForm }) => {
                 <li>Ensure your video meets these guidelines to provide a seamless and engaging experience for your audience!</li>
             </ul>
 
-            <VideoEmbed setJourneyForm = {setJourneyForm} videoKey="catVideo"  />
+            <VideoEmbed setJourneyForm = {setJourneyForm} videoKey="catVideo" videoData={journeyForm.catVideo}  />
             
             <br />
 
@@ -158,7 +162,7 @@ const JourneyCategory = ({ journeyForm, setJourneyForm }) => {
 
             <div className="p-4 text-center bg-white shadow-sm rounded row">
                 <div className="col-md-6 text-left mb-4">
-                    <DateInput setJourneyForm={setJourneyForm} dateKey="catStartUpBeginDate" />
+                    <DateInput setJourneyForm={setJourneyForm} dateKey="catStartUpBeginDate" dateData={journeyForm.catStartUpBeginDate} />
                 </div>
                 <p>This will give a clarity showcase to the investors , how old is the idea. Which will investors will have a clarity for investment of revenue statistics.</p>
             </div>
@@ -172,7 +176,7 @@ const JourneyCategory = ({ journeyForm, setJourneyForm }) => {
 
             <div className="p-4 text-center bg-white shadow-sm rounded row">
             <div className="col-md-6 text-left mb-4">
-                    <DateInput setJourneyForm={setJourneyForm} dateKey="catStartUpLaunchDate" />
+                    <DateInput setJourneyForm={setJourneyForm} dateKey="catStartUpLaunchDate" dateData={journeyForm.catStartUpLaunchDate} />
                 </div>
                 <p>This will give a clarity showcase to the investors , how old is the idea. Which will investors will have a clarity for investment of revenue statistics.</p>
             </div>
