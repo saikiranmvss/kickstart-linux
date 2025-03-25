@@ -23,7 +23,8 @@
   }
 
   .public-page-content {
-    padding: calc(90px + 24px) calc(24px / 2) 60px calc(24px / 2); }
+    padding: calc(90px + 24px) calc(24px / 2) 60px calc(24px / 2);
+ }
 
     .footer-2 , .footer-2-body{
         background-color: #f5f5f5;

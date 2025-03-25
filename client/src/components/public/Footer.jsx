@@ -55,8 +55,8 @@ const Footer = () => {
                 </div>
             </div>
         </div>
-        <div className="container-fluid footer-2">
-            <div className="container d-flex flex-column flex-md-row justify-content-between align-items-center footer-2-body p-3">
+        <div className="footer-2">
+            <div className="d-flex flex-column flex-md-row justify-content-between align-items-center footer-2-body p-3">
                 <div className="d-flex gap-3">
                 <a href="#" className="btn btn-outline-secondary rounded-circle p-2">
                     <i className="fab fa-linkedin-in"></i>
