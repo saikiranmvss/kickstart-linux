@@ -28,18 +28,19 @@ const JourneySaveButton = ({ pageValue, nextPageName, journeyForm, setJourneyFor
         try {
             const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/user-journey`, {
                 ...journeyForm, 
-                email: email   
+                email: email,
+                urlSlug:email.split('@')[0],
             });
             if (response.status == 200) {
                 if (nextPageName == "end") {
                     Swal.fire({
-                      title: "Details Submitted Successfully!",
+                      title: "Details Submitted and Public Url Generated Successfully!",
                       icon: "success",
                       showConfirmButton: false,
                       timer: 3000, 
                     });
             
-                    toast.success("Redirecting to dashboard...", {
+                    toast.success("Redirecting to your page...", {
                       position: "top-right",
                       autoClose: 3000,
                       hideProgressBar: false,
@@ -50,7 +51,7 @@ const JourneySaveButton = ({ pageValue, nextPageName, journeyForm, setJourneyFor
                     });
                                 
                     setTimeout(() => {
-                      window.location.href = "/dashboard";
+                      window.location.href = "/"+email.split('@')[0];
                     }, 3000); 
 
                 }

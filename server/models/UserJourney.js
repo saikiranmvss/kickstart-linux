@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const UserJourneySchema = new mongoose.Schema(
   {
     email: { type: mongoose.Schema.Types.Mixed, required: true },
+    urlSlug: { type: mongoose.Schema.Types.Mixed, required: true },
     agreement: { type: mongoose.Schema.Types.Mixed },
     catPrimaryCategory: { type: mongoose.Schema.Types.Mixed },
     catPrimarySubCategory: { type: mongoose.Schema.Types.Mixed },

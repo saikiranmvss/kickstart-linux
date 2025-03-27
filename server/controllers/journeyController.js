@@ -44,7 +44,7 @@ const getJourneys = async (req, res) => {
       return res.status(404).json({ message: "No user found with the provided email." });
     }
 
-    const journeys = await Journey.find({ email }); // Retrieve all journeys associated with the email.
+    const journeys = await Journey.find({ email }); 
 
     // if (journeys.length === 0) {
     //   return res.status(404).json({ message: "No journeys found for the provided email." });
@@ -57,5 +57,17 @@ const getJourneys = async (req, res) => {
   }
 };
 
+const getSlugs = async (req, res) => {
+  try {
 
-module.exports = { saveJourney ,getJourneys };
+    const Slugs = await Journey.find({}, { urlSlug: 1, _id: 0 }); 
+
+    return res.status(200).json({ message: "Slugs retrieved successfully", Slugs });
+  } catch (error) {
+    console.error("Error fetching journeys:", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+module.exports = { saveJourney ,getJourneys , getSlugs };
