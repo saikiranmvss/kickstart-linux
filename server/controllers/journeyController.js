@@ -69,5 +69,25 @@ const getSlugs = async (req, res) => {
   }
 };
 
+const getSlugJourney = async (req, res) => {
+  try {
+    const { name } = req.params; 
+    if (!name) {
+      return res.status(400).json({ message: "Slug name is required." });
+    }
 
-module.exports = { saveJourney ,getJourneys , getSlugs };
+    const journeys = await Journey.find({ Slug: name }); 
+
+    if (journeys.length === 0) {
+      return res.status(404).json({ message: "No journey found with the provided slug." });
+    }
+
+    return res.status(200).json({ message: "Journey retrieved successfully", journeys });
+  } catch (error) {
+    console.error("Error fetching journey by slug:", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+module.exports = { saveJourney ,getJourneys , getSlugs , getSlugJourney };

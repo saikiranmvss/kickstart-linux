@@ -5,12 +5,17 @@
 
 @import url('https://fonts.cdnfonts.com/css/sf-pro-display');
 @import url('@fortawesome/fontawesome-free/css/all.min.css');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-style: normal;
+  font-optical-sizing: auto;
+  font-size-adjust:0.5;
+  font-variation-settings:
+    "wdth" 100;
+    line-height:1.5;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -22,9 +27,13 @@ body {
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: "Poppins", sans-serif;
+    font-family: "Roboto", sans-serif;
     font-weight: 400;
     font-style: normal;
+    font-optical-sizing: auto;
+    font-variation-settings:
+      "wdth" 100;
+      line-height:1.5;
   }
 
   .loginContainer{
@@ -114,7 +123,7 @@ body {
 
 /* Scrollbar Thumb */
 ::-webkit-scrollbar-thumb {
-  background: #0d6efd; /* Dark gray thumb */
+  background: #0071e3; /* Dark gray thumb */
   border-radius: 5px; /* Rounded corners */
 }
 
@@ -143,4 +152,16 @@ button , .dropdown-menu{
 }
 .fas.fa-user {
   color: #007bff; /* Adjust the color as needed */
+}
+
+.iframe .ytp-chrome-top{
+  display: none;
+}
+
+.tab-border-left {
+  border-left: 3px solid #0071e3;
+}
+
+.tab-border-bottom {
+  border-bottom: 3px solid #0071e3;
 }

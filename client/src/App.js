@@ -3,6 +3,7 @@ import { AuthContext } from "./context/AuthContext";
 import AuthProvider from "./context/AuthContext";
 import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from "react-router-dom";
 import PublicHomePage from "./pages/public/HomePage";
+import MyJourney from "./pages/public/journey/MyJourney";
 import Journey from "./pages/user-journey/JourneyHome";
 import AboutPage from "./pages/AboutPage";
 import LoginPage from "./pages/LoginPage";
@@ -96,8 +97,8 @@ const App = () => {
 
           {/* Dynamic Slug Routes */}
           {slugs.map((slug, index) => (
-            <Route path={`/${slug.urlSlug}`} element={<PublicDefaultLayout />} key={index}>
-              <Route index element={<PublicHomePage />} />
+            <Route path={`/${slug.urlSlug}`} element={<PublicDefaultLayout method='slug' />} key={index}>
+              <Route index element={<MyJourney />} />
             </Route>
           ))}
 
