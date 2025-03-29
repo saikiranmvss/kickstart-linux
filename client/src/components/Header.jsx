@@ -79,7 +79,15 @@ const Header = () => {
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img className="rounded-circle header-profile-user" src="/images/default_img.jpg"
                         alt="Header Avatar" />
-                    <span className="d-none d-xl-inline-block ms-1">{user.name}</span>
+                    <span className="d-none d-xl-inline-block ms-1">
+                    {user?.name 
+                        ? user.name 
+                        : (user?.firstName || user?.lastName 
+                            ? `${user?.firstName || ''} ${user?.lastName || ''}`.trim() 
+                            : user?.email || ''
+                        )
+                    }
+                    </span>
                     <i className="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                 </button>
                 <div className="dropdown-menu dropdown-menu-end">
