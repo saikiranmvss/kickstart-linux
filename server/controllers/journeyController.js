@@ -76,7 +76,7 @@ const getSlugJourney = async (req, res) => {
       return res.status(400).json({ message: "Slug name is required." });
     }
 
-    const journeys = await Journey.find({ Slug: name }); 
+    const journeys = await Journey.find({ urlSlug: name }); 
 
     if (journeys.length === 0) {
       return res.status(404).json({ message: "No journey found with the provided slug." });

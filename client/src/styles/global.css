@@ -165,3 +165,23 @@ button , .dropdown-menu{
 .tab-border-bottom {
   border-bottom: 3px solid #0071e3;
 }
+
+/* Hide scrollbar but allow scrolling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari, and Edge */
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* For Internet Explorer and Edge */
+  scrollbar-width: none; /* For Firefox */
+}
+
+.public-faq .accordion-body{
+  visibility: visible;
+  text-align: left;
+}
+
+.public-faq .accordion-button{
+  background: #fff;
+  box-shadow: 0 0 #fff;
+}

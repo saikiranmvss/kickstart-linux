@@ -49,7 +49,8 @@ const JourneyHome = () => {
 
 
   return (
-    <div className="container w-50">
+    <div className="container-fluid d-flex justify-content-center g-0 bg-[#aeaeae14]">
+      <div className="w-50">
       <form>
         {JourneyActiveTab === "Rules" && <Rules journeyForm={journeyForm} setJourneyForm={setJourneyForm}  />}
         {JourneyActiveTab === "Category" && <JourneyCategory journeyForm={journeyForm} setJourneyForm={setJourneyForm} />}
@@ -60,6 +61,7 @@ const JourneyHome = () => {
         {/* {JourneyActiveTab === "JourneyConnections" && <JourneyConnections journeyForm={journeyForm} setJourneyForm={setJourneyForm} />} */}
         {/* {JourneyActiveTab === "JourneyCommunity" && <JourneyCommunity journeyForm={journeyForm} setJourneyForm={setJourneyForm} />} */}
       </form>
+      </div>
     </div>
   );
 };

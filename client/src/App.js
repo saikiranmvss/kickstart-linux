@@ -55,7 +55,7 @@ const PublicRoute = ({ children }) => {
 
 const App = () => {
   const [slugs, setSlugs] = useState([]);
-  const [loading, setLoading] = useState(true); // Add a loading state for the slugs
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchSlugs = async () => {
@@ -63,8 +63,7 @@ const App = () => {
         const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/user-slugs`);
         if (response.status === 200) {
           const fetchedSlugs = (response.data.Slugs || []).filter(slug => slug && slug.urlSlug);
-          setSlugs(fetchedSlugs); // Store slugs in state
-          console.log("Fetched Slugs:", fetchedSlugs);
+          setSlugs(fetchedSlugs); 
         }
       } catch (error) {
         console.error("Failed to fetch slugs:", error);

@@ -580,7 +580,7 @@ const ViewProfile = () => {
                           </div>
                           <div className="mb-3 form-group">
                               <label htmlFor="mobile" className="form-label">Date of Birth</label>
-                              <input type="date" name="dob" id="dob" className="form-control" value={formData.dob} onChange={handleInputChange}/>
+                              <input type="date" name="dob" id="dob" className="form-control" defaultValue={formData.dob} onChange={handleInputChange}/>
                           </div>
                           <div className="mb-3 form-group">
                           <label htmlFor="gender" className="form-label">Gender</label>

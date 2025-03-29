@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import VideoEmbed from './VideoEmbed';
-import DateInput from '../datePicker';
+import { Editor } from 'primereact/editor';
 import { FaPlus } from "react-icons/fa";
 import JourneySaveButton from './journeySaveButton';
 import { TagInput } from 'rsuite';
@@ -9,8 +8,6 @@ import 'rsuite/dist/rsuite.min.css';
 const MyJourney = ({ journeyForm, setJourneyForm }) => {
     const [imageFiles, setImageFiles] = useState([]);
     const [videoFiles, setVideoFiles] = useState([]);
-    const maxLength = 60;
-    const SubTitlemaxLength = 135;
 
     useEffect(() => {
         if (journeyForm.journeyTitleBlocks.length === 0) {
@@ -121,6 +118,22 @@ const MyJourney = ({ journeyForm, setJourneyForm }) => {
         }));
     };
 
+    const saveJourney = () => {
+        // Prepare the data to be sent to the backend
+        const payload = {
+            journeyTitleBlocks: journeyForm.journeyTitleBlocks,
+            journeyContents: journeyForm.journeyContents,
+            journeyTitles: journeyForm.journeyTitles,
+            journeyWebVideos: journeyForm.journeyWebVideos,
+            journeyImages: imageFiles,
+            journeyVideos: videoFiles
+        };
+
+        // Simulate an API call
+        console.log("Saving Journey:", payload);
+        // Make your backend API call here (e.g., using fetch or axios)
+    };
+
     return (
         <div>
             <br />
@@ -141,12 +154,11 @@ const MyJourney = ({ journeyForm, setJourneyForm }) => {
                     <br />
                     <div className="col-md-12 text-left mb-4">
                         <label className="form-label">Sub Title</label>
-                        <textarea
-                            rows={4}
-                            className="form-control"
-                            value={block.subTitle}
-                            onChange={(e) => handleSubTitleChange(block.id, e.target.value)}
-                        ></textarea>
+                        <Editor 
+                            value={block.subTitle} 
+                            onTextChange={(e) => handleSubTitleChange(block.id, e.htmlValue)} 
+                            style={{ height: '320px' }} 
+                        />
                     </div>
                 </div>
             ))}
@@ -242,6 +254,10 @@ const MyJourney = ({ journeyForm, setJourneyForm }) => {
                     />
                 </div>
             </div>
+
+            <br />
+            <button className="btn btn-primary" onClick={saveJourney}>Save Journey</button>
+
             <br />
             <JourneySaveButton pageValue="04" nextPageName="JourneyTeam" journeyForm={journeyForm} setJourneyForm={setJourneyForm} />
         </div>

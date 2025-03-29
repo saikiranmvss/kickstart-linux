@@ -76,9 +76,9 @@ const Dashboard = () => {
                         <td><span>Hyderabad</span><br/><span>Telanagana</span></td>
                         <td><span>Investors</span><br/><span>Angel Investors</span></td>
                         <td><span>02 Fouunders</span><br/><span>Connected</span></td>                        
-                        <td><span><i class="fas fa-eye"></i> 1.5k</span><br/><span><i class="fas fa-thumbs-up"></i> 1.5k</span></td>
+                        <td><span><i className="fas fa-eye"></i> 1.5k</span><br/><span><i className="fas fa-thumbs-up"></i> 1.5k</span></td>
                         <td><span>10 lakh</span></td>
-                        <td>  <span class="status active"><span class="circle green"></span> Active</span></td>
+                        <td>  <span className="status active"><span className="circle green"></span> Active</span></td>
                         <td><span>View</span></td>
                     </tr>
                     <tr>
@@ -89,9 +89,9 @@ const Dashboard = () => {
                       <td><span>Lucknow</span><br/><span>Uttar Pradesh</span></td>
                       <td><span>Private Equity</span><br/><span>Growth Stage</span></td>
                       <td><span>04 Founders</span><br/><span>Connected</span></td>
-                      <td><span><i class="fas fa-eye"></i> 3.6k</span><br/><span><i class="fas fa-thumbs-up"></i> 3.1k</span></td>
+                      <td><span><i className="fas fa-eye"></i> 3.6k</span><br/><span><i className="fas fa-thumbs-up"></i> 3.1k</span></td>
                       <td><span>24 lakh</span></td>
-                      <td><span class="status active"><span class="circle green"></span> Active</span></td>
+                      <td><span className="status active"><span className="circle green"></span> Active</span></td>
                       <td><span>View</span></td>
                     </tr>     
                     </tbody>
