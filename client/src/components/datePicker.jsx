@@ -2,46 +2,57 @@ import React, { useState, useEffect, useRef } from "react";
 import { Form, InputGroup, Overlay, Popover } from "react-bootstrap";
 import { FaCalendarAlt } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { parse } from 'date-fns';
 
-const DateInput = ({ setJourneyForm, dateKey , dateData }) => {
-  const [day, setDay] = useState(()=>String(new Date(dateData).getDate()).padStart(2, '0'));
-  const [month, setMonth] = useState(()=>String(new Date(dateData).getMonth()).padStart(2, '0'));
-  const [year, setYear] = useState(()=>String(new Date(dateData).getFullYear()).padStart(2, '0'));
+const DateInput = ({ setJourneyForm, dateKey, dateData }) => {
+  const [day, setDay] = useState("");
+  const [month, setMonth] = useState("");
+  const [year, setYear] = useState("");
   const [formattedDate, setFormattedDate] = useState("");
   const [showCalendar, setShowCalendar] = useState(false);
   const calendarRef = useRef(null);
 
+  // Initialize the date if `dateData` is empty
   useEffect(() => {
-    const parsedDate = parse('2025-09-23', 'dd/MM/yyyy', new Date());
-    console.log(parsedDate);
-    setFormattedDate(`${year}-${month}-${day}`);
-  }, []);
+    if (!dateData?.trim()) {
+      const today = new Date();
+      const defaultDate = {
+        day: String(today.getDate()).padStart(2, "0"),
+        month: String(today.getMonth() + 1).padStart(2, "0"),
+        year: String(today.getFullYear())
+      };
+      setDay(defaultDate.day);
+      setMonth(defaultDate.month);
+      setYear(defaultDate.year);
+    } else {
+      const parsedDate = new Date(dateData);
+      setDay(String(parsedDate.getDate()).padStart(2, "0"));
+      setMonth(String(parsedDate.getMonth() + 1).padStart(2, "0"));
+      setYear(String(parsedDate.getFullYear()));
+    }
+  }, [dateData]);
 
+  // Update formatted date whenever day, month, or year changes
   useEffect(() => {
     if (day && month && year) {
       const newDate = `${year}-${month}-${day}`;
       setFormattedDate(newDate);
+
+      // Update parent state
+      setJourneyForm((prevForm) => ({
+        ...prevForm,
+        [dateKey]: newDate,
+      }));
     }
   }, [day, month, year]);
 
-  useEffect(() => {
-    if (formattedDate) {
-      setJourneyForm((prevForm) => ({
-        ...prevForm,
-        [dateKey]: formattedDate,
-      }));
-    }
-  }, [formattedDate]);
-
   const handleDayChange = (e) => {
     const value = e.target.value.replace(/\D/g, "");
-    if (value <= 31) setDay(value);
+    if (value <= 31) setDay(value.padStart(2, "0"));
   };
 
   const handleMonthChange = (e) => {
     const value = e.target.value.replace(/\D/g, "");
-    if (value <= 12) setMonth(value);
+    if (value <= 12) setMonth(value.padStart(2, "0"));
   };
 
   const handleYearChange = (e) => {
@@ -56,11 +67,6 @@ const DateInput = ({ setJourneyForm, dateKey , dateData }) => {
       setYear(dateParts[0]);
       setMonth(dateParts[1]);
       setDay(dateParts[2]);
-      setFormattedDate(selectedDate); // Use selectedDate directly
-      setJourneyForm((prevForm) => ({
-        ...prevForm,
-        [dateKey]: selectedDate,
-      }));
     }
     setShowCalendar(false);
   };
@@ -110,6 +116,7 @@ const DateInput = ({ setJourneyForm, dateKey , dateData }) => {
       <InputGroup>
         <button
           ref={calendarRef}
+          type="button"
           className="btn btn-outline-secondary"
           onClick={() => setShowCalendar(!showCalendar)}
         >

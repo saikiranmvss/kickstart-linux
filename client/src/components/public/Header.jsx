@@ -1,16 +1,22 @@
 import { Link, useNavigate } from 'react-router-dom';
 import {FaUser} from  "react-icons/fa";
 import {  Nav  } from "react-bootstrap"
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 
 const Header = () => {
     const navigate = useNavigate();
+    const [userLog , setUserLog] = useState(0);
 
   const [activeTab, setActiveTab] = useState("Profile");
 
+    useEffect(()=>{
+        if(localStorage.getItem('id')){
+            setUserLog(1);
+        }
+    })
+
   const handleClick = () =>{
     if(localStorage.getItem('id')){
-        console.log('sdf')
         navigate('/user-journey');
     }else{
         navigate('/login');
@@ -22,10 +28,10 @@ const Header = () => {
         <div className="navbar-header row justify-content-end">
             <div className='col-md-2 d-flex justify-content-center'>
                 <div className='d-flex align-items-center w-100'>
-                    <button onClick={()=>handleClick()} className='btn btn-primary mr-2'>Start Project</button>
-                    <div className='header-user-icon'>
-                    <Link to="/login" className=''><FaUser style={{fontSize:'18px'}}/></Link>
-                    </div>
+                    <button onClick={()=>handleClick()} className='btn btn-primary mr-2'>{userLog==0 ? 'Start' : 'Edit your'} Project</button>
+                    {/* <div className='header-user-icon'> */}
+                    <Link to="/login" className='header-user-icon'><FaUser style={{fontSize:'18px'}}/></Link>
+                    {/* </div> */}
                 </div>
             </div>
         </div>

@@ -6,6 +6,10 @@ import React, { useState ,useEffect , useRef } from "react";;
 const Header = ({ JourneyActiveTab, setJourneyActiveTab }) => {
     const navigate = useNavigate();
 
+    const handleClick=(e)=>{
+        navigate('/');
+    }
+
   return (
     <header id="page-topbar">
         <div className="navbar-header row justify-content-end">
@@ -19,8 +23,8 @@ const Header = ({ JourneyActiveTab, setJourneyActiveTab }) => {
             </div>
         </div>
         <div className='col-md-12 d-flex justify-content-center'>   
-            <div className="d-flex align-items-center pr-4">
-            <i className="fas fa-arrow-circle-left"></i>
+            <div className="d-flex align-items-center pr-4 cursor-pointer" onClick={(e)=>handleClick(e)}>
+                <i className="fas fa-arrow-circle-left text-2xl"></i>
             </div>
                 <Nav variant="tabs" activeKey={JourneyActiveTab} onSelect={(selectedKey) => setJourneyActiveTab(selectedKey)} className="custom-tabs">
                     <Nav.Item>

@@ -12,7 +12,7 @@ const InvestmentCard = ({journey}) => {
             <h6 className="leading-loose">{ journey.catSubtitle }</h6>
         </div>
         <div className="col-md-6">
-            <iframe src={`${journey?.catVideo}?autoplay=0&controls=0`} className="w-100 rounded-lg" allowFullScreen height={400} ></iframe>
+            <iframe src={`${journey?.catVideo=='' ? 'https://placehold.co/800X400' : journey?.catVideo }?autoplay=0&controls=0`} className="w-100 rounded-lg" allowFullScreen height={400} ></iframe>
             <h6 className="text-[#767575]"><i className="fa-solid fa-location-dot me-1 text-[20px]"></i> {journey.catLocation} , India</h6>
         </div>
         <div className="col-md-3 d-flex flex-column justify-content-around p-4">
