@@ -24,7 +24,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const ProtectedRoute = ({ children }) => {
-  const isAuthenticated = localStorage.getItem("id");
+  const isAuthenticated = localStorage.getItem("accessToken");
   const location = useLocation();
   const { user, loading, fetchUserData } = useContext(AuthContext);
 
@@ -60,7 +60,7 @@ const App = () => {
   useEffect(() => {
     const fetchSlugs = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/user-slugs`);
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/journey/user-slugs`);
         if (response.status === 200) {
           const fetchedSlugs = (response.data.Slugs || []).filter(slug => slug && slug.urlSlug);
           setSlugs(fetchedSlugs); 

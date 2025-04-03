@@ -8,7 +8,7 @@ import { FaLinkedin, FaYoutube, FaGlobe , FaSave , FaCamera , FaEllipsisV } from
 import Events from './Events';
 import Select from "react-select";
 import ThreeWaySwitch from "../components/ThreeWaySwitch";
-import axios from "axios";
+import axios from "../utils/axiosConfig";
 
 const socialLinks = [
   { icon: <FaLinkedin className="text-white" />, url: "linkedin.com/Profile", bg: "bg-[#0077B5]" },
@@ -127,7 +127,7 @@ const ViewProfile = () => {
 
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/api/file-upload`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/upload/file-upload`,
         formDatas,
         { headers: { "Content-Type": "multipart/form-data" } }
       );     
@@ -151,7 +151,7 @@ const ViewProfile = () => {
 
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/api/file-upload`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/upload/file-upload`,
         formDatas,
         { headers: { "Content-Type": "multipart/form-data" } }
       );     
@@ -166,27 +166,26 @@ const ViewProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const email = localStorage.getItem('email');
+    const email = user.email;
     const jsonPayload = { ...formData, languages: selectedOptions.map(option => ({ value: option.value, label: option.label }))  , email : email};
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/save-profile`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(jsonPayload),
-        credentials: "include",
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to save data");
-      }
-
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/api/user/save-profile`,
+        jsonPayload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+    
       alert("Data saved successfully!");
     } catch (error) {
       console.error("Error:", error);
       alert("Error saving data");
     }
+    
   };
 
   const renderContent = () => {

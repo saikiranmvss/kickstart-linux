@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { sendEmail } = require('../utils/mailService');
 const crypto = require('crypto'); 
@@ -87,42 +88,39 @@ const validatePin = async (req, res) => {
 
 const ChangePassword = async (req, res) => {
   try {
-    // Check if OTP is available in the session
+
     if (!req.session.otp) {
       return res.status(400).json({ message: 'Session expired or no OTP found' });
     }
 
-    // Retrieve the pin (OTP) and the new password from the request body
+
     const { password } = req.body;
 
 
-
-    // Check if a new password is provided
     if (!password) {
       return res.status(400).json({ message: 'New password is required' });
     }
 
-    // Hash the new password before saving it to the database
+
     const hashedPassword = await bcrypt.hash(password.trim(), 10);
 
-    // Find the user by the email stored in the session
+
     const user = await User.findOne({ email: req.session.email });
 
-    // If the user doesn't exist, return an error
+
     if (!user) {
       return res.status(404).json({ message: 'No account found with this email' });
     }
 
-    // Update only the password, leaving other fields intact
+
     user.password = hashedPassword;
 
-    // Save the user with the updated password
+
     await user.save();
 
-    // Clear the OTP session after the password is changed
+
     req.session.otp = null;
 
-    // Return a success response
     return res.status(200).json({ message: 'Password changed successfully' });
 
   } catch (error) {
@@ -131,12 +129,15 @@ const ChangePassword = async (req, res) => {
   }
 };
 
-
-
 const validateLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
+    const apiKey = req.headers.authorization?.split(" ")[1];
+    if (apiKey !== process.env.CLIENT_API_KEY) {
+      return res.status(403).json({ message: 'Invalid API key' });
+    }
 
+  
     if (!email || !password) {
       return res.status(400).json({ message: 'Email and password are required' });
     }
@@ -146,25 +147,49 @@ const validateLogin = async (req, res) => {
       return res.status(404).json({ message: 'No email found' });
     }
 
-    if (!user.password || typeof user.password !== 'string') {
-      return res.status(500).json({ message: 'Stored password is invalid' });
-    }
-
     const isPasswordValid = await bcrypt.compare(password.trim(), user.password.trim());
-
-    if (isPasswordValid) {
-      req.session.user_id = user._id.toString();
-      req.session.email = user.email;
-      return res.status(200).json({  userData:user , message: 'Login successful' });
-    } else {
-      return res.status(401).json({ userData:{}, message: 'Invalid password' });
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: 'Invalid password' });
     }
 
+    
+    const accessToken = jwt.sign(
+      { userId: user._id, email: user.email },
+      process.env.ACCESS_TOKEN_SECRET,
+      { expiresIn: '15m' }
+    );
+
+    
+    const refreshToken = jwt.sign(
+      { userId: user._id },
+      process.env.REFRESH_TOKEN_SECRET,
+      { expiresIn: '7d' }
+    );
+
+    
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+      maxAge: 7 * 24 * 60 * 60 * 1000, 
+    });
+
+    
+    return res.status(200).json({
+      accessToken,
+      user: {
+        id: user._id,
+        email: user.email,
+        name: user.name,
+      },
+      message: 'Login successful',
+    });
   } catch (error) {
-    console.error('Error validating email and password:', error);
+    console.error('Error during login:', error);
     return res.status(500).json({ message: 'Server error' });
   }
 };
+
 
 
 module.exports = {

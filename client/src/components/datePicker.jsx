@@ -24,10 +24,11 @@ const DateInput = ({ setJourneyForm, dateKey, dateData }) => {
       setMonth(defaultDate.month);
       setYear(defaultDate.year);
     } else {
-      const parsedDate = new Date(dateData);
-      setDay(String(parsedDate.getDate()).padStart(2, "0"));
-      setMonth(String(parsedDate.getMonth() + 1).padStart(2, "0"));
-      setYear(String(parsedDate.getFullYear()));
+      const [year, month, day] = dateData.split("-");
+
+          setDay(day.padStart(2, "0"));
+          setMonth(month.padStart(2, "0"));
+          setYear(year);
     }
   }, [dateData]);
 

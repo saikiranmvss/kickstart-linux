@@ -3,20 +3,20 @@ import { Outlet } from "react-router-dom";
 import Header from "./user-journey/Header";
 import Footer from "./user-journey/Footer";
 import "../styles/user-journey/UserJourney.css";
-import axios from "axios";
+import axios from "../utils/axiosConfig";
 import { Circles } from "react-loader-spinner";
 
 const UserJourney = () => {
   const [JourneyActiveTab, setJourneyActiveTab] = useState("Rules");
   const [loading, setLoading] = useState(true); // Track loading state
   const [journeyData, setJourneyData] = useState(null); // Store journey data
-  const email = localStorage.getItem('email')
+  const email = JSON.parse(localStorage.getItem('user')).email
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_BASE_URL}/api/user-journey?email=${email}`
+          `${process.env.REACT_APP_API_BASE_URL}/api/journey/user-journey?email=${email}`
         );
         if (response.status === 200) {          
           setJourneyData(response.data.journeys[0] || []); 

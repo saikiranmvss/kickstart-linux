@@ -13,9 +13,24 @@ const usePasswordValidation = () => {
     }
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/validate-login`, { email, password });
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/api/validate/validate-login`,
+        { email, password  },
+        { withCredentials: true,
+          headers: {
+            "Authorization": `Bearer ${process.env.REACT_APP_CLIENT_API_KEY}`, 
+            "Content-Type": "application/json",
+          },
+       } 
+      );
+
       if (response.status === 200) {
-        localStorage.setItem('id',response.data.userData._id);
+        const { accessToken, user } = response.data;
+
+        
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("user", JSON.stringify(user));
+
         setErrors("");
         setIsPasswordValid(true);
         return true;

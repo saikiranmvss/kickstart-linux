@@ -2,6 +2,7 @@ const express = require('express');
 const fileUploading = require("express-fileupload");
 const path = require('path');
 const formRoutes = require('./routes/formRoutes');
+const cookieParser = require('cookie-parser'); 
 const corsMiddleware = require('./middlewares/corsMiddleware');
 const connectDB = require('./config/db');
 const emailRoutes = require('./routes/emailRoutes');  
@@ -9,6 +10,9 @@ const mailRoutes = require('./routes/mailRoutes');
 const userRoutes = require('./routes/userRoutes');  
 const fileUploads = require('./routes/fileUploads');  
 const journeyRoutes = require('./routes/journeyRoutes');  
+const tokenRoutes = require('./routes/tokenRoutes');  
+const authRoutes = require("./routes/authRoutes");
+const authenticateToken = require("./middlewares/authenticateToken");
 const session = require('express-session');
 
 const app = express();
@@ -25,15 +29,18 @@ connectDB();
 app.use(corsMiddleware);
 app.use(express.json());
 app.use(fileUploading());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use("/files", express.static(path.join(__dirname, "storage")));
 
-app.use('/api', emailRoutes); 
-app.use('/api/email', mailRoutes);
-app.use('/api', userRoutes);
-app.use('/api', fileUploads);
-app.use('/api', journeyRoutes);
+app.use('/api/validate/', emailRoutes); 
+app.use('/api/email',authenticateToken, mailRoutes);
+app.use('/api/user',authenticateToken, userRoutes);
+app.use('/api/upload',authenticateToken, fileUploads);
+app.use('/api/journey', journeyRoutes);
+app.use('/api/tokens', tokenRoutes);
+app.use("/api/auth",authenticateToken, authRoutes);
 
 app.get('/', (req, res) => {
   res.send('Welcome to the backend server!');

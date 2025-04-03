@@ -1,18 +1,31 @@
 import { Link , useNavigate } from 'react-router-dom';
 import {useContext} from 'react'
 import { AuthContext } from "../context/AuthContext";
+import axios from 'axios';
+import { toast } from "react-toastify";
 
 const Header = () => {
     const { user } = useContext(AuthContext);
     console.log(user);
     const navigate = useNavigate();
 
-    const handleLogout = () => {
-        localStorage.removeItem("id");
-        localStorage.removeItem("email");
-        navigate("/login"); 
-      };
-
+    const handleLogout = async () => {
+      try {
+        const response = await axios.post('/api/auth/logout', {}, { withCredentials: true }); 
+        if (response.status === 200) {
+          
+          toast.success(response.data.message);
+          
+          localStorage.removeItem('accessToken');
+          localStorage.removeItem('user');
+          
+          window.location.href = "/login";
+        }
+      } catch (error) {
+        console.error("Error logging out:", error);
+        toast.error("Failed to log out. Please try again.");
+      }
+    };
   return (
     <header id="page-topbar">
     <div className="navbar-header">

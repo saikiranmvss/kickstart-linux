@@ -1,13 +1,13 @@
 import { FaEye, FaSave } from "react-icons/fa";
 import { useOutletContext } from "react-router-dom";
-import axios from 'axios';
+import axios from "../../utils/axiosConfig";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 
 const JourneySaveButton = ({ pageValue, nextPageName, journeyForm, setJourneyForm }) => {
     const { setJourneyActiveTab } = useOutletContext();              
       const handleSave = async () => {
-        const email = localStorage.getItem('email');
+        const email = JSON.parse(localStorage.getItem('user')).email;
         setJourneyForm(prevForm => ({...prevForm,email: email }))
         if(nextPageName!=''){
             setJourneyActiveTab(nextPageName);
@@ -26,7 +26,7 @@ const JourneySaveButton = ({ pageValue, nextPageName, journeyForm, setJourneyFor
         setJourneyForm(updatedJourneyForm);
         console.log(updatedJourneyForm)
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/user-journey`, {
+            const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/journey/user-journey`, {
                 ...journeyForm, 
                 email: email,
                 urlSlug:email.split('@')[0],

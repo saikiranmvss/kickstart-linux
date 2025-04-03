@@ -10,13 +10,13 @@ const Header = () => {
   const [activeTab, setActiveTab] = useState("Profile");
 
     useEffect(()=>{
-        if(localStorage.getItem('id')){
+        if(localStorage.getItem('user')){
             setUserLog(1);
         }
     })
 
   const handleClick = () =>{
-    if(localStorage.getItem('id')){
+    if(localStorage.getItem('user')){
         navigate('/user-journey');
     }else{
         navigate('/login');
@@ -30,7 +30,7 @@ const Header = () => {
                 <div className='d-flex align-items-center w-100'>
                     <button onClick={()=>handleClick()} className='btn btn-primary mr-2'>{userLog==0 ? 'Start' : 'Edit your'} Project</button>
                     {/* <div className='header-user-icon'> */}
-                    <Link to="/login" className='header-user-icon'><FaUser style={{fontSize:'18px'}}/></Link>
+                    <Link to="/dashboard" className='header-user-icon'><FaUser style={{fontSize:'18px'}}/></Link>
                     {/* </div> */}
                 </div>
             </div>
