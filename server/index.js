@@ -11,6 +11,7 @@ const userRoutes = require('./routes/userRoutes');
 const fileUploads = require('./routes/fileUploads');  
 const journeyRoutes = require('./routes/journeyRoutes');  
 const tokenRoutes = require('./routes/tokenRoutes');  
+const pageRoutes = require('./routes/pageRoutes');  
 const authRoutes = require("./routes/authRoutes");
 const authenticateToken = require("./middlewares/authenticateToken");
 const session = require('express-session');
@@ -36,10 +37,11 @@ app.use("/files", express.static(path.join(__dirname, "storage")));
 
 app.use('/api/validate/', emailRoutes); 
 app.use('/api/email',authenticateToken, mailRoutes);
-app.use('/api/user',authenticateToken, userRoutes);
 app.use('/api/upload',authenticateToken, fileUploads);
+app.use('/api/user', userRoutes);
 app.use('/api/journey', journeyRoutes);
 app.use('/api/tokens', tokenRoutes);
+app.use('/api/page',pageRoutes );
 app.use("/api/auth",authenticateToken, authRoutes);
 
 app.get('/', (req, res) => {

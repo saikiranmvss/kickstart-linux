@@ -30,6 +30,10 @@ const Sidebar = () => {
                   <i className="fas fa-calendar-alt"></i>
                         <span>Events</span>
                   </Link>
+                  <Link to="/termsPage" className={`waves-effect ${location.pathname.includes("/termsPage") ? "mm-active" : ""}`}>
+                  <i className="fas fa-calendar-alt"></i>
+                        <span>Terms Page</span>
+                  </Link>
                 </li>                            
             </ul>
         </div>

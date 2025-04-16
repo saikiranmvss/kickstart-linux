@@ -1,19 +1,23 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import AuthProvider from "./context/AuthContext";
+import { jwtDecode } from 'jwt-decode';
 import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from "react-router-dom";
 import PublicHomePage from "./pages/public/HomePage";
+import Terms from "./pages/public/Terms";
 import MyJourney from "./pages/public/journey/MyJourney";
 import Journey from "./pages/user-journey/JourneyHome";
 import AboutPage from "./pages/AboutPage";
 import LoginPage from "./pages/LoginPage";
 import Dashboard from "./pages/Dashboard";
 import Investors from "./pages/Investors";
+import Termspage from "./pages/Termspage";
 import Enterprenuer from "./pages/Enterprenuer";
 import Events from "./pages/Events";
 import VerifyPin from "./pages/verifyPin";
 import AccountRecoveryPage from "./pages/AccountRecoveryPage";
 import ChangePassword from "./pages/ChangePassword";
+import Register from "./pages/Register";
 import ViewProfile from "./pages/view-profile";
 import DefaultLayout from "./components/DefaultLayout";
 import PublicDefaultLayout from "./components/PublicDefaultLayout";
@@ -30,6 +34,7 @@ const ProtectedRoute = ({ children }) => {
 
   useEffect(() => {
     if (isAuthenticated && !user) {
+
       fetchUserData();
     }
   }, [isAuthenticated, user, fetchUserData]);
@@ -56,6 +61,21 @@ const PublicRoute = ({ children }) => {
 const App = () => {
   const [slugs, setSlugs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false); 
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        console.log(decoded)
+        setIsAdmin(decoded?.role === "admin"); // ✅ Check role
+      } catch (err) {
+        console.error("Invalid token:", err.message);
+        setIsAdmin(false);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const fetchSlugs = async () => {
@@ -88,6 +108,7 @@ const App = () => {
           {/* Public Routes */}
           <Route path="/" element={<PublicDefaultLayout />}>
             <Route index element={<PublicHomePage />} />
+            <Route path="/terms" element={<Terms />}></Route>
           </Route>
 
           <Route path="/user-journey" element={<UserJourney />}>
@@ -104,6 +125,7 @@ const App = () => {
           {/* Auth Routes */}
           <Route path="/login" element={<PublicRoute><LoginPage /></PublicRoute>} />
           <Route path="/recovery" element={<AccountRecoveryPage />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/verify-pin" element={<VerifyPin />} />
           <Route path="/change-password" element={<ChangePassword />} />
           <Route path="/about" element={<AboutPage />} />
@@ -115,6 +137,14 @@ const App = () => {
             <Route path="enterprenuer" element={<Enterprenuer />} />
             <Route path="events" element={<Events />} />
             <Route path="view-profile" element={<ViewProfile />} />
+
+
+            {isAdmin && (
+              <>
+                <Route path="/termsPage" element={<Termspage />} />
+              </>
+            )}
+
           </Route>
 
           {/* Fallback Route */}

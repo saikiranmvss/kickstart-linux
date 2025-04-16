@@ -154,11 +154,10 @@ const validateLogin = async (req, res) => {
 
     
     const accessToken = jwt.sign(
-      { userId: user._id, email: user.email },
+      { userId: user._id, email: user.email, role: user.role,  },
       process.env.ACCESS_TOKEN_SECRET,
       { expiresIn: '15m' }
     );
-
     
     const refreshToken = jwt.sign(
       { userId: user._id },
@@ -174,7 +173,8 @@ const validateLogin = async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000, 
     });
 
-    
+    req.session.user_id= user._id.toString();
+    console.log(req.session.user_id);
     return res.status(200).json({
       accessToken,
       user: {

@@ -108,7 +108,8 @@ const LoginPage = () => {
             <button type="submit" className="w-full bg-blue-500 text-white py-2 rounded-md font-medium hover:bg-blue-600 transition">NEXT</button>
           </form>
           <div className="text-center mt-4">
-            <button onClick={handleGoogleLogin} className="w-full bg-red-500 text-white py-2 rounded-md font-medium hover:bg-red-600 transition">Sign in with Google</button>
+            <button onClick={handleGoogleLogin} className="w-full bg-red-500 text-white py-2 rounded-md font-medium hover:bg-red-600 transition mb-2">Sign in with Google</button>           
+            <Link to="/register" className="w-full bg-[#226ec5] text-white py-2 rounded-md font-medium hover:bg-[#184f8f] transition"> <button className="w-full bg-[#226ec5] text-white py-2 rounded-md font-medium hover:bg-[#184f8f] transition">Sign up with Email</button></Link>
           </div>
           <div className="text-center mt-4">
             <Link to="/recovery" className="text-black text-sm font-medium">Forgot your password?</Link>

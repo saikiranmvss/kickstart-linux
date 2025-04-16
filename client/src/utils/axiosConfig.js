@@ -2,6 +2,7 @@ import axios from "axios";
 
 // Set base URL for all API requests
 axios.defaults.baseURL = process.env.REACT_APP_API_BASE_URL;
+axios.defaults.withCredentials = true;
 
 // Add Authorization header to every request
 axios.interceptors.request.use(
