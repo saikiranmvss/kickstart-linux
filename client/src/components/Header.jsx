@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 
 const Header = () => {
     const { user } = useContext(AuthContext);
-    console.log(user);
     const navigate = useNavigate();
 
     const handleLogout = async () => {

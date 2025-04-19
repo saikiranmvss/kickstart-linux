@@ -24,7 +24,6 @@ const JourneySaveButton = ({ pageValue, nextPageName, journeyForm, setJourneyFor
         };
 
         setJourneyForm(updatedJourneyForm);
-        console.log(updatedJourneyForm)
         try {
             const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/journey/user-journey`, {
                 ...journeyForm, 

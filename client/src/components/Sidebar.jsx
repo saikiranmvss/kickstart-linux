@@ -1,7 +1,11 @@
 import {Link , useLocation} from 'react-router-dom';
+import React, { useContext } from "react";
+import { AuthContext } from ".././context/AuthContext";
 
 const Sidebar = () => {
   const location = useLocation();
+  
+    const { isAdmin } = useContext(AuthContext);
   return (
     <div className="vertical-menu">
 
@@ -30,10 +34,13 @@ const Sidebar = () => {
                   <i className="fas fa-calendar-alt"></i>
                         <span>Events</span>
                   </Link>
-                  <Link to="/termsPage" className={`waves-effect ${location.pathname.includes("/termsPage") ? "mm-active" : ""}`}>
-                  <i className="fas fa-calendar-alt"></i>
-                        <span>Terms Page</span>
-                  </Link>
+                  {isAdmin && (
+                   <Link to="/termsPage" className={`waves-effect ${location.pathname.includes("/termsPage") ? "mm-active" : ""}`}>
+                   <i className="fas fa-calendar-alt"></i>
+                         <span>Terms Page</span>
+                   </Link>
+                  )}
+
                 </li>                            
             </ul>
         </div>

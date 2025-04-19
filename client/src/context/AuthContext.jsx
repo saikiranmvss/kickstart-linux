@@ -1,10 +1,12 @@
 import React, { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import { jwtDecode } from 'jwt-decode';
 
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false); 
   const [loading, setLoading] = useState(true);
 
   const fetchUserData = async () => {
@@ -14,6 +16,8 @@ const AuthProvider = ({ children }) => {
     if (token && storedUser) {
       try {
         const parsedUser = JSON.parse(storedUser);
+        const decoded = jwtDecode(token);
+        setIsAdmin(decoded?.role === "admin");
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         if (parsedUser?.id) {
           const response = await axios.get(
@@ -42,7 +46,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, setUser, loading, fetchUserData }}>
+    <AuthContext.Provider value={{ user, isAdmin, setUser, loading, fetchUserData }}>
       {children}
     </AuthContext.Provider>
   );

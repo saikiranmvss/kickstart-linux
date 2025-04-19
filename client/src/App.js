@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import AuthProvider from "./context/AuthContext";
-import { jwtDecode } from 'jwt-decode';
 import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from "react-router-dom";
 import PublicHomePage from "./pages/public/HomePage";
 import Terms from "./pages/public/Terms";
@@ -30,7 +29,7 @@ import "react-toastify/dist/ReactToastify.css";
 const ProtectedRoute = ({ children }) => {
   const isAuthenticated = localStorage.getItem("accessToken");
   const location = useLocation();
-  const { user, loading, fetchUserData } = useContext(AuthContext);
+  const { user, isAdmin, loading, fetchUserData } = useContext(AuthContext);
 
   useEffect(() => {
     if (isAuthenticated && !user) {
@@ -58,24 +57,14 @@ const PublicRoute = ({ children }) => {
   return children;
 };
 
+const AdminOnly = ({ children }) => {
+  const { isAdmin } = useContext(AuthContext);
+  return isAdmin ? children : <Navigate to="/" replace />;
+};
+
 const App = () => {
   const [slugs, setSlugs] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(false); 
-
-  useEffect(() => {
-    const token = localStorage.getItem("accessToken");
-    if (token) {
-      try {
-        const decoded = jwtDecode(token);
-        console.log(decoded)
-        setIsAdmin(decoded?.role === "admin"); // ✅ Check role
-      } catch (err) {
-        console.error("Invalid token:", err.message);
-        setIsAdmin(false);
-      }
-    }
-  }, []);
 
   useEffect(() => {
     const fetchSlugs = async () => {
@@ -88,14 +77,14 @@ const App = () => {
       } catch (error) {
         console.error("Failed to fetch slugs:", error);
       } finally {
-        setLoading(false); // Stop loading once API call completes
+        setLoading(false);
       }
     };
 
     fetchSlugs();
   }, []);
 
-  // Show a loader until the slugs are fetched
+  
   if (loading) {
     return <p></p>;
   }
@@ -138,12 +127,7 @@ const App = () => {
             <Route path="events" element={<Events />} />
             <Route path="view-profile" element={<ViewProfile />} />
 
-
-            {isAdmin && (
-              <>
-                <Route path="/termsPage" element={<Termspage />} />
-              </>
-            )}
+            <Route path="/termsPage" element={<AdminOnly><Termspage /></AdminOnly>} />
 
           </Route>
 
