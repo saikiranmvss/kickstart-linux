@@ -31,7 +31,7 @@ const Header = () => {
         <div className="d-flex">
             
             <div className="navbar-brand-box text-center">
-                <a href="index.html" className="logo logo-dark">
+                <a href="/" className="logo logo-dark">
                     <span className="logo-sm">
                         <img src="assets/images/logo-sm.png" alt="logo-sm-dark" height="50" />
                     </span>
@@ -40,7 +40,7 @@ const Header = () => {
                     </span>
                 </a>
 
-                <a href="index.html" className="logo logo-light">
+                <a href="/" className="logo logo-light">
                     <span className="logo-sm">
                         <img src="assets/images/logo-sm.png" alt="logo-sm-light" height="50" />
                     </span>

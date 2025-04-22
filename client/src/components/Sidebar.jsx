@@ -30,9 +30,13 @@ const Sidebar = () => {
                   <i className="fas fa-hand-holding-usd"></i>
                         <span>Investors</span>
                   </Link>
-                  <Link to="/events" className={`waves-effect ${location.pathname.includes("/events") ? "mm-active" : ""}`}>
+                  {/* <Link to="/events" className={`waves-effect ${location.pathname.includes("/events") ? "mm-active" : ""}`}>
                   <i className="fas fa-calendar-alt"></i>
                         <span>Events</span>
+                  </Link> */}
+                  <Link to="/projects" className={`waves-effect ${location.pathname.includes("/projects") ? "mm-active" : ""}`}>
+                  <i className="fas fa-calendar-alt"></i>
+                        <span>Projects</span>
                   </Link>
                   {isAdmin && (
                    <Link to="/termsPage" className={`waves-effect ${location.pathname.includes("/termsPage") ? "mm-active" : ""}`}>

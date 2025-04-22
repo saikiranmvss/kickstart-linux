@@ -12,6 +12,7 @@ const fileUploads = require('./routes/fileUploads');
 const journeyRoutes = require('./routes/journeyRoutes');  
 const tokenRoutes = require('./routes/tokenRoutes');  
 const pageRoutes = require('./routes/pageRoutes');  
+const requestRoutes = require('./routes/requestRoutes');  
 const authRoutes = require("./routes/authRoutes");
 const authenticateToken = require("./middlewares/authenticateToken");
 const session = require('express-session');
@@ -42,6 +43,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/journey', journeyRoutes);
 app.use('/api/tokens', tokenRoutes);
 app.use('/api/page',pageRoutes );
+app.use('/api/request',requestRoutes );
 app.use("/api/auth",authenticateToken, authRoutes);
 
 app.get('/', (req, res) => {

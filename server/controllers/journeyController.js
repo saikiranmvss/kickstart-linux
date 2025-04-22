@@ -72,7 +72,7 @@ const getSlugs = async (req, res) => {
 const getAllJourneys = async (req, res) => {
   try {
 
-    const journeys = await Journey.find({}, { _id: 0 }); 
+    const journeys = await Journey.find({}); 
 
     return res.status(200).json({ message: "Journeys retrieved successfully", journeys });
   } catch (error) {

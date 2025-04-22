@@ -13,6 +13,7 @@ import Investors from "./pages/Investors";
 import Termspage from "./pages/Termspage";
 import Enterprenuer from "./pages/Enterprenuer";
 import Events from "./pages/Events";
+import Projects from "./pages/Projects";
 import VerifyPin from "./pages/verifyPin";
 import AccountRecoveryPage from "./pages/AccountRecoveryPage";
 import ChangePassword from "./pages/ChangePassword";
@@ -70,6 +71,7 @@ const App = () => {
 
   useEffect(() => {
     const fetchSlugs = async () => {
+      console.log(`${process.env.REACT_APP_API_BASE_URL}api/journey/user-slugs`);
       try {
         const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/journey/user-slugs`);
         if (response.status === 200) {
@@ -127,6 +129,7 @@ const App = () => {
             <Route path="investors" element={<Investors />} />
             <Route path="enterprenuer" element={<Enterprenuer />} />
             <Route path="events" element={<Events />} />
+            <Route path="projects" element={<Projects />} />
             <Route path="view-profile" element={<ViewProfile />} />
 
             <Route path="/termsPage" element={<AdminOnly><Termspage /></AdminOnly>} />

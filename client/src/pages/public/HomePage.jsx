@@ -1,11 +1,16 @@
 import React , { useEffect , useState } from "react";
 import { FaSearch, FaMapMarkerAlt, FaUsers } from "react-icons/fa";
+import { useNavigate } from 'react-router-dom';
 import { MdCurrencyRupee } from "react-icons/md";
 import axios from 'axios';
 import ProjectSlider from "../../components/ProductSlider";
+import ChatOnboardingModal from "../../components/ChatOnboardingModal";
 
 const HomePage = () => {
   const [projects, setProjects] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -20,6 +25,21 @@ const HomePage = () => {
 
     fetchProjects();
   }, []);
+
+  const handleChatClick = (project) => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      setSelectedProject(project);
+      setShowModal(true);
+    } else {
+      navigate('/login')
+    }
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedProject(null);
+  };
 
   return (
     <div className="d-flex flex-column align-items-center justify-content-center">
@@ -89,10 +109,15 @@ const HomePage = () => {
 
         <div>
           {projects.length > 0 ? (
-            <ProjectSlider projects={projects} />
+            <ProjectSlider projects={projects} onChatClick={handleChatClick}/>
           ) : (
             <p className="text-center">Loading projects...</p>
           )}
+            <ChatOnboardingModal
+              show={showModal}
+              handleClose={closeModal}
+              project={selectedProject}
+            />
         </div>
 
 
