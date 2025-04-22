@@ -69,6 +69,18 @@ const getSlugs = async (req, res) => {
   }
 };
 
+const getAllJourneys = async (req, res) => {
+  try {
+
+    const journeys = await Journey.find({}, { _id: 0 }); 
+
+    return res.status(200).json({ message: "Journeys retrieved successfully", journeys });
+  } catch (error) {
+    console.error("Error fetching journeys:", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
 const getSlugJourney = async (req, res) => {
   try {
     const { name } = req.params; 
@@ -90,4 +102,4 @@ const getSlugJourney = async (req, res) => {
 };
 
 
-module.exports = { saveJourney ,getJourneys , getSlugs , getSlugJourney };
+module.exports = { saveJourney ,getJourneys,getAllJourneys , getSlugs , getSlugJourney };

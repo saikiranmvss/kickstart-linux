@@ -33,3 +33,24 @@
     .footer-2-body i{
         padding:5px;
     }
+
+    .project-slider-container {
+        padding: 20px;
+        overflow: hidden;
+      }
+      
+      .project-slider {
+        display: flex;
+        gap: 16px;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: 10px;
+      }
+      
+      .project-card {
+        flex: 0 0 auto;
+        width: 300px;
+        scroll-snap-align: start;
+      }
+      

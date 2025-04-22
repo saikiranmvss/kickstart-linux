@@ -1,8 +1,26 @@
-import React from "react";
+import React , { useEffect , useState } from "react";
 import { FaSearch, FaMapMarkerAlt, FaUsers } from "react-icons/fa";
 import { MdCurrencyRupee } from "react-icons/md";
+import axios from 'axios';
+import ProjectSlider from "../../components/ProductSlider";
 
 const HomePage = () => {
+  const [projects, setProjects] = useState([]);
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/journey/get-all-journeys`);
+        console.log("Projects fetched:", response.data.journeys);
+        setProjects(response.data.journeys); 
+      } catch (err) {
+        console.error("Error fetching projects:", err);
+      }
+    };
+
+    fetchProjects();
+  }, []);
+
   return (
     <div className="d-flex flex-column align-items-center justify-content-center">
         <div className="container-fluid" style={{backgroundImage: 'url("./images/home-bg.jpg")',padding: 'calc(90px + 15px) calc(0px / 2) 90px calc(0px / 2)', }}>
@@ -68,6 +86,15 @@ const HomePage = () => {
         </div>
 
         <div className="max-w-[1236px] mt-4">
+
+        <div>
+          {projects.length > 0 ? (
+            <ProjectSlider projects={projects} />
+          ) : (
+            <p className="text-center">Loading projects...</p>
+          )}
+        </div>
+
 
             <div className="row align-items-center">
               <div className="col-md-6 text-center mb-4 mb-md-0">
