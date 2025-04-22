@@ -43,15 +43,15 @@ const Investors = () => {
           },
           {
             title: "Category<br/>Sub Category",
-            data: null, // This is an object; let's access properties correctly.
+            data: null, 
             render: (data) => {
-              console.log('Data for Category:', data);  // This will log the data passed to the render function
+              console.log('Data for Category:', data);  
               return `<span>${data?.catTitle || 'N/A'}</span><br/><span>${data?.catSubtitle || 'N/A'}</span>`;
             },
           },
           {
             title: "Begin Date<br/>",
-            data: "catStartUpBeginDate",  // Make sure this is correct in each object.
+            data: "catStartUpBeginDate",  
             render: (data) =>
               `<span>${data || 'N/A'}</span><br/>`,
           },
