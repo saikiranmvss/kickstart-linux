@@ -22,14 +22,18 @@ const Sidebar = () => {
                   <i className="fas fa-tachometer-alt"></i>
                         <span>Dashboard</span>
                   </Link>
+                  {isAdmin && (
                   <Link to="/enterprenuer"  className={`waves-effect ${location.pathname.includes("/enterprenuer") ? "mm-active" : ""}`}>
                   <i className="fas fa-user-tie"></i>
                         <span>Enterprenuers</span>
                   </Link>
+                  )}
+                  {isAdmin && (
                   <Link to="/investors"    className={`waves-effect ${location.pathname.includes("/investors") ? "mm-active" : ""}`}>
                   <i className="fas fa-hand-holding-usd"></i>
                         <span>Investors</span>
                   </Link>
+                  )}
                   {/* <Link to="/events" className={`waves-effect ${location.pathname.includes("/events") ? "mm-active" : ""}`}>
                   <i className="fas fa-calendar-alt"></i>
                         <span>Events</span>
