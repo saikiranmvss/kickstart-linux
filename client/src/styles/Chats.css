@@ -1,22 +1,28 @@
 .chats-page {
   display: flex;
-  height: 100vh;
+  height: 80vh; /* Full viewport height */
+  overflow: hidden; /* Prevent whole page from scrolling */
 }
 
 .sidebar {
   width: 25%;
+  display: flex;
+  flex-direction: column;
   border-right: 1px solid #ddd;
-  padding: 20px;
   background-color: #f9f9f9;
+  overflow: hidden; /* Prevent sidebar itself from scrolling */
 }
 
 .sidebar-title {
   font-size: 18px;
   font-weight: bold;
-  margin-bottom: 15px;
+  padding: 20px 20px 0 20px;
 }
 
 .chat-list {
+  flex: 1;
+  overflow-y: auto; /* Make only chat list scrollable */
+  padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -62,21 +68,28 @@
 
 .chat-area {
   width: 75%;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  overflow: hidden; /* Don't scroll the whole chat area */
 }
 
 .no-chat-selected {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
 }
 
 .loading, .error {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
   font-size: 18px;
   color: #888;
+}
+
+.page-content {
+  padding: calc(55px + 35px) calc(30px / 2) 25px calc(24px / 2);
 }
