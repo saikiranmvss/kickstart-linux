@@ -27,10 +27,10 @@ const ChatOnboardingModal = ({ show, handleClose, project }) => {
       return;
     }
   
-    let user_id;
+    let sender_user_email;
     try {
       const decoded = jwtDecode(token);
-      user_id = decoded.userId;
+      sender_user_email = decoded.email;
     } catch (err) {
       console.log(err);
       toast.error("Invalid token.");
@@ -38,11 +38,14 @@ const ChatOnboardingModal = ({ show, handleClose, project }) => {
     }
   
     const payload = {
-      user_id,
+      sender_user_email,
       project_id: project?._id,
-      role,
-      interest: answers.interest,
-      goal: answers.goal,
+      receiver_user_email: project?.email,
+      onboardingData: {
+        role,
+        interest: answers.interest,
+        goal: answers.goal,
+      },
       message,
     };
   
@@ -63,6 +66,7 @@ const ChatOnboardingModal = ({ show, handleClose, project }) => {
       console.error("Send message error:", error);
     }
   };
+  
 
   const resetForm = () => {
     setRole("");

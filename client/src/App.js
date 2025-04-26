@@ -14,6 +14,7 @@ import Termspage from "./pages/Termspage";
 import Enterprenuer from "./pages/Enterprenuer";
 import Events from "./pages/Events";
 import Projects from "./pages/Projects";
+import Chats from "./pages/Chats";
 import VerifyPin from "./pages/verifyPin";
 import AccountRecoveryPage from "./pages/AccountRecoveryPage";
 import ChangePassword from "./pages/ChangePassword";
@@ -130,6 +131,7 @@ const App = () => {
             <Route path="enterprenuer" element={<Enterprenuer />} />
             <Route path="events" element={<Events />} />
             <Route path="projects" element={<Projects />} />
+            <Route path="chats" element={<Chats />} />
             <Route path="view-profile" element={<ViewProfile />} />
 
             <Route path="/termsPage" element={<AdminOnly><Termspage /></AdminOnly>} />

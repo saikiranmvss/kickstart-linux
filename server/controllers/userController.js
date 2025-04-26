@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const jwt = require('jsonwebtoken');
 const bcrypt = require("bcrypt");
 var session = require('express-session');
 
@@ -10,23 +11,98 @@ const createUser = async (req, res) => {
         return res.status(400).json({ message: "Email and Google ID are required" });
       }
   
-      let user = await User.findOne({ email });
+      let userNew = await User.findOne({ email });
   
-      if (user) {
-        if (!user.googleId) {
-          user.googleId = googleId;
-          await user.save();
+      if (userNew) {
+        if (!userNew.googleId) {
+          userNew.googleId = googleId;
+          await userNew.save();
         }
-        return res.status(200).json({ message: "User already exists", user });
+
+        const user = await User.findOne({ email });
+          if (!user) {
+            return res.status(404).json({ message: 'No email found' });
+          }            
+          
+          const accessToken = jwt.sign(
+            { userId: user._id, email: user.email, role: user.role,  },
+            process.env.ACCESS_TOKEN_SECRET,
+            { expiresIn: '15m' }
+          );
+          
+          const refreshToken = jwt.sign(
+            { userId: user._id },
+            process.env.REFRESH_TOKEN_SECRET,
+            { expiresIn: '7d' }
+          );
+      
+          
+          res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+            maxAge: 7 * 24 * 60 * 60 * 1000, 
+          });
+      
+          req.session.user_id= user._id.toString();
+          console.log(req.session.user_id);
+          return res.status(200).json({
+            accessToken,
+            user: {
+              id: user._id,
+              email: user.email,
+              name: user.name,
+            },
+            message: 'User already exists',
+          });
+
       }
   
-      user = new User({
+      userNew = new User({
         email,
         name,
         googleId,
       });
   
-      await user.save();
+      await userNew.save();
+
+          const user = await User.findOne({ email });
+          if (!user) {
+            return res.status(404).json({ message: 'No email found' });
+          }            
+          
+          const accessToken = jwt.sign(
+            { userId: user._id, email: user.email, role: user.role,  },
+            process.env.ACCESS_TOKEN_SECRET,
+            { expiresIn: '15m' }
+          );
+          
+          const refreshToken = jwt.sign(
+            { userId: user._id },
+            process.env.REFRESH_TOKEN_SECRET,
+            { expiresIn: '7d' }
+          );
+      
+          
+          res.cookie('refreshToken', refreshToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            sameSite: 'strict',
+            maxAge: 7 * 24 * 60 * 60 * 1000, 
+          });
+      
+          req.session.user_id= user._id.toString();
+          console.log(req.session.user_id);
+          return res.status(200).json({
+            accessToken,
+            user: {
+              id: user._id,
+              email: user.email,
+              name: user.name,
+            },
+            message: 'User created successfully',
+          });
+
       return res.status(201).json({ message: "User created successfully", user });
   
     } catch (error) {

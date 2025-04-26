@@ -41,7 +41,7 @@ const LoginPage = () => {
 
       try {
        
-        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/signup-google`, {
+        const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/api/user/signup-google`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(userData),
@@ -51,14 +51,20 @@ const LoginPage = () => {
 
        
         if (data.message === "User already exists") {
-          localStorage.setItem('id', data.user._id); 
-          localStorage.setItem('email', data.user.email); 
-          navigate("/dashboard"); 
+          // localStorage.setItem('id', data.user.id); 
+          // localStorage.setItem('email', data.user.email); 
         } else if (data.message === "User created successfully") {
-          localStorage.setItem('id', data.user._id); 
-          localStorage.setItem('email', data.user.email); 
-          navigate("/user-journey");
+          // localStorage.setItem('id', data.user.id); 
+          // localStorage.setItem('email', data.user.email);           
         }
+
+        const { accessToken ,message, user } = data;
+
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("user", JSON.stringify(user));
+
+        navigate("/dashboard");
+
       } catch (error) {
         console.error("Error sending Google user data:", error);
       }
